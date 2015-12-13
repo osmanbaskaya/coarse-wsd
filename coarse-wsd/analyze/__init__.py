@@ -47,11 +47,21 @@ def draw_coverage(stats, total):
     plt.savefig("../../datasets/SNLI-training-set-coverage")
 
 
+def write_topn_words(stats, fn, n=2000):
+
+    f = open(fn, 'wb')
+    # LOGGER.info("Writing top %d words into the file %s", n, fn)
+    for word, count in stats[:n]:
+        f.write("%s\t%d\n" % (word, count))
+    f.close()
+
+
 def draw_coverage_for_SNLI_dataset():
     files = ("../../datasets/snli_1.0/snli_1.0_train.jsonl",)
     stats, num_of_token = get_stats_from_snli_dataset(files)
     # LOGGER.info("# of unique word = %d \t # of different token: %d", len(stats), num_of_token)
     stats = sorted(stats.items(), key=lambda t: t[1], reverse=True)
+    write_topn_words(stats, "../../datasets/snli-top2000.txt", n=2000)
     draw_coverage(stats, num_of_token)
 
 
