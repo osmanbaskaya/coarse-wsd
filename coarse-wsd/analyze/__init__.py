@@ -3,10 +3,11 @@ import ujson
 import os
 from collections import defaultdict as dd
 import numpy as np
+from itertools import izip
 from nltk.corpus.reader import BracketParseCorpusReader
 import matplotlib.pyplot as plt
 from nltk.stem import WordNetLemmatizer
-
+from bs4 import BeautifulSoup
 
 def get_stats_from_snli_dataset(files, tagset=("NN", "NNS"), use_lemmas=False):
 
@@ -36,7 +37,19 @@ def get_stats_from_snli_dataset(files, tagset=("NN", "NNS"), use_lemmas=False):
     return stats, num_of_token
 
 
-def draw_coverage(stats, total):
+def get_stats_from_snli_dataset_parsed_by_core_nlp(filename, tagset=("NN", "NNS")):
+    stats = dd(int)
+    num_of_token = 0
+    soup = BeautifulSoup(filename, 'lxml')
+    for lemma, tag in izip(soup.find_all("lemma"), soup.find_all("pos")):
+        if tagset is None or tag in tagset:
+            stats[lemma] += 1
+            num_of_token += 1
+
+    return stats, num_of_token
+
+
+def draw_coverage(stats, total, fig_fn):
     coverage = [0]
     total = float(total)
     for word, count in stats:
@@ -51,7 +64,7 @@ def draw_coverage(stats, total):
     plt.xticks(range(100, 2010, 100))
     plt.yticks(np.linspace(0.5, 1, 11))
     plt.grid()
-    plt.savefig("../../datasets/SNLI-training-set-coverage-lemmatized")
+    plt.savefig("../../datasets/%s" % fig_fn)
 
 
 def write_topn_words(stats, fn, n=2000):
@@ -63,17 +76,23 @@ def write_topn_words(stats, fn, n=2000):
     f.close()
 
 
-def draw_coverage_for_SNLI_dataset():
-    files = ("../../datasets/snli_1.0/snli_1.0_train.jsonl",)
-    stats, num_of_token = get_stats_from_snli_dataset(files, use_lemmas=True)
+def draw_coverage_for_snli_dataset(after_corenlp=True):
+    if after_corenlp:
+        stats, num_of_token = get_stats_from_snli_dataset_parsed_by_core_nlp('../pos-snli-train.txt')
+        fig_fn = "corenlp-lemmatized"
+    else:
+        files = ("../../datasets/snli_1.0/snli_1.0_train.jsonl",)
+        stats, num_of_token = get_stats_from_snli_dataset(files, use_lemmas=True)
+        fig_fn = "nltk-lemmatized"
+
     # LOGGER.info("# of unique word = %d \t # of different token: %d", len(stats), num_of_token)
     stats = sorted(stats.items(), key=lambda t: t[1], reverse=True)
     write_topn_words(stats, "../../datasets/snli-top2000-lemmatized.txt", n=2000)
-    draw_coverage(stats, num_of_token)
+    draw_coverage(stats, num_of_token, fig_fn)
 
 
 def main():
-    draw_coverage_for_SNLI_dataset()
+    draw_coverage_for_snli_dataset()
 
 
 if __name__ == '__main__':
