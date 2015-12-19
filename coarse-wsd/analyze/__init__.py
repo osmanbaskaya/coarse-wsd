@@ -62,7 +62,7 @@ def get_stats_from_snli_dataset_parsed_by_core_nlp(filename, tagset=("NN", "NNS"
     return stats, num_of_token
 
 
-def draw_coverage(stats, total, fig_fn):
+def draw_coverage(stats, total, fig_fn, title):
     coverage = [0]
     total = float(total)
 
@@ -71,13 +71,14 @@ def draw_coverage(stats, total, fig_fn):
 
 
     coverage = np.asarray(coverage) / total
+    size = min(len(coverage), 2000)
     plt.figure(figsize=(15, 10))
-    plt.plot(range(100, 2010, 100), coverage[100:2010:100], 'o')
-    plt.title("Coverage for 2014 dataset")
+    plt.plot(range(100, size, 100), coverage[100:size:100], 'o')
+    plt.title("Coverage for %s" % title)
     plt.xlabel("# of word used (total # of token = %d)" % total)
     plt.ylabel("Coverage (%)")
-    plt.xticks(range(100, 2010, 100))
-    plt.yticks(np.linspace(0.5, 1, 11))
+    plt.xticks(range(100, size, 100))
+    plt.yticks(np.linspace(0.3, 1, 15))
     plt.grid()
     plt.savefig("../../datasets/%s" % fig_fn)
 
@@ -92,28 +93,21 @@ def write_topn_words(stats, total, fn, n=2000):
     f.close()
 
 
-def draw_coverage_for_snli_dataset(filename, after_corenlp=True):
-    if after_corenlp:
-        filename = filename[0]
-    	basename = os.path.basename(filename)
-        stats, num_of_token = get_stats_from_snli_dataset_parsed_by_core_nlp(filename)
-        fig_fn = "corenlp-lemmatized-%s.png" % basename
-    else:
-        files = ("../../datasets/snli_1.0/snli_1.0_train.jsonl",)
-        stats, num_of_token = get_stats_from_snli_dataset(files, use_lemmas=True)
-        fig_fn = "nltk-lemmatized"
-
+def draw_coverage_for_snli_dataset(filename):
+    filename = filename
+    basename = os.path.basename(filename)
+    stats, num_of_token = get_stats_from_snli_dataset_parsed_by_core_nlp(filename)
+    fig_fn = "%s.png" % basename
     # LOGGER.info("# of unique word = %d \t # of different token: %d", len(stats), num_of_token
     # )
     stats = sorted(stats.items(), key=lambda t: t[1], reverse=True)
     write_topn_words(stats, num_of_token, "../../datasets/%s.txt" % basename, n=2000)
-    draw_coverage(stats, num_of_token, fig_fn)
+    draw_coverage(stats, num_of_token, fig_fn, basename)
 
 
 def main():
-    # draw_coverage_for_snli_dataset()
-    filename = sys.argv[1:]
-    draw_coverage_for_snli_dataset(filename, after_corenlp=True)
+    filename = sys.argv[1]
+    draw_coverage_for_snli_dataset(filename)
 
 
 if __name__ == '__main__':

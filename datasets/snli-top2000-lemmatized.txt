@@ -1,2000 +1,2000 @@
-man	256460
-woman	165134
-people	96241
-girl	73591
-boy	68738
-dog	68351
-shirt	61071
-men	55906
-child	54520
-group	42232
-street	39287
-person	34947
-front	34131
-water	30084
-People	25175
-hat	22719
-ball	20458
-building	18702
-player	18391
-bike	17931
-beach	17585
-hand	16615
-jacket	16289
-crowd	15417
-picture	15069
-field	14875
-car	14704
-table	14672
-lady	14410
-kid	13855
-game	13132
-tree	13042
-guy	12977
-sidewalk	12931
-park	12894
-background	12765
-grass	11885
-snow	11880
-something	11855
-camera	11741
-hair	11579
-wall	11567
-dress	11459
-couple	11353
-top	10855
-soccer	10528
-guitar	10507
-city	10495
-food	10303
-air	10294
-worker	10271
-rock	10207
-bench	9899
-short	9862
-baby	9804
-horse	9626
-glass	9602
-jean	9543
-pant	9457
-road	9082
-boat	8942
-pool	8807
-bicycle	8515
-head	8420
-baseball	8158
-day	8025
-uniform	7903
-race	7899
-team	7866
-face	7860
-ground	7835
-chair	7825
-stage	7811
-suit	7799
-mountain	7764
-room	7740
-sign	7728
-side	7434
-while	7403
-friend	7285
-band	7122
-football	7095
-store	7056
-coat	7022
-bag	6979
-toy	6914
-window	6590
-area	6401
-construction	6379
-arm	6313
-dirt	6307
-helmet	6244
-train	6176
-ocean	6100
-sand	6054
-tennis	6050
-basketball	5900
-home	5795
-t-shirt	5711
-restaurant	5696
-sunglass	5691
-floor	5662
-mouth	5593
-book	5536
-instrument	5430
-bus	5407
-microphone	5327
-back	5266
-family	5248
-music	5204
-motorcycle	5179
-house	5132
-lake	5107
-truck	5092
-clothing	4975
-male	4972
-adult	4954
-vest	4927
-trick	4899
-wood	4892
-animal	4888
-clothes	4797
-line	4651
-cap	4610
-flower	4565
-ice	4554
-work	4513
-cat	4491
-kitchen	4484
-umbrella	4369
-track	4329
-costume	4316
-outfit	4314
-female	4216
-photo	4212
-fence	4193
-couch	4177
-stick	4177
-phone	4158
-hill	4129
-Someone	4128
-flag	4119
-river	4116
-market	4091
-middle	4088
-piece	4081
-art	4081
-bed	4042
-shoe	4027
-ride	4020
-bar	3978
-lot	3968
-sweater	3935
-outside	3877
-wave	3840
-skateboard	3825
-event	3820
-paper	3816
-others	3816
-cart	3764
-brick	3746
-standing	3663
-drink	3659
-night	3650
-someone	3637
-path	3624
-fire	3623
-toddler	3594
-party	3590
-shop	3581
-pole	3556
-school	3484
-mother	3472
-swing	3462
-rope	3446
-body	3419
-playing	3355
-tank	3323
-backpack	3306
-bird	3264
-board	3248
-cellphone	3219
-computer	3217
-stone	3191
-foot	3191
-skirt	3180
-bridge	3174
-machine	3172
-vehicle	3126
-step	3109
-hockey	3090
-concert	3076
-cowboy	3076
-sport	3021
-shopping	3002
-rider	2976
-fish	2958
-drum	2936
-subway	2915
-sun	2913
-metal	2909
-time	2885
-stair	2865
-blue	2825
-leg	2814
-door	2804
-eye	2792
-object	2780
-Men	2780
-musician	2772
-stand	2759
-sky	2752
-fountain	2728
-balloon	2726
-student	2726
-one	2722
-shoulder	2709
-beer	2655
-fruit	2653
-dinner	2646
-play	2632
-rain	2596
-competition	2596
-police	2580
-red	2569
-forest	2564
-box	2559
-parade	2541
-light	2541
-audience	2532
-bottle	2481
-skateboarder	2479
-number	2477
-son	2472
-jump	2471
-dance	2450
-equipment	2419
-corner	2418
-scarf	2417
-jersey	2372
-statue	2318
-officer	2313
-gear	2303
-wedding	2293
-gentleman	2273
-Nobody	2270
-tent	2269
-item	2268
-slide	2264
-yard	2263
-cream	2262
-fishing	2255
-beard	2244
-roof	2238
-playground	2231
-father	2215
-asian	2206
-sweatshirt	2206
-cup	2200
-winter	2185
-cigarette	2181
-coffee	2171
-boot	2161
-way	2143
-ramp	2107
-cake	2105
-vendor	2099
-surfer	2090
-basket	2086
-bucket	2080
-ladder	2071
-fun	2069
-break	2054
-newspaper	2048
-glove	2046
-dancer	2045
-distance	2030
-bunch	2019
-station	2013
-desk	2008
-lawn	1982
-lunch	1982
-class	1973
-apron	1970
-snowboarder	1955
-trail	1955
-artist	1939
-view	1931
-graffiti	1930
-edge	1926
-biker	1902
-safety	1893
-skier	1882
-daughter	1882
-clown	1880
-show	1868
-human	1867
-performer	1858
-net	1854
-walk	1843
-color	1840
-mask	1834
-leaf	1821
-court	1818
-business	1812
-runner	1809
-blanket	1803
-vegetable	1788
-church	1783
-place	1760
-rodeo	1758
-bull	1740
-parking	1732
-grocery	1725
-scene	1712
-shore	1710
-member	1696
-office	1695
-life	1686
-bubble	1686
-painting	1678
-structure	1672
-puppy	1668
-scooter	1665
-pile	1649
-bikini	1647
-bowl	1646
-purse	1645
-plate	1638
-plant	1638
-cyclist	1638
-owner	1637
-meal	1624
-midair	1622
-wheel	1605
-golf	1604
-teenager	1602
-cliff	1596
-display	1595
-tattoo	1589
-trunk	1588
-site	1583
-dock	1580
-stroller	1572
-traffic	1566
-gym	1561
-foreground	1558
-onlooker	1551
-marathon	1543
-conversation	1543
-gun	1542
-match	1542
-Children	1538
-desert	1537
-photographer	1513
-railing	1511
-goggles	1495
-cafe	1493
-bride	1492
-counter	1488
-individual	1476
-country	1470
-chef	1467
-part	1467
-spectator	1467
-tie	1461
-classroom	1461
-tool	1459
-orange	1454
-garden	1451
-plane	1450
-picnic	1449
-movie	1445
-grill	1437
-rail	1430
-town	1428
-seat	1420
-shovel	1416
-direction	1410
-violin	1409
-soldier	1408
-set	1404
-leather	1399
-alley	1397
-sort	1393
-screen	1389
-hole	1374
-laptop	1372
-singer	1371
-performance	1366
-lap	1357
-stadium	1355
-right	1348
-shot	1344
-attire	1339
-paint	1336
-meat	1334
-surfboard	1333
-money	1325
-bathing	1319
-tire	1319
-wife	1313
-walking	1310
-cement	1303
-hiker	1294
-platform	1290
-bicyclist	1290
-pair	1287
-sculpture	1281
-nap	1279
-birthday	1275
-airplane	1273
-brother	1265
-setting	1258
-fan	1258
-sunset	1255
-volleyball	1251
-base	1250
-thing	1249
-song	1236
-Women	1235
-cow	1234
-ledge	1231
-booth	1230
-athlete	1229
-course	1224
-mirror	1224
-photograph	1219
-cone	1215
-trampoline	1210
-type	1209
-robe	1208
-mall	1206
-project	1200
-blond-hair	1200
-customer	1200
-leash	1200
-mud	1195
-goal	1193
-left	1189
-festival	1187
-finger	1177
-block	1175
-tourist	1173
-bat	1171
-parent	1167
-headphone	1162
-pond	1161
-ring	1157
-swimming	1152
-frisbee	1151
-ear	1151
-card	1149
-nose	1142
-climber	1141
-roller	1141
-piano	1120
-device	1116
-sandal	1115
-stunt	1115
-pot	1115
-makeup	1114
-ski	1112
-summer	1105
-holding	1103
-trash	1103
-sale	1095
-microscope	1095
-Construction	1087
-circle	1076
-club	1074
-lab	1073
-telescope	1064
-canoe	1062
-collar	1058
-stop	1055
-job	1052
-hoop	1050
-stream	1047
-dish	1045
-knee	1042
-van	1041
-belt	1036
-TV	1032
-driver	1032
-shirtless	1031
-walkway	1030
-sister	1028
-teacher	1020
-smile	1017
-bottom	1003
-sea	1001
-log	999
-backyard	992
-weather	984
-swimmer	983
-look	980
-sled	978
-pier	975
-tv	973
-center	968
-Man	967
-row	965
-porch	953
-cane	949
-museum	944
-balcony	944
-dancing	942
-sitting	940
-watch	934
-khaki	931
-mom	930
-doorway	928
-kayak	926
-neck	924
-wine	923
-swimsuit	922
-carnival	922
-deck	917
-drinking	908
-teeth	907
-pizza	905
-shade	903
-can	901
-pipe	897
-puddle	894
-talk	889
-accordion	887
-green	887
-branch	887
-fair	884
-sheet	883
-straw	883
-library	882
-tractor	880
-garbage	874
-image	873
-magazine	873
-mat	872
-laundry	870
-yellow	867
-policeman	867
-end	866
-year	864
-turn	864
-ship	860
-bear	859
-candy	858
-Girls	856
-racket	856
-cloth	851
-wheelchair	849
-hiking	848
-television	848
-hose	848
-groom	845
-stripe	841
-guard	838
-snowboard	837
-kind	837
-beverage	836
-pitcher	836
-cheerleader	836
-poster	833
-bread	832
-doctor	832
-wire	831
-reading	831
-railroad	831
-jogging	831
-mural	828
-container	827
-move	827
-guitarist	823
-obstacle	822
-curb	819
-pedestrian	815
-passenger	814
-apple	814
-elephant	812
-hospital	812
-figure	810
-banner	809
-meeting	807
-fireman	806
-duck	806
-crew	805
-speech	803
-good	800
-presentation	799
-gymnast	798
-tongue	798
-advertisement	792
-hoodie	791
-pavement	790
-chicken	785
-slope	784
-garage	784
-Dogs	777
-gathering	774
-stool	772
-sandwich	769
-taxi	768
-bathroom	768
-bath	768
-farmer	768
-string	763
-infant	762
-crosswalk	760
-airport	760
-overall	758
-sofa	757
-candle	756
-raft	755
-necklace	751
-tunnel	749
-model	749
-cook	745
-fight	742
-denim	741
-wagon	741
-doll	739
-racer	738
-firefighter	736
-beam	735
-concrete	734
-bandanna	734
-harness	733
-fabric	731
-castle	731
-polo	731
-sword	730
-bank	726
-space	726
-keyboard	725
-gate	725
-teammate	725
-attention	722
-saxophone	721
-towel	720
-surface	719
-husband	718
-trip	718
-hay	715
-craft	713
-order	711
-knife	711
-waterfall	710
-referee	710
-motorcyclist	708
-goalie	703
-opponent	702
-square	701
-vacation	699
-sleeping	697
-skater	696
-heel	695
-tube	692
-bush	691
-camouflage	691
-landscape	691
-hammer	690
-blouse	686
-drummer	686
-fisherman	683
-star	682
-motorbike	682
-chest	680
-Kids	677
-hallway	675
-arena	673
-amusement	672
-chain	671
-post	670
-singing	670
-pink	667
-scaffolding	667
-hurdle	666
-frame	665
-theater	664
-tub	662
-pajama	660
-barbecue	658
-haircut	657
-scuba	657
-kite	656
-wetsuit	654
-spray	652
-sock	648
-luggage	646
-intersection	645
-cloud	643
-teen	640
-run	640
-shadow	639
-word	637
-tag	636
-staircase	634
-trumpet	632
-produce	632
-choir	632
-college	631
-bowling	630
-broom	630
-jumpsuit	628
-palm	628
-routine	627
-camel	627
-snack	625
-navy	624
-employee	623
-carpet	622
-chess	621
-surf	621
-tea	621
-practice	619
-softball	618
-bikers	617
-riding	615
-smoke	609
-unicycle	607
-karate	606
-hotel	605
-flight	605
-date	604
-neighborhood	603
-sheep	600
-present	597
-age	595
-youth	591
-jockey	590
-fur	588
-eating	588
-red-hair	588
-diving	585
-lane	585
-exercise	585
-security	584
-hood	584
-donkey	584
-escalator	584
-podium	583
-american	583
-tray	578
-farm	576
-jumping	576
-gift	576
-activity	575
-mustache	574
-patio	573
-dad	573
-conference	573
-machinery	573
-style	572
-hotdog	572
-tournament	570
-product	567
-marketplace	566
-tile	564
-rug	561
-boardwalk	560
-pillow	559
-carriage	559
-orchestra	559
-shower	558
-nothing	558
-racetrack	557
-gas	557
-firetruck	557
-flute	556
-pigeon	555
-hall	554
-sneaker	554
-protest	553
-puck	553
-button	552
-rainbow	546
-jewelry	545
-coach	545
-plaza	544
-gold	544
-studio	543
-apartment	542
-peace	542
-rest	540
-transportation	540
-heart	540
-evening	539
-pin	539
-wrestler	538
-egg	537
-barrel	536
-world	535
-pit	535
-ribbon	533
-brunette	531
-highway	530
-stove	529
-creek	528
-sprinkler	526
-army	526
-lamp	526
-cage	523
-mound	523
-tower	523
-smoking	522
-dune	519
-handstand	518
-case	518
-nail	517
-ceremony	513
-rubber	512
-cricket	511
-map	511
-pet	511
-video	510
-bedroom	510
-coaster	509
-purple	507
-factory	506
-engine	506
-cheek	506
-Child	505
-sink	504
-corn	504
-cooking	502
-ceiling	502
-furniture	500
-position	499
-soda	499
-neon	498
-catcher	498
-note	497
-chocolate	497
-balance	496
-point	495
-design	495
-diver	494
-boxing	494
-material	493
-public	490
-laugh	490
-inside	489
-skiing	489
-headscarf	489
-contest	488
-pan	488
-skate	487
-suitcase	487
-spot	486
-barber	483
-tour	482
-nature	480
-biking	478
-pumpkin	477
-kick	476
-gesture	474
-wind	472
-garb	472
-cop	472
-banana	472
-company	471
-fall	469
-brush	469
-land	468
-gown	468
-sporting	468
-entrance	465
-circus	464
-cross	463
-boxer	461
-Everyone	461
-black	459
-jet	458
-rink	458
-pad	458
-formation	456
-telephone	456
-downtown	454
-moon	454
-kiss	452
-pottery	452
-yoga	451
-monkey	451
-pig	449
-bass	448
-barrier	447
-crate	447
-gravel	446
-print	444
-swim	442
-goat	441
-cardboard	440
-T-shirt	440
-pose	436
-speed	436
-gymnastics	435
-trailer	434
-pillar	434
-pitch	434
-artwork	434
-stack	433
-patient	433
-bow	432
-control	431
-story	431
-thumb	430
-paddle	430
-village	430
-portrait	429
-waist	429
-jungle	429
-nurse	428
-pack	427
-milk	427
-hamburger	426
-racing	425
-crane	425
-backdrop	424
-courtyard	424
-moment	424
-dark	424
-batter	422
-Students	420
-name	416
-girlfriend	415
-ticket	413
-ballerina	412
-potato	412
-action	410
-cab	410
-polka	410
-tricycle	409
-accident	408
-ponytail	408
-bleacher	408
-headband	408
-pen	407
-tuxedo	406
-breakfast	404
-skill	403
-wig	402
-expression	401
-rabbit	401
-storefront	400
-wing	399
-juice	399
-Frisbee	399
-derby	396
-hike	395
-welding	395
-marching	394
-cell	392
-banjo	392
-bouquet	392
-section	391
-letter	390
-horn	390
-cello	390
-Workers	390
-blow	390
-hut	389
-protester	388
-bagpipe	386
-morning	385
-writing	385
-range	385
-sunlight	384
-steel	383
-sleeve	382
-repair	382
-half	381
-championship	380
-score	379
-poodle	379
-discussion	379
-closeup	378
-finish	378
-gymnasium	378
-storm	378
-chalk	376
-cut	376
-demonstration	376
-pocket	375
-loom	372
-spoon	371
-clay	370
-information	370
-cameraman	370
-billboard	368
-torch	367
-hug	367
-stall	367
-patch	365
-parachute	365
-cover	365
-sailboat	365
-scientist	365
-bathtub	364
-yarn	364
-rally	363
-training	361
-variety	361
-leotard	361
-lift	360
-act	360
-zoo	359
-liquid	359
-driveway	359
-tip	358
-motion	357
-steak	355
-horseback	355
-power	354
-today	354
-calf	353
-help	352
-kilt	352
-weight	352
-dreadlock	351
-pie	351
-watermelon	350
-mouse	350
-slack	349
-turban	349
-stare	347
-gallery	347
-war	346
-flip-flop	346
-tuba	343
-science	343
-butterfly	342
-iron	342
-coloring	341
-shelf	340
-outdoors	339
-descent	338
-past	337
-african	337
-Friends	336
-sack	336
-drill	335
-brown	334
-notebook	333
-service	332
-tomato	332
-waiter	332
-underwear	331
-golfer	331
-menu	330
-surgery	330
-diner	330
-nun	330
-selling	329
-form	329
-column	329
-anything	328
-tiger	328
-tug-of-war	328
-dumpster	328
-exhibit	327
-rod	327
-dive	327
-camp	326
-feather	325
-rifle	325
-sibling	324
-lion	324
-pinata	323
-scenery	322
-tape	322
-sideline	322
-monk	321
-celebration	321
-firework	321
-reflection	320
-hillside	319
-binoculars	319
-oven	319
-supply	319
-pilot	318
-rose	318
-scout	317
-blood	317
-cape	316
-chip	316
-lip	316
-painter	316
-whilst	316
-hip	315
-trophy	314
-strip	314
-trashcan	313
-test	313
-treat	313
-aisle	313
-round	312
-angel	311
-fireplace	311
-bone	310
-quarterback	310
-plaid	310
-flame	310
-soup	309
-shoreline	309
-ware	309
-helicopter	309
-speaker	308
-dough	308
-bin	308
-snowman	308
-news	307
-briefcase	306
-lecture	306
-logo	305
-cotton	305
-pony	305
-dust	304
-cheese	304
-decoration	304
-crayon	303
-pine	303
-Boys	303
-moped	303
-poker	303
-Cheerleaders	302
-character	302
-mop	301
-joke	301
-motor	301
-chalkboard	300
-afternoon	300
-bulldozer	299
-splash	299
-mime	298
-headdress	298
-tail	297
-earring	297
-rice	296
-cooky	296
-wheelie	296
-auditorium	296
-target	296
-task	296
-radio	296
-opening	296
-Woman	294
-mug	294
-cheer	294
-call	292
-cargo	292
-love	291
-burger	291
-supermarket	290
-elevator	290
-terrain	290
-crown	289
-saw	289
-rack	288
-rapid	287
-seagull	285
-blond	285
-location	285
-ballet	285
-crop	285
-master	284
-stuff	284
-tan	284
-float	282
-package	281
-arcade	281
-venue	281
-stilt	280
-belly	280
-waitress	280
-Adults	280
-meadow	279
-handle	279
-beret	279
-canvas	278
-running	278
-debris	278
-wrestling	278
-suspender	277
-marker	276
-pirate	275
-drawing	275
-shark	275
-toilet	275
-checker	274
-handbag	274
-dusk	272
-basement	272
-fist	272
-butcher	272
-mountainside	271
-behind	270
-lead	270
-hour	269
-wheelbarrow	268
-high	268
-mannequin	268
-businessman	268
-conductor	268
-monitor	267
-forehead	267
-wear	266
-scaffold	266
-campfire	266
-rollerskates	265
-monument	265
-bead	265
-indian	264
-umpire	264
-retriever	264
-Musicians	264
-leader	264
-snake	263
-scrub	263
-toe	263
-garment	262
-guest	262
-department	262
-dot	262
-barn	262
-greyhound	261
-mohawk	261
-pigtail	260
-joy	260
-stomach	259
-alleyway	259
-deer	259
-bamboo	259
-valley	259
-tee	259
-midst	258
-casino	258
-merchandise	258
-catch	258
-instructor	258
-giraffe	257
-chainsaw	257
-skin	256
-crib	256
-shape	256
-citizen	256
-Tourists	256
-leap	256
-shawl	255
-ad	255
-terminal	255
-bartender	255
-sleeveless	255
-snowshoe	254
-environment	254
-sailor	254
-stairway	253
-drag	253
-tripod	253
-beanie	253
-Humans	253
-experiment	251
-puppet	251
-folk	251
-funeral	250
-turtle	250
-zone	250
-paw	250
-silhouette	250
-fashion	249
-community	248
-care	248
-tutu	248
-snowsuit	247
-sight	247
-weapon	247
-holiday	245
-boyfriend	244
-jumper	244
-robot	244
-lounge	244
-silver	243
-washing	243
-drive	242
-pattern	242
-stroll	241
-squirrel	241
-hammock	241
-grandmother	241
-level	241
-dart	240
-cruise	240
-axe	239
-pathway	239
-advertising	238
-raincoat	238
-dragon	238
-mower	238
-disc	238
-climbing	237
-curtain	237
-shopper	236
-horizon	236
-state	236
-gray	236
-fighter	235
-staff	235
-lantern	234
-contraption	234
-stump	234
-everyone	234
-boulder	234
-cigar	233
-charity	233
-kitten	233
-handrail	233
-ingredient	232
-load	232
-Guys	232
-fencing	232
-autumn	231
-temple	231
-bib	231
-tights	230
-punch	230
-reception	230
-Pedestrians	230
-zombie	230
-Spectators	229
-text	229
-convention	229
-working	228
-Firefighters	228
-rollerblade	228
-trolley	228
-belonging	227
-support	227
-awning	227
-homework	227
-shelter	227
-dessert	227
-brass	227
-covering	226
-watching	226
-plank	225
-award	225
-bakery	225
-laboratory	224
-spring	224
-link	224
-walker	224
-companion	224
-bundle	224
-cafeteria	224
-attempt	223
-marble	223
-muzzle	223
-rooftop	222
-seed	222
-graduation	222
-aquarium	222
-chat	221
-cave	221
-cleaning	221
-prize	220
-victory	220
-arrow	219
-lesson	219
-record	219
-laughing	218
-peak	217
-bystander	217
-fedora	217
-eachother	217
-warehouse	217
-film	217
-plastic	217
-mechanic	216
-cold	216
-pancake	216
-Couple	216
-turkey	216
-nightclub	215
-treadmill	214
-jack	214
-countryside	213
-wheeler	213
-amount	213
-kiosk	213
-jeep	213
-whistle	213
-rag	213
-cattle	212
-bunny	212
-competitor	212
-Hockey	211
-actor	211
-priest	210
-vacuum	210
-series	210
-Lots	210
-curve	210
-rickshaw	209
-professional	209
-pencil	208
-swan	208
-daytime	208
-dentist	208
-circuit	208
-tarp	207
-dolphin	207
-sweat	207
-dinosaur	206
-judge	206
-canyon	205
-roll	205
-clarinet	205
-league	205
-sail	205
-alcohol	205
-laundromat	205
-dryer	204
-crab	204
-pas	204
-jogger	204
-merry-go-round	204
-flannel	203
-system	203
-surgeon	203
-lobby	202
-jar	201
-problem	201
-goose	201
-message	201
-skull	201
-progress	201
-partner	201
-projector	201
-cleaner	201
-solo	201
-talking	200
-trench	200
-bronco	200
-harmonica	199
-kayaker	199
-sash	199
-bale	198
-bra	198
-camper	198
-earth	198
-jazz	198
-legging	198
-open	197
-mess	197
-cable	196
-workshop	196
-emergency	195
-salon	195
-Runners	195
-mule	195
-automobile	195
-cartwheel	195
-buffet	194
-skyscraper	194
-baton	193
-purchase	193
-climb	193
-shoot	193
-medium	193
-white	193
-cabinet	193
-snowball	192
-sausage	192
-canal	192
-professor	191
-eyeglass	191
-sunshine	191
-oil	191
-Soldiers	191
-soap	190
-arch	190
-teddy	189
-harbor	189
-maintenance	188
-Teenagers	188
-cycle	188
-riot	188
-bridesmaid	188
-medal	187
-sample	187
-bmx	187
-mascot	186
-highchair	186
-clothesline	185
-lit	185
-salad	185
-fatigue	185
-handlebar	185
-hydrant	185
-height	185
-talent	185
-parka	185
-cash	185
-bracelet	185
-stretch	184
-braid	184
-close	184
-stocking	184
-razor	184
-lover	184
-donation	184
-spotlight	183
-pickup	183
-change	183
-death	183
-chin	183
-locker	182
-clock	182
-hopscotch	182
-buggy	182
-lacrosse	182
-bug	182
-washer	182
-symbol	182
-meter	181
-participant	181
-stoop	180
-Boy	180
-scissors	180
-cartoon	180
-split	179
-being	179
-establishment	179
-violinist	179
-destination	179
-collection	179
-Baseball	179
-neighbor	178
-limb	178
-living	178
-bookstore	178
-terrier	178
-juggler	178
-brand	178
-cord	178
-Animals	178
-paperwork	177
-ax	177
-lipstick	177
-official	177
-bay	177
-personnel	177
-lens	177
-mic	177
-sleep	177
-barricade	177
-dozen	175
-motocross	175
-waterway	175
-pub	175
-cabin	175
-rowing	175
-cashier	175
-blazer	175
-battle	174
-toothbrush	174
-transit	174
-trio	174
-possession	174
-bell	173
-flock	172
-wilderness	172
-bowler	171
-visor	171
-check	171
-mini	170
-janitor	170
-Basketball	170
-megaphone	170
-patron	170
-weed	170
-out	170
-protection	169
-sari	169
-pastry	169
-cancer	169
-lighting	169
-fenced	169
-strike	168
-welder	168
-length	168
-guide	168
-flea	168
-chopstick	167
-defender	167
-strap	167
-popcorn	166
-grin	166
-cooler	166
-spatula	165
-Customers	165
-youngster	165
-bos	165
-tackle	164
-caution	163
-inflatable	163
-fly	163
-instruction	163
-metro	163
-push	162
-fork	162
-tablecloth	162
-monster	162
-dump	162
-wrap	161
-exit	161
-ambulance	161
-workout	161
-Dancers	161
-jug	160
-asphalt	160
-start	159
-smock	159
-crossing	159
-preparation	159
-signal	159
-mailbox	159
-interview	158
-cereal	158
-sweatpants	158
-champagne	158
-bean	158
-season	158
-rowboat	158
-process	157
-soil	157
-Football	157
-shack	157
-utility	157
-pacifier	157
-island	157
-cookie	157
-question	157
-pick	156
-onion	156
-alligator	156
-cylinder	156
-halloween	156
-coconut	156
-hit	155
-foliage	155
-sushi	155
-fighting	155
-sledding	154
-deli	154
-diaper	154
-mixer	154
-gardening	154
-touchdown	154
-hardwood	153
-lizard	153
-backseat	153
-earphone	153
-exhibition	153
-peer	152
-coast	152
-vegetation	152
-bite	151
-viewer	151
-stance	151
-ruin	151
-wrist	151
-trouble	150
-Cyclists	150
-baker	150
-juggling	150
-Protesters	150
-noodle	150
-frog	150
-redhead	150
-delivery	149
-off-camera	149
-making	149
-blade	148
-size	148
-suite	148
-landing	148
-canopy	148
-relay	147
-roadway	147
-dandelion	147
-excitement	147
-cause	147
-goatee	147
-olympics	147
-carrot	147
-grandfather	147
-somebody	147
-fog	146
-piggyback	146
-tiara	146
-mountaintop	146
-squad	146
-workman	146
-cast	146
-tulip	145
-visitor	145
-pay	145
-backpacker	145
-substance	144
-stranger	144
-snowmobile	144
-math	144
-grain	144
-memorial	143
-coverall	143
-acrobat	143
-rollerblader	143
-mallet	142
-article	142
-easel	142
-beauty	141
-contact	141
-price	141
-language	141
-foam	141
-donut	141
-strawberry	141
-panel	141
-entertainer	141
-crash	141
-quad	140
-carrying	140
-toast	140
-tee-shirt	140
-rescue	140
-harp	140
-puzzle	140
-flour	140
-sandbox	139
-Number	139
-badminton	139
-win	139
-facility	138
-collie	138
-throw	138
-bongo	138
-alien	138
-innertube	138
-overcast	137
-lemonade	137
-trainer	137
-boarding	137
-nighttime	137
-wallet	137
-resort	137
-kimono	137
-shell	137
-Players	136
-skyline	136
-technique	136
-clerk	136
-limo	136
-shooting	136
-slice	136
-fixture	136
-theme	135
-pressure	135
-vase	135
-hairnet	135
-pain	135
-silk	135
-plain	135
-gang	135
-register	134
-rocking	134
-sparkler	134
-seafood	134
-reunion	134
-carrier	134
-Bikers	133
-sundress	133
-campus	133
-wakeboard	133
-electronics	133
-focus	133
-cushion	132
-spaghetti	132
-reporter	131
-hold	131
-bounce	131
-assembly	131
-elbow	131
-prayer	131
-clearing	131
-winner	131
-enclosure	131
-mail	131
-merchant	131
-wash	130
-campsite	130
-digging	130
-businessmen	130
-noise	130
-content	130
-pail	130
-xylophone	130
-rooster	130
-maker	129
-skateboarding	129
-government	129
-ups	129
-Somebody	129
-driving	129
-hedge	129
-duty	129
-polish	129
-traveler	129
-wineglass	129
-javelin	128
-steam	128
-breast	128
-bun	128
-thread	128
-racquet	127
-grandson	127
-cupcake	127
-pyramid	127
-trombone	126
-roadside	126
-hunting	126
-wait	126
-sunhat	126
-punching	126
-sponge	126
-attendant	126
-taco	126
-surfing	125
-operation	125
-gorilla	125
-dining	125
-lettering	124
-goldfish	124
-rake	124
-defense	124
-technician	124
-ditch	124
-muscle	124
-oar	124
-go-cart	124
-angle	124
-sleigh	123
-pride	123
-ritual	123
-period	123
-shepherd	123
-mane	122
-bend	122
-gum	122
-folder	122
-checkout	122
-week	122
-jog	122
-mitt	122
-slot	121
-breath	121
-loaf	121
-touch	121
-stoplight	121
-picket	121
-novel	121
-shit	121
-mill	121
-sailing	121
-overcoat	121
-shrub	121
-confetti	121
-wakeboarder	121
-bicycling	121
-patrol	121
-saddle	121
-self	120
-cityscape	120
-yo-yo	120
-volunteer	120
-wool	120
-exam	120
-fry	119
-Closeup	119
-cannon	119
-arrangement	119
-eagle	119
-crime	119
-drop	118
-bee	118
-cubicle	118
-heat	118
-sandcastle	118
-pop	118
-ferry	118
-Fans	117
-key	117
-waterfront	117
-zebra	117
-maneuver	116
-sombrero	116
-tune	116
-cycling	116
-plan	116
-album	116
-veteran	116
-dunk	116
-archway	116
-ensemble	116
-litter	116
-pasta	116
-incline	116
-bicycler	115
-page	115
-complex	115
-Male	115
-wicker	114
-queen	114
-tap	114
-stock	114
-snowstorm	114
-attraction	113
-lock	113
-wheat	113
-mattress	113
-rocker	113
-drug	112
-Hikers	112
-dishwasher	112
-organ	112
-christmas	112
-recital	112
-anvil	112
-use	112
-press	112
-tightrope	111
-veil	111
-recess	111
-Mohawk	111
-politics	111
-apparel	111
-lemon	111
-whale	111
-crutch	110
-jackhammer	110
-condition	110
-riverbank	110
-nobody	110
-swimwear	110
-mile	110
-surroundings	110
-grandchild	109
-carousel	109
-slam	109
-troop	109
-napkin	109
-domino	109
-blower	109
-loading	109
-penguin	109
-waiting	109
-headset	108
-technology	108
-architecture	108
-chore	108
-bowtie	108
-district	108
-recipe	108
-volcano	107
-Crowds	107
-playpen	107
-grandma	107
-storage	107
-captain	107
-sound	107
-beagle	107
-sewer	107
-dollar	107
-refrigerator	107
-pew	107
-profile	107
-flip	107
-isle	107
-passersby	107
-rival	106
-pavilion	106
-movement	106
-minivan	106
-pepper	106
-equestrian	106
-ATV	105
-conveyor	105
-boa	105
-backflip	105
-typewriter	105
+man	323922	0.0888405816181
+woman	167802	0.0460222747349
+people	121465	0.033313641081
+girl	74530	0.0204409967461
+boy	70887	0.0194418480658
+dog	70174	0.0192462968692
+shirt	61088	0.0167543218734
+child	58908	0.0161564234043
+group	43440	0.0119140869268
+street	39321	0.0107843879385
+person	36272	0.0099481528777
+front	34217	0.00938453757764
+water	30246	0.00829542986157
+hat	22732	0.00623460000044
+ball	20476	0.00561585736446
+building	18840	0.00516715924724
+player	18575	0.00509447892874
+bike	18094	0.00496255729403
+beach	17589	0.00482405329086
+hand	16974	0.00465538009887
+jacket	16325	0.00447738188488
+kid	16054	0.00440305597427
+crowd	15883	0.00435615659893
+picture	15132	0.00415018331896
+lady	15002	0.00411452882309
+field	14902	0.00408710228781
+car	14887	0.00408298830752
+table	14679	0.00402594111413
+guy	13215	0.00362441663759
+game	13153	0.00360741218572
+tree	13090	0.00359013346849
+a	12986	0.0035616098718
+sidewalk	12931	0.00354652527739
+park	12925	0.00354487968528
+background	12768	0.00350182002488
+something	11927	0.00327116286315
+snow	11917	0.00326842020963
+grass	11889	0.00326074077975
+camera	11767	0.0032272804067
+dress	11758	0.00322481201853
+hair	11609	0.00318394648096
+wall	11570	0.0031732501322
+couple	11514	0.00315789127244
+worker	11386	0.00312278530728
+soccer	10957	0.00300512547091
+standing	10845	0.0029744077514
+guitar	10546	0.0028924024109
+city	10516	0.00288417445032
+food	10307	0.00282685299158
+air	10300	0.00282493313411
+rock	10111	0.00277309698242
+top	9963	0.0027325057102
+bench	9899	0.00271495272762
+shorts	9871	0.00270727329774
+baby	9843	0.00269959386787
+horse	9749	0.0026738129247
+glass	9635	0.00264254667448
+pants	9396	0.00257699725515
+road	9085	0.00249170073042
+boat	8983	0.00246372566444
+pool	8887	0.00243739619056
+jeans	8795	0.0024121637781
+bicycle	8568	0.00234990554301
+ride	8535	0.00234085478637
+head	8511	0.0023342724179
+baseball	8193	0.0022470560357
+race	8176	0.0022423935247
+face	8134	0.00223087437989
+day	8106	0.00222319495001
+chair	7958	0.00218260367779
+suit	7916	0.00217108453297
+team	7895	0.00216532496056
+someone	7877	0.00216038818421
+side	7864	0.00215682273462
+stage	7848	0.00215243448898
+mountain	7835	0.00214886903939
+sign	7812	0.00214256093628
+ground	7794	0.00213762415993
+room	7762	0.00212884766863
+construction	7527	0.00206439531072
+football	7441	0.00204080849038
+friend	7431	0.00203806583685
+band	7376	0.00202298124244
+store	7285	0.00199802309534
+coat	7038	0.00193027955319
+toy	6921	0.00189819050691
+bag	6898	0.00189188240379
+t-shirt	6634	0.00181947635065
+window	6630	0.00181837928924
+uniform	6598	0.00180960279795
+area	6402	0.00175584678879
+dirt	6384	0.00175091001244
+train	6334	0.0017371967448
+arm	6319	0.00173308276451
+helmet	6276	0.00172128935434
+tennis	6143	0.00168481206241
+ocean	6105	0.001674389979
+sand	6084	0.00166863040659
+basketball	6081	0.00166780761053
+sunglass	5782	0.00158580227004
+home	5767	0.00158168828975
+restaurant	5700	0.00156331251111
+floor	5662	0.0015528904277
+mouth	5602	0.00153643450653
+book	5538	0.00151888152395
+instrument	5433	0.0014900836619
+bus	5396	0.00147993584385
+microphone	5330	0.00146183433056
+family	5297	0.00145278357392
+motorcycle	5268	0.00144482987869
+music	5247	0.00143907030628
+skateboard	5238	0.0014366019181
+house	5132	0.0014075297907
+lake	5109	0.00140122168759
+truck	5093	0.00139683344194
+animal	5059	0.00138750841995
+clothing	4982	0.00136638998778
+line	4960	0.00136035615002
+vest	4939	0.00135459657761
+trick	4915	0.00134801420914
+wood	4892	0.00134170610602
+cap	4887	0.00134033477926
+outside	4835	0.00132607298091
+work	4802	0.00131702222427
+clothes	4798	0.00131592516286
+track	4696	0.00128795009687
+back	4652	0.00127588242135
+ice	4651	0.00127560815599
+cat	4610	0.00126436327653
+flower	4581	0.0012564095813
+kitchen	4502	0.00123474261842
+costume	4457	0.00122240067755
+umbrella	4387	0.00120320210285
+photo	4350	0.00119305428479
+playing	4324	0.00118592338562
+male	4316	0.0011837292628
+swing	4287	0.00117577556756
+flag	4281	0.00117412997545
+stick	4239	0.00116261083063
+fence	4206	0.00115356007399
+lot	4199	0.00115164021652
+drink	4192	0.00114972035905
+couch	4180	0.00114642917481
+phone	4173	0.00114450931734
+market	4168	0.00114313799058
+hill	4130	0.00113271590717
+river	4123	0.0011307960497
+art	4107	0.00112640780406
+adult	4094	0.00112284235447
+cart	4086	0.00112064823165
+piece	4085	0.00112037396629
+shoe	4051	0.0011110489443
+bed	4042	0.00110858055612
+bar	4035	0.00110666069865
+middle	4005	0.00109843273807
+wave	3945	0.0010819768169
+sweater	3936	0.00107950842872
+dance	3881	0.00106442383432
+event	3831	0.00105071056668
+other	3822	0.0010482421785
+toddler	3792	0.00104001421792
+brick	3754	0.00102959213451
+singing	3732	0.00102355829675
+shop	3669	0.00100627957952
+fire	3662	0.00100435972205
+night	3653	0.00100189133387
+mother	3649	0.00100079427246
+path	3624	0.000993937638641
+pole	3614	0.000991194985113
+men	3612	0.000990646454407
+tan	3596	0.000986258208762
+party	3590	0.000984612616645
+rope	3572	0.000979675840294
+cellphone	3535	0.00096952802224
+outfit	3534	0.000969253756887
+school	3485	0.000955814754598
+board	3464	0.000950055182189
+stand	3460	0.000948958120778
+watch	3443	0.00094429560978
+body	3424	0.000939084568076
+backpack	3379	0.000926742627199
+hockey	3354	0.000919885993378
+shopping	3346	0.000917691870556
+tank	3327	0.000912480828852
+bird	3316	0.000909463909971
+fishing	3295	0.000903704337561
+female	3284	0.00090068741868
+step	3248	0.000890813865979
+computer	3222	0.000883682966805
+foot	3219	0.000882860170747
+stone	3215	0.000881763109335
+bridge	3193	0.000875729271573
+machine	3191	0.000875180740868
+fish	3184	0.000873260883398
+student	3172	0.000869969699164
+cowboy	3163	0.000867501310988
+paper	3140	0.000861193207873
+vehicle	3126	0.000857353492934
+musician	3115	0.000854336574053
+concert	3100	0.00085022259376
+swimming	3089	0.000847205674879
+sport	3074	0.000843091694587
+rider	3048	0.000835960795413
+metal	2953	0.000809905586895
+sun	2925	0.000802226157016
+subway	2924	0.000801951891663
+object	2918	0.000800306299546
+stair	2899	0.000795095257842
+time	2892	0.000793175400373
+balloon	2877	0.00078906142008
+leg	2819	0.000773154029616
+eye	2817	0.000772605498911
+door	2806	0.00076958858003
+biker	2792	0.00076574886509
+sky	2781	0.000762731946209
+police	2777	0.000761634884798
+jump	2769	0.000759440761975
+skateboarder	2741	0.000751761332096
+fountain	2732	0.00074929294392
+play	2731	0.000749018678568
+shoulder	2726	0.000747647351803
+skirt	2724	0.000747098821098
+slide	2717	0.000745178963628
+fruit	2670	0.000732288492045
+rain	2666	0.000731191430634
+beer	2658	0.000728997307811
+dinner	2651	0.000727077450342
+parade	2632	0.000721866408638
+number	2607	0.000715009774817
+competition	2603	0.000713912713406
+gear	2575	0.000706233283527
+box	2565	0.000703490629998
+forest	2565	0.000703490629998
+audience	2562	0.00070266783394
+volleyball	2554	0.000700473711117
+bottle	2488	0.000682372197831
+dancing	2486	0.000681823667125
+son	2474	0.000678532482891
+corner	2438	0.00066865893019
+jersey	2436	0.000668110399484
+light	2433	0.000667287603425
+equipment	2420	0.000663722153839
+orange	2418	0.000663173623133
+scarf	2417	0.00066289935778
+pink	2387	0.000654671397195
+nobody	2381	0.000653025805079
+gentleman	2375	0.000651380212962
+painting	2372	0.000650557416903
+talk	2335	0.000640409598849
+officer	2334	0.000640135333496
+statue	2331	0.000639312537437
+walk	2329	0.000638764006732
+wedding	2325	0.00063766694532
+cream	2303	0.000631633107558
+item	2289	0.000627793392619
+tent	2284	0.000626422065854
+yard	2264	0.000620936758798
+father	2249	0.000616822778505
+playground	2248	0.000616548513153
+beard	2247	0.0006162742478
+roof	2244	0.000615451451741
+surfer	2236	0.000613257328919
+dancer	2233	0.00061243453286
+sweatshirt	2210	0.000606126429745
+cup	2208	0.00060557789904
+break	2206	0.000605029368334
+lunch	2205	0.000604755102981
+vendor	2197	0.000602560980159
+winter	2185	0.000599269795925
+cigarette	2181	0.000598172734513
+coffee	2171	0.000595430080985
+boot	2168	0.000594607284927
+way	2164	0.000593510223515
+fun	2145	0.000588299181812
+paint	2135	0.000585556528283
+view	2132	0.000584733732225
+ramp	2120	0.000581442547991
+cake	2116	0.00058034548658
+snowboarder	2109	0.00057842562911
+ladder	2094	0.000574311648817
+basket	2090	0.000573214587406
+bucket	2079	0.000570197668525
+show	2056	0.00056388956541
+runner	2054	0.000563341034704
+glove	2053	0.000563066769352
+newspaper	2048	0.000561695442587
+bunch	2039	0.000559227054412
+trail	2038	0.000558952789059
+tv	2036	0.000558404258354
+distance	2030	0.000556758666237
+station	2013	0.000552096155239
+skier	2011	0.000551547624533
+desk	2008	0.000550724828474
+lawn	1982	0.000543593929301
+class	1979	0.000542771133242
+apron	1976	0.000541948337184
+artist	1955	0.000536188764775
+drum	1931	0.000529606396307
+look	1909	0.000523572558545
+edge	1902	0.000521652701075
+plaid	1901	0.000521378435722
+safety	1901	0.000521378435722
+ski	1897	0.000520281374311
+daughter	1887	0.000517538720783
+color	1875	0.000514247536549
+performer	1866	0.000511779148373
+cyclist	1862	0.000510682086962
+clown	1859	0.000509859290903
+bubble	1858	0.000509585025551
+mask	1856	0.000509036494845
+video	1855	0.000508762229492
+teenager	1843	0.000505471045258
+business	1836	0.000503551187788
+parking	1831	0.000502179861024
+match	1821	0.000499437207496
+vegetable	1820	0.000499162942143
+court	1820	0.000499162942143
+place	1815	0.000497791615379
+blanket	1813	0.000497243084673
+shore	1806	0.000495323227204
+church	1791	0.000491209246911
+member	1787	0.0004901121855
+bull	1779	0.000487918062677
+grill	1769	0.000485175409149
+rodeo	1768	0.000484901143796
+leaf	1756	0.000481609959562
+grocery	1754	0.000481061428857
+bathing	1733	0.000475301856447
+puppy	1732	0.000475027591094
+scene	1727	0.00047365626433
+net	1711	0.000469268018685
+spectator	1700	0.000466251099804
+office	1695	0.00046487977304
+scooter	1692	0.000464056976981
+life	1684	0.000461862854159
+structure	1673	0.000458845935278
+pile	1669	0.000457748873866
+bikini	1658	0.000454731954985
+set	1656	0.00045418342428
+purse	1654	0.000453634893574
+plant	1653	0.000453360628221
+onlooker	1648	0.000451989301457
+display	1644	0.000450892240046
+wheel	1641	0.000450069443987
+tattoo	1639	0.000449520913282
+owner	1637	0.000448972382576
+plate	1629	0.000446778259753
+meal	1624	0.000445406932989
+soldier	1623	0.000445132667636
+drinking	1622	0.000444858402284
+bowling	1610	0.00044156721805
+cooking	1606	0.000440470156638
+cliff	1605	0.000440195891286
+traffic	1601	0.000439098829874
+stroller	1598	0.000438276033816
+golf	1595	0.000437453237757
+trunk	1588	0.000435533380288
+site	1585	0.000434710584229
+chef	1584	0.000434436318876
+gym	1571	0.00043087086929
+human	1568	0.000430048073231
+bride	1559	0.000427579685056
+foreground	1558	0.000427305419703
+smoking	1557	0.00042703115435
+gun	1556	0.000426756888997
+goggles	1552	0.000425659827586
+marathon	1551	0.000425385562233
+conversation	1548	0.000424562766175
+desert	1540	0.000422368643352
+dock	1536	0.000421271581941
+railing	1512	0.000414689213473
+shovel	1506	0.000413043621356
+cafe	1494	0.000409752437122
+bowl	1494	0.000409752437122
+country	1479	0.00040563845683
+laptop	1479	0.00040563845683
+part	1475	0.000404541395418
+picnic	1467	0.000402347272596
+counter	1464	0.000401524476537
+tie	1464	0.000401524476537
+classroom	1464	0.000401524476537
+violin	1461	0.000400701680479
+tool	1461	0.000400701680479
+garden	1460	0.000400427415126
+plane	1451	0.00039795902695
+setting	1451	0.00039795902695
+bicyclist	1449	0.000397410496245
+movie	1447	0.000396861965539
+hiker	1441	0.000395216373422
+tourist	1438	0.000394393577364
+rail	1435	0.000393570781305
+fan	1434	0.000393296515952
+seat	1430	0.000392199454541
+town	1428	0.000391650923835
+direction	1423	0.000390279597071
+shot	1415	0.000388085474249
+leather	1402	0.000384520024662
+alley	1401	0.000384245759309
+screen	1401	0.000384245759309
+sort	1399	0.000383697228603
+singer	1396	0.000382874432545
+nap	1394	0.000382325901839
+attire	1382	0.000379034717605
+photograph	1380	0.0003784861869
+hole	1379	0.000378211921547
+eating	1379	0.000378211921547
+tire	1377	0.000377663390841
+customer	1372	0.000376292064077
+lap	1367	0.000374920737313
+performance	1366	0.00037464647196
+jogging	1366	0.00037464647196
+stadium	1361	0.000373275145196
+gold	1352	0.000370806757021
+athlete	1352	0.000370806757021
+surfboard	1351	0.000370532491668
+meat	1348	0.000369709695609
+money	1330	0.000364772919258
+cement	1330	0.000364772919258
+wife	1324	0.000363127327142
+outdoors	1320	0.00036203026573
+midair	1315	0.000360658938966
+individual	1306	0.000358190550791
+birthday	1301	0.000356819224027
+pair	1300	0.000356544958674
+skiing	1298	0.000355996427968
+platform	1293	0.000354625101204
+airplane	1286	0.000352705243734
+practice	1286	0.000352705243734
+frisbee	1284	0.000352156713028
+sculpture	1283	0.000351882447676
+trampoline	1281	0.00035133391697
+climber	1277	0.000350236855559
+brunette	1272	0.000348865528795
+right	1269	0.000348042732736
+brother	1265	0.000346945671325
+walking	1261	0.000345848609913
+cow	1258	0.000345025813855
+thing	1258	0.000345025813855
+bat	1252	0.000343380221738
+parent	1251	0.000343105956385
+type	1248	0.000342283160327
+booth	1238	0.000339540506798
+song	1238	0.000339540506798
+sunset	1237	0.000339266241446
+cone	1237	0.000339266241446
+ring	1235	0.00033871771074
+ledge	1230	0.000337346383976
+course	1224	0.000335700791859
+smile	1221	0.0003348779958
+mall	1219	0.000334329465095
+reading	1218	0.000334055199742
+digging	1216	0.000333506669036
+mirror	1216	0.000333506669036
+mud	1216	0.000333506669036
+robe	1212	0.000332409607625
+cheerleader	1210	0.000331861076919
+project	1204	0.000330215484802
+leash	1201	0.000329392688744
+goal	1200	0.000329118423391
+roller	1192	0.000326924300568
+festival	1190	0.000326375769863
+headphone	1186	0.000325278708452
+finger	1183	0.000324455912393
+swimmer	1177	0.000322810320276
+skate	1173	0.000321713258865
+pond	1164	0.000319244870689
+base	1163	0.000318970605337
+nose	1161	0.000318422074631
+graffiti	1159	0.000317873543925
+living	1157	0.00031732501322
+ear	1152	0.000315953686455
+card	1149	0.000315130890397
+summer	1139	0.000312388236869
+stunt	1139	0.000312388236869
+canoe	1138	0.000312113971516
+makeup	1138	0.000312113971516
+trash	1136	0.00031156544081
+sandal	1134	0.000311016910105
+block	1125	0.000308548521929
+lab	1123	0.000307999991224
+piano	1120	0.000307177195165
+pot	1117	0.000306354399107
+device	1116	0.000306080133754
+point	1114	0.000305531603048
+silver	1112	0.000304983072342
+sale	1104	0.00030278894952
+microscope	1099	0.000301417622756
+sister	1091	0.000299223499933
+circle	1090	0.00029894923458
+sled	1078	0.000295658050346
+diving	1077	0.000295383784994
+van	1077	0.000295383784994
+club	1074	0.000294560988935
+fight	1072	0.000294012458229
+telescope	1070	0.000293463927524
+stream	1069	0.000293189662171
+collar	1062	0.000291269804701
+row	1056	0.000289624212584
+knee	1053	0.000288801416526
+driver	1052	0.000288527151173
+job	1052	0.000288527151173
+hoop	1051	0.00028825288582
+belt	1050	0.000287978620467
+kiss	1050	0.000287978620467
+dish	1050	0.000287978620467
+teacher	1049	0.000287704355114
+mom	1046	0.000286881559056
+log	1036	0.000284138905528
+walkway	1036	0.000284138905528
+firefighter	1020	0.000279750659882
+sea	1011	0.000277282271707
+backyard	1008	0.000276459475649
+stop	1003	0.000275088148884
+run	1002	0.000274813883532
+weather	989	0.000271248433945
+balcony	986	0.000270425637886
+cook	983	0.000269602841828
+swimsuit	981	0.000269054311122
+pier	980	0.000268780045769
+center	978	0.000268231515064
+guard	978	0.000268231515064
+kayak	975	0.000267408719005
+museum	964	0.000264391800124
+pet	960	0.000263294738713
+tooth	959	0.00026302047336
+gymnast	958	0.000262746208007
+porch	957	0.000262471942654
+cane	955	0.000261923411949
+red	954	0.000261649146596
+fireman	949	0.000260277819832
+plastic	947	0.000259729289126
+pedestrian	940	0.000257809431656
+wine	936	0.000256712370245
+doorway	928	0.000254518247422
+neck	928	0.000254518247422
+bottom	927	0.00025424398207
+blond-hair	926	0.000253969716717
+carnival	926	0.000253969716717
+pizza	919	0.000252049859247
+deck	917	0.000251501328541
+racer	914	0.000250678532483
+doctor	913	0.00025040426713
+candy	911	0.000249855736424
+left	907	0.000248758675013
+snowboard	905	0.000248210144307
+bear	904	0.000247935878955
+year	902	0.000247387348249
+ship	898	0.000246290286838
+turn	898	0.000246290286838
+accordion	897	0.000246016021485
+pipe	897	0.000246016021485
+end	894	0.000245193225426
+policeman	894	0.000245193225426
+straw	891	0.000244370429368
+garbage	889	0.000243821898662
+puddle	888	0.000243547633309
+branch	887	0.000243273367957
+image	886	0.000242999102604
+mat	884	0.000242450571898
+passenger	883	0.000242176306545
+sheet	883	0.000242176306545
+tractor	883	0.000242176306545
+library	882	0.000241902041192
+laundry	878	0.000240804979781
+cloth	875	0.000239982183723
+magazine	873	0.000239433653017
+pitcher	870	0.000238610856959
+hoodie	862	0.000236416734136
+duck	860	0.00023586820343
+racket	856	0.000234771142019
+groom	853	0.000233948345961
+television	850	0.000233125549902
+move	849	0.000232851284549
+wheelchair	848	0.000232577019196
+hose	848	0.000232577019196
+balance	843	0.000231205692432
+graffitus	842	0.000230931427079
+stripe	841	0.000230657161727
+beverage	840	0.000230382896374
+railroad	840	0.000230382896374
+guitarist	840	0.000230382896374
+kind	839	0.000230108631021
+bread	837	0.000229560100315
+surf	837	0.000229560100315
+poster	834	0.000228737304257
+wire	833	0.000228463038904
+mural	832	0.000228188773551
+figure	831	0.000227914508198
+one	828	0.00022709171214
+container	827	0.000226817446787
+sleep	826	0.000226543181434
+elephant	824	0.000225994650729
+obstacle	822	0.000225446120023
+tongue	820	0.000224897589317
+curb	820	0.000224897589317
+apple	820	0.000224897589317
+banner	814	0.0002232519972
+presentation	814	0.0002232519972
+hospital	813	0.000222977731847
+skater	810	0.000222154935789
+crew	807	0.000221332139731
+racing	804	0.000220509343672
+speech	803	0.000220235078319
+spray	802	0.000219960812966
+meeting	801	0.000219686547614
+advertisement	797	0.000218589486202
+chicken	796	0.000218315220849
+pavement	790	0.000216669628732
+slope	788	0.000216121098027
+infant	787	0.000215846832674
+garage	784	0.000215024036616
+wetsuit	784	0.000215024036616
+gathering	781	0.000214201240557
+fisherman	780	0.000213926975204
+motorcyclist	780	0.000213926975204
+jean	780	0.000213926975204
+trip	780	0.000213926975204
+hug	779	0.000213652709851
+goods	778	0.000213378444499
+farmer	778	0.000213378444499
+sword	776	0.000212829913793
+airport	774	0.000212281383087
+tunnel	774	0.000212281383087
+sandwich	773	0.000212007117734
+taxi	772	0.000211732852382
+stool	772	0.000211732852382
+necklace	771	0.000211458587029
+bath	769	0.000210910056323
+bathroom	768	0.00021063579097
+polo	768	0.00021063579097
+crosswalk	767	0.000210361525617
+goalie	766	0.000210087260265
+model	765	0.000209812994912
+string	764	0.000209538729559
+raft	763	0.000209264464206
+candle	762	0.000208990198853
+outfits	760	0.000208441668148
+overalls	759	0.000208167402795
+beam	758	0.000207893137442
+sofa	758	0.000207893137442
+teammate	752	0.000206247545325
+craft	750	0.000205699014619
+rest	748	0.000205150483914
+doll	744	0.000204053422502
+blue	743	0.00020377915715
+wagon	743	0.00020377915715
+saxophone	742	0.000203504891797
+space	741	0.000203230626444
+hammer	740	0.000202956361091
+castle	740	0.000202956361091
+harness	737	0.000202133565033
+bandanna	737	0.000202133565033
+produce	735	0.000201585034327
+fabric	731	0.000200487972916
+surface	730	0.000200213707563
+keyboard	728	0.000199665176857
+barbecue	727	0.000199390911504
+drive	726	0.000199116646152
+bank	726	0.000199116646152
+gate	726	0.000199116646152
+attention	722	0.00019801958474
+scuba	721	0.000197745319387
+towel	721	0.000197745319387
+hay	720	0.000197471054035
+referee	720	0.000197471054035
+husband	718	0.000196922523329
+tag	716	0.000196373992623
+drummer	716	0.000196373992623
+knife	715	0.000196099727271
+square	712	0.000195276931212
+biking	711	0.000195002665859
+kite	711	0.000195002665859
+waterfall	710	0.000194728400506
+softball	709	0.000194454135154
+opponent	704	0.000193082808389
+star	703	0.000192808543037
+motorbike	702	0.000192534277684
+employee	701	0.000192260012331
+vacation	700	0.000191985746978
+exercise	700	0.000191985746978
+camouflage	699	0.000191711481625
+order	698	0.000191437216272
+blouse	695	0.000190614420214
+everyone	695	0.000190614420214
+heel	695	0.000190614420214
+khaki	694	0.000190340154861
+tube	693	0.000190065889508
+blow	693	0.000190065889508
+landscape	692	0.000189791624156
+bush	687	0.000188420297391
+chest	687	0.000188420297391
+laugh	684	0.000187597501333
+smoke	681	0.000186774705274
+chain	680	0.000186500439922
+talking	680	0.000186500439922
+laughing	679	0.000186226174569
+papers	679	0.000186226174569
+arena	675	0.000185129113157
+hallway	675	0.000185129113157
+scaffolding	675	0.000185129113157
+post	674	0.000184854847805
+amusement	672	0.000184306317099
+concrete	670	0.000183757786393
+frame	670	0.000183757786393
+hurdle	670	0.000183757786393
+karate	669	0.000183483521041
+theater	665	0.000182386459629
+sock	664	0.000182112194276
+cloud	663	0.000181837928924
+jumpsuit	662	0.000181563663571
+tub	662	0.000181563663571
+luggage	662	0.000181563663571
+camel	661	0.000181289398218
+jockey	659	0.000180740867512
+choir	659	0.000180740867512
+haircut	657	0.000180192336807
+intersection	651	0.00017854674469
+shade	649	0.000177998213984
+shadow	645	0.000176901152573
+skating	644	0.00017662688722
+nothing	643	0.000176352621867
+snack	641	0.000175804091161
+college	640	0.000175529825809
+palm	639	0.000175255560456
+word	639	0.000175255560456
+staircase	637	0.00017470702975
+pajamas	631	0.000173061437633
+trumpet	631	0.000173061437633
+broom	631	0.000173061437633
+brush	631	0.000173061437633
+navy	630	0.00017278717228
+chess	628	0.000172238641575
+donkey	626	0.000171690110869
+downtown	624	0.000171141580163
+carpet	623	0.000170867314811
+firetruck	621	0.000170318784105
+tea	621	0.000170318784105
+youth	619	0.000169770253399
+unicycle	613	0.000168124661282
+date	609	0.000167027599871
+hotel	608	0.000166753334518
+farm	605	0.00016593053846
+flight	605	0.00016593053846
+neighborhood	603	0.000165382007754
+surfing	602	0.000165107742401
+selling	602	0.000165107742401
+sheep	601	0.000164833477048
+can	600	0.000164559211696
+age	598	0.00016401068099
+protest	598	0.00016401068099
+security	597	0.000163736415637
+splash	597	0.000163736415637
+dad	597	0.000163736415637
+hotdog	597	0.000163736415637
+check	596	0.000163462150284
+pigeon	594	0.000162913619579
+hood	591	0.00016209082352
+escalator	589	0.000161542292814
+fur	588	0.000161268027462
+handstand	587	0.000160993762109
+lane	585	0.000160445231403
+podium	583	0.000159896700698
+tournament	581	0.000159348169992
+round	580	0.000159073904639
+patio	579	0.000158799639286
+wrestler	579	0.000158799639286
+tray	579	0.000158799639286
+conference	576	0.000157976843228
+gift	576	0.000157976843228
+style	576	0.000157976843228
+activity	575	0.000157702577875
+machinery	573	0.000157154047169
+speed	571	0.000156605516464
+welding	571	0.000156605516464
+pin	569	0.000156056985758
+product	567	0.000155508455052
+rug	566	0.000155234189699
+tile	566	0.000155234189699
+carriage	566	0.000155234189699
+marketplace	566	0.000155234189699
+flute	565	0.000154959924347
+brushing	564	0.000154685658994
+button	563	0.000154411393641
+puck	563	0.000154411393641
+gas	562	0.000154137128288
+shower	561	0.000153862862935
+coach	561	0.000153862862935
+pillow	560	0.000153588597583
+sneaker	560	0.000153588597583
+boxing	560	0.000153588597583
+boardwalk	560	0.000153588597583
+orchestra	559	0.00015331433223
+hall	558	0.000153040066877
+mustache	558	0.000153040066877
+pit	558	0.000153040066877
+racetrack	557	0.000152765801524
+rainbow	557	0.000152765801524
+protester	555	0.000152217270818
+jewelry	553	0.000151668740113
+pan	552	0.00015139447476
+wind	551	0.000151120209407
+peace	551	0.000151120209407
+world	550	0.000150845944054
+factory	549	0.000150571678701
+sprinkler	545	0.00014947461729
+catch	545	0.00014947461729
+apartment	545	0.00014947461729
+plaza	544	0.000149200351937
+diver	543	0.000148926086584
+heart	543	0.000148926086584
+half	543	0.000148926086584
+evening	543	0.000148926086584
+cut	543	0.000148926086584
+studio	543	0.000148926086584
+gesture	542	0.000148651821232
+transportation	540	0.000148103290526
+highway	539	0.000147829025173
+barrel	539	0.000147829025173
+land	539	0.000147829025173
+egg	538	0.00014755475982
+tower	538	0.00014755475982
+attempt	535	0.000146731963762
+climbing	534	0.000146457698409
+case	534	0.000146457698409
+ribbon	533	0.000146183433056
+headband	532	0.000145909167703
+stove	531	0.000145634902351
+lamp	528	0.000144812106292
+cage	527	0.000144537840939
+army	527	0.000144537840939
+map	527	0.000144537840939
+note	525	0.000143989310234
+mound	523	0.000143440779528
+cricket	522	0.000143166514175
+catcher	521	0.000142892248822
+neon	520	0.000142617983469
+dune	520	0.000142617983469
+creek	519	0.000142343718117
+ponytail	519	0.000142343718117
+maroon	518	0.000142069452764
+nail	516	0.000141520922058
+ceremony	516	0.000141520922058
+coaster	512	0.000140423860647
+rubber	512	0.000140423860647
+bedroom	510	0.000139875329941
+paddle	510	0.000139875329941
+position	510	0.000139875329941
+billboard	508	0.000139326799236
+engine	506	0.00013877826853
+design	506	0.00013877826853
+cheek	506	0.00013877826853
+corn	505	0.000138504003177
+tour	504	0.000138229737824
+sink	504	0.000138229737824
+soda	503	0.000137955472471
+spot	502	0.000137681207119
+ceiling	502	0.000137681207119
+furniture	500	0.000137132676413
+red-hair	497	0.000136309880354
+teens	496	0.000136035615002
+print	496	0.000136035615002
+chocolate	495	0.000135761349649
+garb	495	0.000135761349649
+cop	493	0.000135212818943
+material	493	0.000135212818943
+barber	491	0.000134664288238
+contest	488	0.000133841492179
+suitcase	487	0.000133567226826
+rowing	487	0.000133567226826
+jet	486	0.000133292961473
+pumpkin	483	0.000132470165415
+banana	482	0.000132195900062
+fall	482	0.000132195900062
+nature	481	0.000131921634709
+atv	480	0.000131647369356
+boxer	476	0.000130550307945
+training	475	0.000130276042592
+nurse	475	0.000130276042592
+kick	474	0.000130001777239
+pottery	473	0.000129727511887
+company	472	0.000129453246534
+gown	471	0.000129178981181
+pitch	471	0.000129178981181
+gymnastics	470	0.000128904715828
+monkey	466	0.000127807654417
+entrance	465	0.000127533389064
+circus	464	0.000127259123711
+pad	464	0.000127259123711
+formation	463	0.000126984858358
+yoga	460	0.0001261620623
+artwork	460	0.0001261620623
+control	459	0.000125887796947
+moon	458	0.000125613531594
+pig	457	0.000125339266241
+telephone	456	0.000125065000889
+cookie	456	0.000125065000889
+cross	456	0.000125065000889
+jungle	453	0.00012424220483
+teal	450	0.000123419408772
+barrier	450	0.000123419408772
+patient	450	0.000123419408772
+bagpipe	450	0.000123419408772
+bass	448	0.000122870878066
+cardboard	447	0.000122596612713
+gravel	447	0.000122596612713
+ballerina	446	0.00012232234736
+waist	446	0.00012232234736
+thumb	445	0.000122048082008
+crate	444	0.000121773816655
+goat	443	0.000121499551302
+polka	440	0.000120676755243
+rink	439	0.000120402489891
+lift	437	0.000119853959185
+pillar	435	0.000119305428479
+businessman	435	0.000119305428479
+trailer	434	0.000119031163126
+crane	434	0.000119031163126
+holding	433	0.000118756897774
+portrait	433	0.000118756897774
+liquid	433	0.000118756897774
+tricycle	432	0.000118482632421
+repair	432	0.000118482632421
+village	432	0.000118482632421
+cleaning	431	0.000118208367068
+story	431	0.000118208367068
+bow	428	0.000117385571009
+hamburger	428	0.000117385571009
+batter	428	0.000117385571009
+backdrop	427	0.000117111305657
+milk	427	0.000117111305657
+rabbit	425	0.000116562774951
+courtyard	424	0.000116288509598
+moment	424	0.000116288509598
+touch	423	0.000116014244245
+range	422	0.000115739978893
+wig	420	0.000115191448187
+girlfriend	420	0.000115191448187
+routine	420	0.000115191448187
+dive	419	0.000114917182834
+name	416	0.000114094386776
+pack	414	0.00011354585607
+morning	414	0.00011354585607
+pen	413	0.000113271590717
+denim	413	0.000113271590717
+tuxedo	413	0.000113271590717
+ticket	413	0.000113271590717
+cab	412	0.000112997325364
+potato	412	0.000112997325364
+public	411	0.000112723060011
+action	410	0.000112448794659
+wear	410	0.000112448794659
+accident	409	0.000112174529306
+roll	408	0.000111900263953
+bleacher	408	0.000111900263953
+leotard	407	0.0001116259986
+storefront	407	0.0001116259986
+saw	406	0.000111351733247
+poodle	405	0.000111077467894
+cameraman	405	0.000111077467894
+breakfast	404	0.000110803202542
+skill	403	0.000110528937189
+today	403	0.000110528937189
+derby	402	0.000110254671836
+expression	401	0.000109980406483
+wing	399	0.000109431875778
+finish	399	0.000109431875778
+juice	399	0.000109431875778
+headscarf	396	0.000108609079719
+scientist	396	0.000108609079719
+parachute	394	0.000108060549013
+banjo	394	0.000108060549013
+help	392	0.000107512018308
+cell	392	0.000107512018308
+section	391	0.000107237752955
+closeup	391	0.000107237752955
+horn	391	0.000107237752955
+letter	390	0.000106963487602
+motocross	390	0.000106963487602
+barefoot	389	0.000106689222249
+bouquet	389	0.000106689222249
+lounge	388	0.000106414956896
+flip-flop	388	0.000106414956896
+cello	387	0.000106140691544
+hike	386	0.000105866426191
+scout	386	0.000105866426191
+sunlight	386	0.000105866426191
+sailboat	386	0.000105866426191
+hut	386	0.000105866426191
+sleeve	385	0.000105592160838
+greyhound	384	0.000105317895485
+kilt	384	0.000105317895485
+cover	383	0.000105043630132
+steel	383	0.000105043630132
+championship	383	0.000105043630132
+target	382	0.00010476936478
+horseback	382	0.00010476936478
+chalk	381	0.000104495099427
+demonstration	381	0.000104495099427
+gymnasium	381	0.000104495099427
+dining	381	0.000104495099427
+drill	380	0.000104220834074
+pocket	379	0.000103946568721
+power	379	0.000103946568721
+discussion	379	0.000103946568721
+storm	379	0.000103946568721
+war	378	0.000103672303368
+iron	374	0.000102575241957
+spoon	372	0.000102026711251
+clay	370	0.000101478180546
+information	370	0.000101478180546
+watermelon	370	0.000101478180546
+yarn	369	0.000101203915193
+rally	369	0.000101203915193
+patch	367	0.000100655384487
+dot	367	0.000100655384487
+torch	366	0.000100381119134
+zoo	364	9.98325884286e-05
+bathtub	364	9.98325884286e-05
+sibling	364	9.98325884286e-05
+steak	363	9.95583230758e-05
+tip	363	9.95583230758e-05
+rollerblade	362	9.9284057723e-05
+motion	362	9.9284057723e-05
+variety	361	9.90097923702e-05
+mouse	361	9.90097923702e-05
+dreadlock	360	9.87355270173e-05
+driveway	359	9.84612616645e-05
+reflection	357	9.79127309589e-05
+calf	356	9.7638465606e-05
+act	355	9.73642002532e-05
+pilot	355	9.73642002532e-05
+pie	354	9.70899349004e-05
+weight	354	9.70899349004e-05
+golfer	353	9.68156695475e-05
+call	351	9.62671388419e-05
+mime	350	9.59928734891e-05
+diner	349	9.57186081362e-05
+slacks	349	9.57186081362e-05
+turban	349	9.57186081362e-05
+butterfly	348	9.54443427834e-05
+tuba	348	9.54443427834e-05
+gallery	348	9.54443427834e-05
+chalkboard	345	9.46215467249e-05
+float	345	9.46215467249e-05
+cheer	344	9.43472813721e-05
+science	343	9.40730160193e-05
+sack	343	9.40730160193e-05
+tomato	342	9.37987506665e-05
+test	342	9.37987506665e-05
+sledding	342	9.37987506665e-05
+film	342	9.37987506665e-05
+descent	341	9.35244853136e-05
+waiter	341	9.35244853136e-05
+shelf	341	9.35244853136e-05
+service	338	9.27016892552e-05
+camp	338	9.27016892552e-05
+monk	338	9.27016892552e-05
+nun	338	9.27016892552e-05
+seagull	337	9.24274239023e-05
+lip	337	9.24274239023e-05
+quarterback	337	9.24274239023e-05
+trashcan	336	9.21531585495e-05
+tape	336	9.21531585495e-05
+tug-of-war	336	9.21531585495e-05
+fair	335	9.18788931967e-05
+strip	335	9.18788931967e-05
+lecture	335	9.18788931967e-05
+notebook	333	9.1330362491e-05
+underwear	333	9.1330362491e-05
+painter	333	9.1330362491e-05
+dumpster	333	9.1330362491e-05
+working	332	9.10560971382e-05
+shopper	331	9.07818317854e-05
+menu	331	9.07818317854e-05
+surgery	331	9.07818317854e-05
+lion	331	9.07818317854e-05
+tiger	329	9.02333010797e-05
+column	329	9.02333010797e-05
+anything	328	8.99590357269e-05
+feather	328	8.99590357269e-05
+decoration	328	8.99590357269e-05
+rod	328	8.99590357269e-05
+the	327	8.96847703741e-05
+relaxing	325	8.91362396684e-05
+firework	325	8.91362396684e-05
+rifle	325	8.91362396684e-05
+love	324	8.88619743156e-05
+scenery	324	8.88619743156e-05
+form	324	8.88619743156e-05
+pinata	323	8.85877089628e-05
+sideline	322	8.83134436099e-05
+helicopter	322	8.83134436099e-05
+hip	322	8.83134436099e-05
+record	322	8.83134436099e-05
+celebration	321	8.80391782571e-05
+blood	321	8.80391782571e-05
+oven	321	8.80391782571e-05
+terrain	320	8.77649129043e-05
+score	319	8.74906475515e-05
+stuff	319	8.74906475515e-05
+chip	319	8.74906475515e-05
+hillside	319	8.74906475515e-05
+binoculars	319	8.74906475515e-05
+aisle	317	8.69421168458e-05
+flame	316	8.6667851493e-05
+cape	315	8.63935861402e-05
+trophy	315	8.63935861402e-05
+fencing	315	8.63935861402e-05
+bone	315	8.63935861402e-05
+supplies	315	8.63935861402e-05
+snowman	313	8.58450554345e-05
+logo	312	8.55707900817e-05
+monitor	312	8.55707900817e-05
+bin	312	8.55707900817e-05
+radio	312	8.55707900817e-05
+rice	311	8.52965247289e-05
+fireplace	311	8.52965247289e-05
+shoreline	309	8.47479940232e-05
+exhibit	309	8.47479940232e-05
+soup	309	8.47479940232e-05
+rapid	309	8.47479940232e-05
+rollerskate	308	8.44737286704e-05
+dust	308	8.44737286704e-05
+cargo	308	8.44737286704e-05
+speaker	308	8.44737286704e-05
+motor	308	8.44737286704e-05
+scaffold	307	8.41994633176e-05
+joke	307	8.41994633176e-05
+mug	307	8.41994633176e-05
+news	307	8.41994633176e-05
+pony	307	8.41994633176e-05
+briefcase	306	8.39251979647e-05
+character	306	8.39251979647e-05
+cotton	306	8.39251979647e-05
+kayaker	306	8.39251979647e-05
+cheese	305	8.36509326119e-05
+dough	305	8.36509326119e-05
+checkers	305	8.36509326119e-05
+crayon	304	8.33766672591e-05
+wheelie	303	8.31024019063e-05
+mohawk	303	8.31024019063e-05
+poker	303	8.31024019063e-05
+tail	302	8.28281365534e-05
+scrub	301	8.25538712006e-05
+headdress	301	8.25538712006e-05
+wrestling	301	8.25538712006e-05
+bulldozer	300	8.22796058478e-05
+afternoon	300	8.22796058478e-05
+beanie	300	8.22796058478e-05
+past	298	8.17310751421e-05
+earring	298	8.17310751421e-05
+camping	298	8.17310751421e-05
+butcher	298	8.17310751421e-05
+wares	297	8.14568097893e-05
+angel	297	8.14568097893e-05
+task	297	8.14568097893e-05
+christmas	297	8.14568097893e-05
+auditorium	296	8.11825444365e-05
+suspenders	295	8.09082790836e-05
+waitress	294	8.06340137308e-05
+elevator	293	8.0359748378e-05
+burger	293	8.0359748378e-05
+crown	292	8.00854830252e-05
+snowshoe	291	7.98112176723e-05
+lacrosse	291	7.98112176723e-05
+supermarket	290	7.95369523195e-05
+rack	290	7.95369523195e-05
+inside	289	7.92626869667e-05
+crop	288	7.89884216139e-05
+rose	288	7.89884216139e-05
+suv	287	7.8714156261e-05
+stilt	286	7.84398909082e-05
+venue	286	7.84398909082e-05
+lead	286	7.84398909082e-05
+folk	286	7.84398909082e-05
+location	285	7.81656255554e-05
+autumn	284	7.78913602026e-05
+master	283	7.76170948497e-05
+alleyway	283	7.76170948497e-05
+shades	283	7.76170948497e-05
+ad	281	7.70685641441e-05
+arcade	281	7.70685641441e-05
+shark	281	7.70685641441e-05
+moped	281	7.70685641441e-05
+fix	280	7.67942987913e-05
+package	280	7.67942987913e-05
+load	280	7.67942987913e-05
+umpire	280	7.67942987913e-05
+belly	280	7.67942987913e-05
+beret	280	7.67942987913e-05
+toe	280	7.67942987913e-05
+somebody	280	7.67942987913e-05
+meadow	279	7.65200334384e-05
+handbag	279	7.65200334384e-05
+retriever	279	7.65200334384e-05
+conductor	279	7.65200334384e-05
+debris	278	7.62457680856e-05
+mannequin	278	7.62457680856e-05
+peer	278	7.62457680856e-05
+drawing	277	7.59715027328e-05
+advertising	277	7.59715027328e-05
+speaking	277	7.59715027328e-05
+marker	276	7.569723738e-05
+pathway	276	7.569723738e-05
+toilet	276	7.569723738e-05
+guest	276	7.569723738e-05
+canvas	275	7.54229720271e-05
+hunting	275	7.54229720271e-05
+teen	275	7.54229720271e-05
+cobblestone	275	7.54229720271e-05
+deer	275	7.54229720271e-05
+text	275	7.54229720271e-05
+fist	274	7.51487066743e-05
+pigtail	274	7.51487066743e-05
+bead	274	7.51487066743e-05
+sailor	274	7.51487066743e-05
+wheelbarrow	272	7.46001759687e-05
+chat	272	7.46001759687e-05
+dusk	272	7.46001759687e-05
+basement	272	7.46001759687e-05
+treat	272	7.46001759687e-05
+shoot	272	7.46001759687e-05
+hour	272	7.46001759687e-05
+mountainside	271	7.43259106158e-05
+silhouette	271	7.43259106158e-05
+dark	269	7.37773799102e-05
+crash	269	7.37773799102e-05
+grandmother	268	7.35031145573e-05
+instructor	268	7.35031145573e-05
+shape	267	7.32288492045e-05
+shawl	266	7.29545838517e-05
+state	266	7.29545838517e-05
+skin	266	7.29545838517e-05
+forehead	266	7.29545838517e-05
+campfire	266	7.29545838517e-05
+snowball	265	7.26803184989e-05
+casino	265	7.26803184989e-05
+snake	265	7.26803184989e-05
+monument	265	7.26803184989e-05
+care	265	7.26803184989e-05
+leader	265	7.26803184989e-05
+actor	264	7.2406053146e-05
+drag	264	7.2406053146e-05
+leap	264	7.2406053146e-05
+community	263	7.21317877932e-05
+giraffe	263	7.21317877932e-05
+garment	262	7.18575224404e-05
+department	262	7.18575224404e-05
+cruise	262	7.18575224404e-05
+barn	262	7.18575224404e-05
+photographer	260	7.13089917347e-05
+jeep	260	7.13089917347e-05
+joy	260	7.13089917347e-05
+citizen	259	7.10347263819e-05
+valley	259	7.10347263819e-05
+tee	259	7.10347263819e-05
+midst	258	7.07604610291e-05
+jumper	258	7.07604610291e-05
+stomach	258	7.07604610291e-05
+bartender	258	7.07604610291e-05
+merchandise	258	7.07604610291e-05
+handrail	258	7.07604610291e-05
+fashion	257	7.04861956763e-05
+battle	256	7.02119303234e-05
+crib	256	7.02119303234e-05
+tripod	256	7.02119303234e-05
+pass	255	6.99376649706e-05
+environment	254	6.96633996178e-05
+turtle	253	6.9389134265e-05
+emergency	253	6.9389134265e-05
+stairway	253	6.9389134265e-05
+puppet	253	6.9389134265e-05
+pancake	253	6.9389134265e-05
+boyfriend	252	6.91148689121e-05
+young	252	6.91148689121e-05
+awning	252	6.91148689121e-05
+raincoat	252	6.91148689121e-05
+spring	251	6.88406035593e-05
+experiment	251	6.88406035593e-05
+paw	251	6.88406035593e-05
+brass	251	6.88406035593e-05
+zone	250	6.85663382065e-05
+bystander	250	6.85663382065e-05
+squirrel	250	6.85663382065e-05
+stretch	249	6.82920728537e-05
+robot	249	6.82920728537e-05
+chainsaw	249	6.82920728537e-05
+snowsuit	247	6.7743542148e-05
+weapon	247	6.7743542148e-05
+sight	247	6.7743542148e-05
+fighter	245	6.71950114424e-05
+holiday	245	6.71950114424e-05
+zombie	245	6.71950114424e-05
+opening	244	6.69207460895e-05
+tights	243	6.66464807367e-05
+share	243	6.66464807367e-05
+lime	243	6.66464807367e-05
+kitten	242	6.63722153839e-05
+swan	242	6.63722153839e-05
+purchase	242	6.63722153839e-05
+staff	242	6.63722153839e-05
+pattern	242	6.63722153839e-05
+trolley	242	6.63722153839e-05
+hammock	241	6.6097950031e-05
+level	241	6.6097950031e-05
+tutu	241	6.6097950031e-05
+vacuum	240	6.58236846782e-05
+treadmill	239	6.55494193254e-05
+mower	239	6.55494193254e-05
+guide	238	6.52751539726e-05
+dragon	238	6.52751539726e-05
+disc	238	6.52751539726e-05
+axe	237	6.50008886197e-05
+award	237	6.50008886197e-05
+rooftop	237	6.50008886197e-05
+stump	237	6.50008886197e-05
+competitor	237	6.50008886197e-05
+fly	237	6.50008886197e-05
+shelter	237	6.50008886197e-05
+curtain	237	6.50008886197e-05
+lantern	236	6.47266232669e-05
+horizon	236	6.47266232669e-05
+contraption	234	6.41780925613e-05
+ingredient	234	6.41780925613e-05
+cigar	233	6.39038272084e-05
+charity	233	6.39038272084e-05
+nightclub	233	6.39038272084e-05
+walker	232	6.36295618556e-05
+boulder	232	6.36295618556e-05
+bib	232	6.36295618556e-05
+bamboo	232	6.36295618556e-05
+bundle	232	6.36295618556e-05
+shepherd	232	6.36295618556e-05
+support	231	6.33552965028e-05
+temple	231	6.33552965028e-05
+reception	230	6.308103115e-05
+convention	230	6.308103115e-05
+solo	229	6.28067657971e-05
+landing	228	6.25325004443e-05
+dessert	228	6.25325004443e-05
+kiosk	228	6.25325004443e-05
+jazz	228	6.25325004443e-05
+surgeon	227	6.22582350915e-05
+homework	227	6.22582350915e-05
+funeral	226	6.19839697387e-05
+priest	226	6.19839697387e-05
+graduation	226	6.19839697387e-05
+link	225	6.17097043858e-05
+bakery	225	6.17097043858e-05
+aquarium	225	6.17097043858e-05
+prize	224	6.1435439033e-05
+laboratory	224	6.1435439033e-05
+exit	224	6.1435439033e-05
+belongings	224	6.1435439033e-05
+companion	224	6.1435439033e-05
+marble	224	6.1435439033e-05
+cafeteria	224	6.1435439033e-05
+wheeler	223	6.11611736802e-05
+goose	223	6.11611736802e-05
+sleeping	223	6.11611736802e-05
+seed	222	6.08869083274e-05
+juggling	221	6.06126429745e-05
+turquoise	221	6.06126429745e-05
+arrow	220	6.03383776217e-05
+stoop	220	6.03383776217e-05
+jack	220	6.03383776217e-05
+victory	220	6.03383776217e-05
+cave	219	6.00641122689e-05
+merry-go-round	219	6.00641122689e-05
+running	219	6.00641122689e-05
+lesson	219	6.00641122689e-05
+punch	218	5.97898469161e-05
+cherry	218	5.97898469161e-05
+bronco	218	5.97898469161e-05
+turkey	218	5.97898469161e-05
+present	218	5.97898469161e-05
+fedora	217	5.95155815632e-05
+camper	217	5.95155815632e-05
+warehouse	217	5.95155815632e-05
+medium	217	5.95155815632e-05
+welder	216	5.92413162104e-05
+fatigue	216	5.92413162104e-05
+bridesmaid	216	5.92413162104e-05
+bunny	214	5.86927855047e-05
+jogger	214	5.86927855047e-05
+bmx	214	5.86927855047e-05
+sweat	214	5.86927855047e-05
+countryside	213	5.84185201519e-05
+bale	213	5.84185201519e-05
+cattle	213	5.84185201519e-05
+amount	213	5.84185201519e-05
+rag	213	5.84185201519e-05
+curve	213	5.84185201519e-05
+kimono	213	5.84185201519e-05
+patron	213	5.84185201519e-05
+dolphin	212	5.81442547991e-05
+clothesline	211	5.78699894463e-05
+cycle	211	5.78699894463e-05
+participant	211	5.78699894463e-05
+series	210	5.75957240934e-05
+clarinet	210	5.75957240934e-05
+dinosaur	209	5.73214587406e-05
+braid	209	5.73214587406e-05
+circuit	209	5.73214587406e-05
+rickshaw	209	5.73214587406e-05
+crab	209	5.73214587406e-05
+washer	209	5.73214587406e-05
+pencil	208	5.70471933878e-05
+league	208	5.70471933878e-05
+dentist	208	5.70471933878e-05
+laundromat	208	5.70471933878e-05
+tarp	207	5.6772928035e-05
+dryer	207	5.6772928035e-05
+coworker	207	5.6772928035e-05
+plank	206	5.64986626821e-05
+judge	206	5.64986626821e-05
+canyon	205	5.62243973293e-05
+coconut	205	5.62243973293e-05
+homemade	205	5.62243973293e-05
+alcohol	205	5.62243973293e-05
+shooting	204	5.59501319765e-05
+typing	203	5.56758666237e-05
+system	203	5.56758666237e-05
+flannel	202	5.54016012708e-05
+arch	202	5.54016012708e-05
+sample	202	5.54016012708e-05
+riot	202	5.54016012708e-05
+lobby	202	5.54016012708e-05
+message	201	5.5127335918e-05
+buffet	201	5.5127335918e-05
+jar	201	5.5127335918e-05
+problem	201	5.5127335918e-05
+skull	201	5.5127335918e-05
+partner	201	5.5127335918e-05
+projector	201	5.5127335918e-05
+bicycling	201	5.5127335918e-05
+baton	200	5.48530705652e-05
+harmonica	200	5.48530705652e-05
+sausage	200	5.48530705652e-05
+scale	200	5.48530705652e-05
+progress	200	5.48530705652e-05
+mess	200	5.48530705652e-05
+trench	200	5.48530705652e-05
+bra	199	5.45788052124e-05
+cartwheel	199	5.45788052124e-05
+sash	199	5.45788052124e-05
+deli	198	5.43045398595e-05
+dozen	198	5.43045398595e-05
+spotlight	198	5.43045398595e-05
+salon	198	5.43045398595e-05
+leggings	198	5.43045398595e-05
+earth	198	5.43045398595e-05
+cable	197	5.40302745067e-05
+mechanic	197	5.40302745067e-05
+violinist	197	5.40302745067e-05
+peak	197	5.40302745067e-05
+terrier	197	5.40302745067e-05
+scissors	197	5.40302745067e-05
+workman	197	5.40302745067e-05
+pirate	196	5.37560091539e-05
+skyscraper	196	5.37560091539e-05
+maintenance	196	5.37560091539e-05
+snowmobile	195	5.34817438011e-05
+lighting	195	5.34817438011e-05
+automobile	195	5.34817438011e-05
+quad	194	5.32074784482e-05
+donut	194	5.32074784482e-05
+overhead	193	5.29332130954e-05
+soap	193	5.29332130954e-05
+american	193	5.29332130954e-05
+rescue	193	5.29332130954e-05
+workshop	193	5.29332130954e-05
+parka	193	5.29332130954e-05
+cabinet	193	5.29332130954e-05
+mascot	192	5.26589477426e-05
+megaphone	192	5.26589477426e-05
+eyeglass	192	5.26589477426e-05
+juggler	192	5.26589477426e-05
+canal	192	5.26589477426e-05
+professor	191	5.23846823898e-05
+sunshine	191	5.23846823898e-05
+monster	191	5.23846823898e-05
+strap	191	5.23846823898e-05
+boss	191	5.23846823898e-05
+cycling	190	5.21104170369e-05
+cancer	190	5.21104170369e-05
+climb	190	5.21104170369e-05
+lover	190	5.21104170369e-05
+harbor	189	5.18361516841e-05
+hydrant	189	5.18361516841e-05
+oil	189	5.18361516841e-05
+medal	188	5.15618863313e-05
+bug	188	5.15618863313e-05
+chin	186	5.10133556256e-05
+salad	186	5.10133556256e-05
+sari	186	5.10133556256e-05
+buggy	186	5.10133556256e-05
+highchair	186	5.10133556256e-05
+cash	186	5.10133556256e-05
+locker	185	5.07390902728e-05
+janitor	185	5.07390902728e-05
+teddy	185	5.07390902728e-05
+neighbor	185	5.07390902728e-05
+clock	185	5.07390902728e-05
+pickup	185	5.07390902728e-05
+change	185	5.07390902728e-05
+bowler	185	5.07390902728e-05
+youngster	185	5.07390902728e-05
+height	185	5.07390902728e-05
+talent	185	5.07390902728e-05
+donation	185	5.07390902728e-05
+bracelet	185	5.07390902728e-05
+death	184	5.046482492e-05
+strawberry	184	5.046482492e-05
+razor	184	5.046482492e-05
+mule	182	4.99162942143e-05
+meter	182	4.99162942143e-05
+symbol	182	4.99162942143e-05
+hanging	181	4.96420288615e-05
+sail	181	4.96420288615e-05
+icy	181	4.96420288615e-05
+cartoon	180	4.93677635087e-05
+study	180	4.93677635087e-05
+teaching	180	4.93677635087e-05
+wakeboard	180	4.93677635087e-05
+limb	179	4.90934981558e-05
+establishment	179	4.90934981558e-05
+destination	179	4.90934981558e-05
+collection	179	4.90934981558e-05
+cabin	179	4.90934981558e-05
+lipstick	178	4.8819232803e-05
+pub	178	4.8819232803e-05
+vase	178	4.8819232803e-05
+pastry	178	4.8819232803e-05
+bookstore	178	4.8819232803e-05
+brand	178	4.8819232803e-05
+barricade	178	4.8819232803e-05
+press	178	4.8819232803e-05
+paperwork	177	4.85449674502e-05
+bay	177	4.85449674502e-05
+flock	177	4.85449674502e-05
+march	177	4.85449674502e-05
+sailing	177	4.85449674502e-05
+personnel	177	4.85449674502e-05
+lens	177	4.85449674502e-05
+toothbrush	177	4.85449674502e-05
+cord	177	4.85449674502e-05
+trio	177	4.85449674502e-05
+fighting	177	4.85449674502e-05
+pick	176	4.82707020974e-05
+cashier	176	4.82707020974e-05
+frog	176	4.82707020974e-05
+punk	175	4.79964367445e-05
+waterway	175	4.79964367445e-05
+blazer	175	4.79964367445e-05
+go-cart	175	4.79964367445e-05
+use	175	4.79964367445e-05
+caution	174	4.77221713917e-05
+kneel	174	4.77221713917e-05
+interview	174	4.77221713917e-05
+signal	174	4.77221713917e-05
+transit	174	4.77221713917e-05
+question	174	4.77221713917e-05
+possession	174	4.77221713917e-05
+bell	173	4.74479060389e-05
+burning	173	4.74479060389e-05
+burgundy	172	4.71736406861e-05
+chopstick	172	4.71736406861e-05
+weed	172	4.71736406861e-05
+wilderness	172	4.71736406861e-05
+visor	171	4.68993753332e-05
+strike	170	4.66251099804e-05
+defender	170	4.66251099804e-05
+close	169	4.63508446276e-05
+mountaintop	169	4.63508446276e-05
+protection	169	4.63508446276e-05
+flea	169	4.63508446276e-05
+popcorn	168	4.60765792748e-05
+length	168	4.60765792748e-05
+hopscotch	168	4.60765792748e-05
+process	167	4.58023139219e-05
+grandfather	167	4.58023139219e-05
+dump	167	4.58023139219e-05
+tee-shirt	166	4.55280485691e-05
+mill	166	4.55280485691e-05
+spatula	165	4.52537832163e-05
+sweatpant	164	4.49795178635e-05
+earphone	164	4.49795178635e-05
+push	163	4.47052525106e-05
+utility	163	4.47052525106e-05
+visitor	163	4.47052525106e-05
+redhead	163	4.47052525106e-05
+entertainer	163	4.47052525106e-05
+passersby	163	4.47052525106e-05
+instruction	163	4.47052525106e-05
+metro	163	4.47052525106e-05
+wash	162	4.44309871578e-05
+ambulance	162	4.44309871578e-05
+start	162	4.44309871578e-05
+workout	162	4.44309871578e-05
+tablecloth	162	4.44309871578e-05
+coverall	162	4.44309871578e-05
+rollerblader	162	4.44309871578e-05
+halloween	161	4.4156721805e-05
+island	161	4.4156721805e-05
+season	161	4.4156721805e-05
+jug	161	4.4156721805e-05
+rowboat	161	4.4156721805e-05
+darts	160	4.38824564521e-05
+onion	160	4.38824564521e-05
+sushi	160	4.38824564521e-05
+mailbox	160	4.38824564521e-05
+asphalt	160	4.38824564521e-05
+innertube	160	4.38824564521e-05
+collie	159	4.36081910993e-05
+chew	159	4.36081910993e-05
+alligator	159	4.36081910993e-05
+cylinder	159	4.36081910993e-05
+smock	159	4.36081910993e-05
+preparation	159	4.36081910993e-05
+backpacker	159	4.36081910993e-05
+approach	159	4.36081910993e-05
+cereal	158	4.33339257465e-05
+soil	158	4.33339257465e-05
+shack	158	4.33339257465e-05
+fork	158	4.33339257465e-05
+champagne	158	4.33339257465e-05
+patrol	158	4.33339257465e-05
+bean	158	4.33339257465e-05
+slice	158	4.33339257465e-05
+pacifier	157	4.30596603937e-05
+acrobat	157	4.30596603937e-05
+twin	156	4.27853950408e-05
+delivery	156	4.27853950408e-05
+sewing	156	4.27853950408e-05
+hardwood	156	4.27853950408e-05
+foliage	156	4.27853950408e-05
+stranger	155	4.2511129688e-05
+coast	155	4.2511129688e-05
+pay	155	4.2511129688e-05
+touchdown	155	4.2511129688e-05
+diaper	154	4.22368643352e-05
+baker	154	4.22368643352e-05
+muzzle	154	4.22368643352e-05
+tow	154	4.22368643352e-05
+memorial	153	4.19625989824e-05
+lizard	153	4.19625989824e-05
+backseat	153	4.19625989824e-05
+cheerleading	153	4.19625989824e-05
+exhibition	153	4.19625989824e-05
+vegetation	153	4.19625989824e-05
+wrap	152	4.16883336295e-05
+olympics	152	4.16883336295e-05
+tulip	152	4.16883336295e-05
+reporter	151	4.14140682767e-05
+skyline	151	4.14140682767e-05
+viewer	151	4.14140682767e-05
+professional	151	4.14140682767e-05
+stance	151	4.14140682767e-05
+mixer	151	4.14140682767e-05
+handlebars	151	4.14140682767e-05
+noodle	151	4.14140682767e-05
+wrist	151	4.14140682767e-05
+canopy	151	4.14140682767e-05
+dandelion	150	4.11398029239e-05
+trouble	150	4.11398029239e-05
+tiara	150	4.11398029239e-05
+cupcake	150	4.11398029239e-05
+goatee	150	4.11398029239e-05
+relay	149	4.08655375711e-05
+upward	149	4.08655375711e-05
+cause	149	4.08655375711e-05
+attack	149	4.08655375711e-05
+volunteer	149	4.08655375711e-05
+carrot	149	4.08655375711e-05
+size	148	4.05912722182e-05
+suite	148	4.05912722182e-05
+sponge	148	4.05912722182e-05
+traveler	148	4.05912722182e-05
+sweep	148	4.05912722182e-05
+pedal	148	4.05912722182e-05
+headset	147	4.03170068654e-05
+roadway	147	4.03170068654e-05
+excitement	147	4.03170068654e-05
+steam	147	4.03170068654e-05
+trainer	147	4.03170068654e-05
+piggyback	147	4.03170068654e-05
+blade	146	4.00427415126e-05
+beauty	146	4.00427415126e-05
+fog	146	4.00427415126e-05
+terminal	146	4.00427415126e-05
+toast	146	4.00427415126e-05
+veteran	146	4.00427415126e-05
+squad	146	4.00427415126e-05
+panel	146	4.00427415126e-05
+tune	145	3.97684761598e-05
+bite	145	3.97684761598e-05
+carousel	145	3.97684761598e-05
+foam	145	3.97684761598e-05
+shed	145	3.97684761598e-05
+ruin	145	3.97684761598e-05
+substance	144	3.94942108069e-05
+math	144	3.94942108069e-05
+mallet	144	3.94942108069e-05
+cold	144	3.94942108069e-05
+badminton	144	3.94942108069e-05
+hit	144	3.94942108069e-05
+sunhat	144	3.94942108069e-05
+ipod	144	3.94942108069e-05
+grain	144	3.94942108069e-05
+pressure	143	3.92199454541e-05
+prayer	143	3.92199454541e-05
+pain	143	3.92199454541e-05
+alien	143	3.92199454541e-05
+pepper	143	3.92199454541e-05
+cubicle	143	3.92199454541e-05
+contact	142	3.89456801013e-05
+price	142	3.89456801013e-05
+article	142	3.89456801013e-05
+pump	142	3.89456801013e-05
+xylophone	142	3.89456801013e-05
+oar	142	3.89456801013e-05
+eachother	142	3.89456801013e-05
+pop	142	3.89456801013e-05
+address	141	3.86714147485e-05
+language	141	3.86714147485e-05
+limo	141	3.86714147485e-05
+pride	141	3.86714147485e-05
+resort	141	3.86714147485e-05
+incline	141	3.86714147485e-05
+off-camera	140	3.83971493956e-05
+winner	140	3.83971493956e-05
+search	140	3.83971493956e-05
+harp	140	3.83971493956e-05
+sparkler	140	3.83971493956e-05
+puzzle	140	3.83971493956e-05
+sandcastle	140	3.83971493956e-05
+sandbox	139	3.81228840428e-05
+bend	139	3.81228840428e-05
+lemonade	139	3.81228840428e-05
+clerk	139	3.81228840428e-05
+breast	139	3.81228840428e-05
+maneuver	139	3.81228840428e-05
+period	139	3.81228840428e-05
+easel	139	3.81228840428e-05
+facility	138	3.784861869e-05
+bicycler	138	3.784861869e-05
+hairnet	138	3.784861869e-05
+wait	138	3.784861869e-05
+gardening	138	3.784861869e-05
+lifeguard	138	3.784861869e-05
+flour	138	3.784861869e-05
+racquet	137	3.75743533372e-05
+sundress	137	3.75743533372e-05
+tightrope	137	3.75743533372e-05
+official	137	3.75743533372e-05
+wallet	137	3.75743533372e-05
+plain	137	3.75743533372e-05
+gang	137	3.75743533372e-05
+reunion	137	3.75743533372e-05
+shell	137	3.75743533372e-05
+campsite	136	3.73000879843e-05
+register	136	3.73000879843e-05
+grandson	136	3.73000879843e-05
+campus	136	3.73000879843e-05
+technique	136	3.73000879843e-05
+everybody	136	3.73000879843e-05
+mail	136	3.73000879843e-05
+silk	136	3.73000879843e-05
+noise	136	3.73000879843e-05
+seafood	136	3.73000879843e-05
+fixture	136	3.73000879843e-05
+cleaner	136	3.73000879843e-05
+wineglass	136	3.73000879843e-05
+boogie	135	3.70258226315e-05
+theme	135	3.70258226315e-05
+shield	135	3.70258226315e-05
+bongo	135	3.70258226315e-05
+merchant	135	3.70258226315e-05
+writing	135	3.70258226315e-05
+focus	135	3.70258226315e-05
+carrier	135	3.70258226315e-05
+enclosure	134	3.67515572787e-05
+tug	134	3.67515572787e-05
+domino	134	3.67515572787e-05
+backflip	133	3.64772919258e-05
+electronics	133	3.64772919258e-05
+pyramid	133	3.64772919258e-05
+hedge	133	3.64772919258e-05
+spaghetti	132	3.6203026573e-05
+plan	132	3.6203026573e-05
+cushion	132	3.6203026573e-05
+elbow	132	3.6203026573e-05
+wakeboarder	132	3.6203026573e-05
+polish	132	3.6203026573e-05
+hold	131	3.59287612202e-05
+up	131	3.59287612202e-05
+assembly	131	3.59287612202e-05
+picket	131	3.59287612202e-05
+skiier	131	3.59287612202e-05
+archway	131	3.59287612202e-05
+thread	131	3.59287612202e-05
+zebra	131	3.59287612202e-05
+muscle	130	3.56544958674e-05
+princess	130	3.56544958674e-05
+technician	130	3.56544958674e-05
+pail	130	3.56544958674e-05
+duty	130	3.56544958674e-05
+snowboarding	130	3.56544958674e-05
+rooster	130	3.56544958674e-05
+wand	129	3.53802305145e-05
+ax	129	3.53802305145e-05
+maker	129	3.53802305145e-05
+javelin	129	3.53802305145e-05
+government	129	3.53802305145e-05
+lettering	129	3.53802305145e-05
+bun	129	3.53802305145e-05
+angle	129	3.53802305145e-05
+bounce	128	3.51059651617e-05
+clearing	128	3.51059651617e-05
+trombone	127	3.48316998089e-05
+sleigh	127	3.48316998089e-05
+checkout	127	3.48316998089e-05
+tap	127	3.48316998089e-05
+roadside	126	3.45574344561e-05
+mass	126	3.45574344561e-05
+self	126	3.45574344561e-05
+cannon	126	3.45574344561e-05
+dunk	126	3.45574344561e-05
+cast	126	3.45574344561e-05
+gum	125	3.42831691032e-05
+goldfish	125	3.42831691032e-05
+cityscape	125	3.42831691032e-05
+ditch	125	3.42831691032e-05
+gorilla	125	3.42831691032e-05
+operation	125	3.42831691032e-05
+bookbag	125	3.42831691032e-05
+rocker	125	3.42831691032e-05
+mitt	125	3.42831691032e-05
+slot	124	3.40089037504e-05
+bee	124	3.40089037504e-05
+defense	124	3.40089037504e-05
+exam	124	3.40089037504e-05
+peach	124	3.40089037504e-05
+ferry	124	3.40089037504e-05
+bodysuit	123	3.37346383976e-05
+breath	123	3.37346383976e-05
+drop	123	3.37346383976e-05
+queen	123	3.37346383976e-05
+ritual	123	3.37346383976e-05
+cooler	123	3.37346383976e-05
+wool	123	3.37346383976e-05
+mattress	123	3.37346383976e-05
+litter	123	3.37346383976e-05
+herd	122	3.34603730448e-05
+mane	122	3.34603730448e-05
+whiteboard	122	3.34603730448e-05
+grandchild	122	3.34603730448e-05
+folder	122	3.34603730448e-05
+floaty	122	3.34603730448e-05
+cure	122	3.34603730448e-05
+complex	122	3.34603730448e-05
+week	122	3.34603730448e-05
+loaf	121	3.31861076919e-05
+stoplight	121	3.31861076919e-05
+shit	121	3.31861076919e-05
+overcoat	121	3.31861076919e-05
+shrub	121	3.31861076919e-05
+confetti	121	3.31861076919e-05
+crime	121	3.31861076919e-05
+whale	121	3.31861076919e-05
+saddle	121	3.31861076919e-05
+eagle	120	3.29118423391e-05
+newlywed	120	3.29118423391e-05
+hook	119	3.26375769863e-05
+converse	119	3.26375769863e-05
+skydiving	119	3.26375769863e-05
+arrangement	119	3.26375769863e-05
+heat	119	3.26375769863e-05
+grandma	118	3.23633116335e-05
+stack	118	3.23633116335e-05
+try	118	3.23633116335e-05
+rafting	118	3.23633116335e-05
+basis	118	3.23633116335e-05
+pasta	118	3.23633116335e-05
+slam	117	3.20890462806e-05
+t	117	3.20890462806e-05
+sweating	117	3.20890462806e-05
+yo-yo	117	3.20890462806e-05
+hooping	117	3.20890462806e-05
+key	117	3.20890462806e-05
+captain	117	3.20890462806e-05
+waterfront	117	3.20890462806e-05
+stock	117	3.20890462806e-05
+goer	117	3.20890462806e-05
+jog	117	3.20890462806e-05
+sombrero	116	3.18147809278e-05
+lock	116	3.18147809278e-05
+album	116	3.18147809278e-05
+page	116	3.18147809278e-05
+ensemble	116	3.18147809278e-05
+minivan	116	3.18147809278e-05
+taco	116	3.18147809278e-05
+border	115	3.1540515575e-05
+organ	115	3.1540515575e-05
+blower	115	3.1540515575e-05
+anvil	115	3.1540515575e-05
+crutch	114	3.12662502222e-05
+wicker	114	3.12662502222e-05
+buying	114	3.12662502222e-05
+fleece	114	3.12662502222e-05
+contents	114	3.12662502222e-05
+karaoke	114	3.12662502222e-05
+snowstorm	114	3.12662502222e-05
+penguin	114	3.12662502222e-05
+lego	113	3.09919848693e-05
+attraction	113	3.09919848693e-05
+pitbull	113	3.09919848693e-05
+wheat	113	3.09919848693e-05
+hundred	113	3.09919848693e-05
+beagle	113	3.09919848693e-05
+grip	113	3.09919848693e-05
+leopard	113	3.09919848693e-05
+profile	113	3.09919848693e-05
+thought	113	3.09919848693e-05
+waterskiing	113	3.09919848693e-05
+travel	112	3.07177195165e-05
+jackhammer	112	3.07177195165e-05
+sex	112	3.07177195165e-05
+kissing	112	3.07177195165e-05
+drug	112	3.07177195165e-05
+dishwasher	112	3.07177195165e-05
+contestant	112	3.07177195165e-05
+recital	112	3.07177195165e-05
+magician	112	3.07177195165e-05
+rival	111	3.04434541637e-05
+apparel	111	3.04434541637e-05
+veil	111	3.04434541637e-05
+law	111	3.04434541637e-05
+recess	111	3.04434541637e-05
+warrior	111	3.04434541637e-05
+cocktail	111	3.04434541637e-05
+politics	111	3.04434541637e-05
+pretzel	110	3.01691888109e-05
+condition	110	3.01691888109e-05
+riverbank	110	3.01691888109e-05
+schoolgirl	110	3.01691888109e-05
+mile	110	3.01691888109e-05
+grin	110	3.01691888109e-05
+golfing	110	3.01691888109e-05
+surroundings	110	3.01691888109e-05
+seesaw	109	2.9894923458e-05
+force	109	2.9894923458e-05
+stocking	109	2.9894923458e-05
+napkin	109	2.9894923458e-05
+bit	109	2.9894923458e-05
+chasing	109	2.9894923458e-05
+technology	108	2.96206581052e-05
+wristband	108	2.96206581052e-05
+wade	108	2.96206581052e-05
+chore	108	2.96206581052e-05
+architecture	108	2.96206581052e-05
+district	108	2.96206581052e-05
+recipe	108	2.96206581052e-05
+volcano	107	2.93463927524e-05
+playpen	107	2.93463927524e-05
+swimwear	107	2.93463927524e-05
+brownie	107	2.93463927524e-05
+breakdancer	107	2.93463927524e-05
+storage	107	2.93463927524e-05
+sewer	107	2.93463927524e-05
+dollar	107	2.93463927524e-05
+refrigerator	107	2.93463927524e-05
+railway	107	2.93463927524e-05
+crouch	106	2.90721273995e-05
+commuter	106	2.90721273995e-05
+crack	106	2.90721273995e-05
+split	106	2.90721273995e-05
+marking	106	2.90721273995e-05
+pavilion	106	2.90721273995e-05
+boa	106	2.90721273995e-05
+butt	106	2.90721273995e-05
+movement	106	2.90721273995e-05
+mascara	106	2.90721273995e-05
+list	106	2.90721273995e-05
+lobster	105	2.87978620467e-05
+conveyor	105	2.87978620467e-05
+aid	105	2.87978620467e-05
+shingle	105	2.87978620467e-05
+pew	105	2.87978620467e-05
+driving	105	2.87978620467e-05
+liquor	105	2.87978620467e-05
+yacht	105	2.87978620467e-05
+firing	105	2.87978620467e-05
+typewriter	105	2.87978620467e-05
+lasso	104	2.85235966939e-05
+streetlight	104	2.85235966939e-05
+labrador	104	2.85235966939e-05
+rubble	104	2.85235966939e-05
+picker	104	2.85235966939e-05
