@@ -1,5 +1,8 @@
 import it.uniroma1.lcl.babelnet.*;
 import it.uniroma1.lcl.babelnet.data.BabelSenseSource;
+import it.uniroma1.lcl.babelnet.resources.ResourceID;
+import it.uniroma1.lcl.babelnet.resources.WikidataID;
+import it.uniroma1.lcl.babelnet.resources.WordNetSynsetID;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -19,11 +22,10 @@ public class WikipediaDataProvider {
         BabelNet bn = BabelNet.getInstance();
         while (in.hasNext()) {
             synsetOffset = in.next().split("\t")[3];
-            BabelSynset by = bn.getSynset(new BabelSynsetID(synsetOffset));
+            BabelSynset by = bn.getSynset(new WordNetSynsetID(synsetOffset));
             if (by != null) {
-                for (BabelSense sense : by.getSenses(BabelSenseSource.WIKIDATA)) {
-                    String senseKey = sense.getSensekey();
-                    System.out.println(sense.getLemma() + "\t" + sense.getLanguage() + "\t" + senseKey);
+                for (BabelSense sense : by.getSenses(BabelSenseSource.WIKI)) {
+                    System.out.println(sense.getLemma() + "\t" + sense.getLanguage() + "\t" + "\t" + sense.getSynset());
                 }
             }
             else {

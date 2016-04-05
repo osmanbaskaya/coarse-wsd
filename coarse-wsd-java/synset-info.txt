@@ -1,10 +1,10 @@
-dog	2084071	n	wn:02084071n	42
-dog	10114209	n	wn:10114209n	0
-dog	10023039	n	wn:10023039n	0
-dog	9886220	n	wn:09886220n	1
-dog	7676602	n	wn:07676602n	0
-dog	3901548	n	wn:03901548n	0
-dog	2710044	n	wn:02710044n	0
-dog	2001858	v	wn:02001858v	23
-apple	7739125	n	wn:07739125n	1
-apple	12633994	n	wn:12633994n	0
+dog	2084071	n	wn:02084071n	42	a member of the genus Canis (probably descended from the common wolf) that has been domesticated by man since prehistoric times; occurs in many breeds
+dog	10114209	n	wn:10114209n	0	a dull unattractive unpleasant girl or woman
+dog	10023039	n	wn:10023039n	0	informal term for a man
+dog	9886220	n	wn:09886220n	1	someone who is morally reprehensible
+dog	7676602	n	wn:07676602n	0	a smooth-textured sausage of minced beef or pork usually smoked; often served on a bread roll
+dog	3901548	n	wn:03901548n	0	a hinged catch that fits into a notch of a ratchet to move a wheel forward or prevent it from moving backward
+dog	2710044	n	wn:02710044n	0	metal supports for logs in a fireplace
+dog	2001858	v	wn:02001858v	23	go after with the intent to catch
+apple	7739125	n	wn:07739125n	1	fruit with red or yellow or green skin and sweet to tart crisp whitish flesh
+apple	12633994	n	wn:12633994n	0	native Eurasian tree widely cultivated in many varieties for its firm rounded edible fruits

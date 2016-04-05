@@ -24,8 +24,9 @@ class WordNetExtractor(object):
                 continue
 
             for synset in synsets:
-                s = "{}\t{}\t{}\twn:{:08d}{}\t{}\n".format(word, synset.offset(), synset.pos(), synset.offset(),
-                                                           synset.pos(), sum(lemma.count() for lemma in synset.lemmas()))
+                s = "{}\t{}\t{}\twn:{:08d}{}\t{}\t{}\n".format(word, synset.offset(), synset.pos(), synset.offset(),
+                                                           synset.pos(), sum(lemma.count() for lemma in synset.lemmas()),
+                                                               synset.definition())
                 f.write(s)
 
         LOGGER.info("Writing %s", f.name)
