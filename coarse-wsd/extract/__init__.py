@@ -39,5 +39,6 @@ def fetch_what_links_here(title, limit=500):
     return links
 
 
-word = "Apple_Inc."  # will get this from BabelNet.
-fetch_page(word, fetch_links=True)
+if __name__ == '__main__':
+    word = "Apple_Inc."  # will get this from BabelNet.
+    fetch_page(word, fetch_links=True)

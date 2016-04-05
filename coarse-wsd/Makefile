@@ -19,3 +19,5 @@ corenlp-%.out: %.txt
 
 %.filtered.gz: corenlp-%.out
 	cat $< | grep -P "lemma|<POS>" | gzip > $@
+
+
