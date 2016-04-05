@@ -1,2 +1,7 @@
 dog
 apple
+cat
+laptop
+computer
+phone
+table

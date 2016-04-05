@@ -1,5 +1,4 @@
 from nltk.corpus import wordnet as wn
-import sys
 import logging
 
 

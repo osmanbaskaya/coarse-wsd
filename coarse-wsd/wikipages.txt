@@ -1,0 +1,3 @@
+phone	telephone	wn:04401088n	EN		telephone#n#1
+phone	phone_(phonetics)	wn:07111047n	EN		phone#n#2
+phone	headphones	wn:03261776n	EN		earphone#n#1

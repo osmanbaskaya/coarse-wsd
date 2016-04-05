@@ -1,9 +1,17 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
-__author__ = "Osman Baskaya"
+
 from collections import defaultdict as dd
-import os
+import logging
 import sys
+
+__author__ = "Osman Baskaya"
+
+
+def configure_logger():
+    logging.getLogger('requests').setLevel(logging.WARNING)
+    logging.basicConfig(stream=sys.stdout, level=logging.INFO,
+                        format='[%(asctime)s] p%(process)s %(name)s:%(lineno)d %(levelname)s - %(message)s')
 
 
 def top_words(files):

@@ -8,3 +8,28 @@ dog	2710044	n	wn:02710044n	0	metal supports for logs in a fireplace
 dog	2001858	v	wn:02001858v	23	go after with the intent to catch
 apple	7739125	n	wn:07739125n	1	fruit with red or yellow or green skin and sweet to tart crisp whitish flesh
 apple	12633994	n	wn:12633994n	0	native Eurasian tree widely cultivated in many varieties for its firm rounded edible fruits
+cat	2121620	n	wn:02121620n	18	feline mammal usually having thick soft fur and no ability to roar: domestic cats; wildcats
+cat	10153414	n	wn:10153414n	33	an informal term for a youth or man
+cat	9900153	n	wn:09900153n	0	a spiteful woman gossip
+cat	3608870	n	wn:03608870n	0	the leaves of the shrub Catha edulis which are chewed like tobacco or used to make tea; has the effect of a euphoric stimulant
+cat	2985606	n	wn:02985606n	0	a whip with nine knotted cords
+cat	2983507	n	wn:02983507n	0	a large tracked vehicle that is propelled by two endless metal belts; frequently used for moving earth in construction and farm work
+cat	2127808	n	wn:02127808n	0	any of several large cats typically able to roar and living in the wild
+cat	901476	n	wn:00901476n	0	a method of examining body organs by scanning them with X rays and using a computer to construct a series of cross-sectional scans along a single axis
+cat	1411870	v	wn:01411870v	0	beat with a cat-o'-nine-tails
+cat	76400	v	wn:00076400v	3	eject the contents of the stomach through the mouth
+laptop	3642806	n	wn:03642806n	0	a portable computer small enough to use in your lap
+computer	3082979	n	wn:03082979n	6	a machine for performing calculations automatically
+computer	9887034	n	wn:09887034n	0	an expert at calculation (or at operating calculating machines)
+phone	4401088	n	wn:04401088n	31	electronic equipment that converts sound into electrical signals that can be transmitted over distances and then converts received signals back into sounds
+phone	7111047	n	wn:07111047n	1	(phonetics) an individual sound unit of speech without concern as to whether or not it is a phoneme of some language
+phone	3261776	n	wn:03261776n	1	electro-acoustic transducer for converting electric signals into sounds; it is held over or inserted into the ear
+phone	789448	v	wn:00789448v	59	get or try to get into communication (with someone) by telephone
+table	8266235	n	wn:08266235n	52	a set of data arranged in rows and columns
+table	4379243	n	wn:04379243n	25	a piece of furniture having a smooth flat top that is usually supported by one or more vertical legs
+table	4379964	n	wn:04379964n	5	a piece of furniture with tableware for a meal laid out on it
+table	9351905	n	wn:09351905n	0	flat tableland with steep edges
+table	8480135	n	wn:08480135n	0	a company of people assembled at a table for a meal or game
+table	7565259	n	wn:07565259n	0	food or meals in general
+table	2642814	v	wn:02642814v	17	hold back to a later time
+table	1745536	v	wn:01745536v	4	arrange or enter in tabular form
