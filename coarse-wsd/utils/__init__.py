@@ -3,15 +3,38 @@
 
 from collections import defaultdict as dd
 import logging
+import logging.handlers
 import sys
 
 __author__ = "Osman Baskaya"
 
+LOGGER = None
 
-def configure_logger():
-    logging.getLogger('requests').setLevel(logging.WARNING)
-    logging.basicConfig(stream=sys.stdout, level=logging.INFO,
-                        format='[%(asctime)s] p%(process)s %(name)s:%(lineno)d %(levelname)s - %(message)s')
+
+def configure_logger(log_level='INFO'):
+    global LOGGER
+    if LOGGER is None:
+        logging.getLogger('requests').setLevel(logging.WARNING)
+
+        root_logger = logging.getLogger('')
+        root_logger.setLevel(logging.DEBUG)
+
+        file_handler = logging.FileHandler("coarse-wsd.log", encoding='utf8', mode='w')
+        console_handler = logging.StreamHandler(stream=sys.stdout)
+        console_handler.setLevel(logging.getLevelName(log_level.upper()))
+        file_handler.setLevel(logging.DEBUG)
+
+        detailed_formatter = logging.Formatter('[%(asctime)s] p%(process)s %(pathname)s:%(lineno)d %(levelname)s - %(message)s')
+        formatter = logging.Formatter('[%(asctime)s] p%(process)s %(filename)s:%(lineno)d %(levelname)s - %(message)s')
+
+        file_handler.setFormatter(detailed_formatter)
+        console_handler.setFormatter(formatter)
+
+        root_logger.addHandler(file_handler)
+        root_logger.addHandler(console_handler)
+
+        LOGGER = root_logger
+    return LOGGER
 
 
 def top_words(files):
