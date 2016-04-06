@@ -13,6 +13,7 @@ MIN_SENTENCE_SIZE = 8
 
 LOGGER = None
 
+
 def extract_instances(content, word, pos, starting_instance_id):
     instances = []
     instances_replaced = []
@@ -30,7 +31,6 @@ def extract_instances(content, word, pos, starting_instance_id):
                     instances_replaced.append(u"{} <{}.{}.{}>{}</{}.{}.{}> {}".format(u' '.join(tokens[:i]), word, pos, starting_instance_id,
                                                                                 word, word, pos, starting_instance_id,
                                                                                 u' '.join(tokens[i+1:])))
-
     return instances, instances_replaced, len(instances)
 
 
@@ -46,9 +46,10 @@ def wiki_page_query(page_title):
             title = page_title.replace('_', ' ')
             LOGGER.debug("Trying '{}'".format(title))
             return wiki_page_query(title)
-    except DisambiguationError as e:
-        LOGGER.warning('DisambiguationError for {}:{}'.format(e.title, '\t'.join(e.options)))
-        return None  # This is most likely the "What links here" page and we can safely skip it.
+    # This is most likely the "What links here" page and we can safely skip it.
+    except DisambiguationError:
+        LOGGER.exception(u'Disambiguation Error for {}... get skipped.'.format(page_title))
+        return None
 
 
 def extract_from_page(page_title, word, offset, fetch_links):
@@ -126,7 +127,7 @@ def extract_from_file(filename, num_process):
     # For debug:
     # for v in jobs.values():
     #     extract_instances_for_word(v)
-    # LOGGER.info("Done.")
+    LOGGER.info("Done.")
 
 
 if __name__ == '__main__':
