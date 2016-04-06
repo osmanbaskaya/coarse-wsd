@@ -5,7 +5,6 @@ import requests
 from multiprocessing import Pool
 import os
 from wikipedia.exceptions import PageError, DisambiguationError
-from utils import configure_logger
 from collections import defaultdict as dd
 
 BASE_URL = "https://en.wikipedia.org"
@@ -28,7 +27,7 @@ def extract_instances(content, word, pos, starting_instance_id):
                                                                                  tokens[i], word, pos, starting_instance_id,
                                                                                  u' '.join(tokens[i+1:])))
 
-                    instances_replaced.append(u"{} <{}.{}>{}</{}.{}> {}".format(u' '.join(tokens[:i]), word, pos, starting_instance_id,
+                    instances_replaced.append(u"{} <{}.{}.{}>{}</{}.{}.{}> {}".format(u' '.join(tokens[:i]), word, pos, starting_instance_id,
                                                                                 word, word, pos, starting_instance_id,
                                                                                 u' '.join(tokens[i+1:])))
 
@@ -110,8 +109,10 @@ def fetch_what_links_here(title, limit=100):
 
 
 def extract_from_file(filename, num_process):
+    import utils
+
     global LOGGER
-    from utils import LOGGER
+    LOGGER = utils.get_logger()
 
     pool = Pool(num_process)
     jobs = dd(list)

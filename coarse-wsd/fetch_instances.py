@@ -1,4 +1,5 @@
 from utils import configure_logger
+import utils
 import os
 from extract import extract_from_file
 
@@ -12,7 +13,8 @@ def run():
     parser.add_argument('--log-level', required=False, default="info")
     args = parser.parse_args()
 
-    logger = configure_logger(args.log_level)
+    configure_logger(args.log_level)
+    logger = utils.get_logger()
 
     logger.info("Input file: {}".format(args))
 

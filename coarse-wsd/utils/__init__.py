@@ -11,6 +11,11 @@ __author__ = "Osman Baskaya"
 LOGGER = None
 
 
+def get_logger():
+    assert LOGGER is not None, "Configure Logger first"
+    return LOGGER
+
+
 def configure_logger(log_level='INFO'):
     global LOGGER
     if LOGGER is None:
@@ -34,7 +39,6 @@ def configure_logger(log_level='INFO'):
         root_logger.addHandler(console_handler)
 
         LOGGER = root_logger
-    return LOGGER
 
 
 def top_words(files):
