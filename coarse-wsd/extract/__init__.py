@@ -14,7 +14,7 @@ MIN_SENTENCE_SIZE = 8
 LOGGER = None
 
 
-def extract_instances(content, word, pos, starting_instance_id):
+def extract_instances(content, word, pos, starting_instance_id, url=None):
     instances = []
     instances_replaced = []
     for line in content.split('\n'):
@@ -24,13 +24,13 @@ def extract_instances(content, word, pos, starting_instance_id):
             for i in xrange(num_of_tokens):
                 if word in tokens[i].lower():
                     starting_instance_id += 1
-                    instances.append(u"{} <{}.{}.{}>{}</{}.{}.{}> {}".format(u' '.join(tokens[:i]), word, pos, starting_instance_id,
+                    instances.append(u"{} <{}.{}.{}>{}</{}.{}.{}> {}\t{}".format(u' '.join(tokens[:i]), word, pos, starting_instance_id,
                                                                                  tokens[i], word, pos, starting_instance_id,
-                                                                                 u' '.join(tokens[i+1:])))
+                                                                                 u' '.join(tokens[i+1:]), url))
 
-                    instances_replaced.append(u"{} <{}.{}.{}>{}</{}.{}.{}> {}".format(u' '.join(tokens[:i]), word, pos, starting_instance_id,
+                    instances_replaced.append(u"{} <{}.{}.{}>{}</{}.{}.{}> {}\t{}".format(u' '.join(tokens[:i]), word, pos, starting_instance_id,
                                                                                 word, word, pos, starting_instance_id,
-                                                                                u' '.join(tokens[i+1:])))
+                                                                                u' '.join(tokens[i+1:]), url))
     return instances, instances_replaced, len(instances)
 
 
@@ -60,15 +60,15 @@ def extract_from_page(page_title, word, offset, fetch_links):
         LOGGER.warning('No page found for {}'.format(page_title))
         return [], []
 
-    instances, instances_replaced, count = extract_instances(p.content, word, pos, 0)
+    instances, instances_replaced, count = extract_instances(p.content, word, pos, 0, p.url)
     if fetch_links:
-        links = fetch_what_links_here(p.title)
+        links = fetch_what_links_here(p.title, limit=50)
         for link in links:
             link_page_title = link.replace('/wiki/', '')
             link_page = wiki_page_query(link_page_title)
             if link_page is not None:
                 link_instances, link_instances_replaced, link_count = extract_instances(link_page.content, word, pos,
-                                                                                        len(instances))
+                                                                                        len(instances), link_page.url)
                 instances.extend(link_instances), instances_replaced.extend(link_instances_replaced)
 
     return instances, instances_replaced
@@ -78,10 +78,13 @@ def extract_instances_for_word(senses, wiki_dir='../datasets/wiki/'):
     LOGGER.info("Processing word: %s" % senses[0]['word'])
     instances = []
     instances_replaced = []
+    sense_keys = []
+    retrieved_pages = []
     for sense_args in senses:
         sense_instances, sense_instances_replaced = extract_from_page(**sense_args)
         instances.extend(sense_instances)
         instances_replaced.extend(sense_instances_replaced)
+        sense_keys.extend([sense_args['offset']] * len(sense_instances))
 
     # TODO: create a file in ..datasets/wiki/ and write instances.
     # original version
@@ -89,8 +92,11 @@ def extract_instances_for_word(senses, wiki_dir='../datasets/wiki/'):
         f.write('\n'.join(instances))
 
     # target word replaced version (e.g., dogs, DOG, Dog are replaced by 'dog')
-    with codecs.open(os.path.join(wiki_dir, '%s_replaced.txt' % senses[0]['word']), 'w', encoding='utf8') as f:
+    with codecs.open(os.path.join(wiki_dir, '%s.replaced.txt' % senses[0]['word']), 'w', encoding='utf8') as f:
         f.write('\n'.join(instances_replaced))
+
+    with codecs.open(os.path.join(wiki_dir, '%s.keys.txt' % senses[0]['word']), 'w', encoding='utf8') as f:
+        f.write('\n'.join(sense_keys))
 
 
 def fetch_what_links_here(title, limit=100):
