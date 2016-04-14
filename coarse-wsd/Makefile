@@ -24,3 +24,6 @@ corenlp-%.out: %.txt
 # Call example: laptop.original.txt
 %.original.txt: ../datasets/wiki/%.txt
 	cat $< | sed -re 's|<\w+\.\w\.[0-9]+>||g' -e 's|</\w+\.\w\.[0-9]+>||g' > ../datasets/wiki/$@
+
+fetch-instances-from-wiki: wikipages.txt
+	python fetch_instances.py --log-level info --num-process 8
