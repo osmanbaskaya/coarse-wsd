@@ -20,4 +20,10 @@ corenlp-%.out: %.txt
 %.filtered.gz: corenlp-%.out
 	cat $< | grep -P "lemma|<POS>" | gzip > $@
 
+# Create original version of the instances fetched from Wikipedia.
+# Call example: laptop.original.txt
+%.original.txt: ../datasets/wiki/%.txt
+	cat $< | sed -re 's|<\w+\.\w\.[0-9]+>||g' -e 's|</\w+\.\w\.[0-9]+>||g' > ../datasets/wiki/$@
 
+fetch-instances-from-wiki: wikipages.txt
+	python fetch_instances.py --log-level info --num-process 8
