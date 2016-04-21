@@ -23,7 +23,7 @@ public class WikipediaDataProvider {
     public static void wordNetSense2WikipediaPageID(String filename) throws FileNotFoundException, UnsupportedEncodingException {
 
         Scanner in = new Scanner(new FileReader(filename)).useDelimiter("\n");
-        String outFilename = "../coarse-wsd/wikipages.txt";
+        String outFilename = "../coarse-wsd/semcor-pages.txt";
         PrintWriter writer = new PrintWriter(outFilename, "UTF-8");
 
         Set<String> words = new HashSet<>();
@@ -41,16 +41,21 @@ public class WikipediaDataProvider {
             String word = tokens[0];
             words.add(word);
             String synsetOffset = tokens[3];
-            BabelSynset by = bn.getSynset(new WordNetSynsetID(synsetOffset));
-            if (by != null) {
-                for (BabelSense sense : by.getSenses(BabelSenseSource.WIKI)) {
-                    writer.println(word + "\t" + sense.getLemma() + "\t" + synsetOffset + "\t" + sense.getLanguage() +
-                            "\t" + sense.getSynsetID().getID() + "\t" + sense.getWordNetOffset());
-                    processedSynsets.add(sense.getSynsetID().getID());
+            try {
+                BabelSynset by = bn.getSynset(new WordNetSynsetID(synsetOffset));
+                if (by != null) {
+                    for (BabelSense sense : by.getSenses(BabelSenseSource.WIKI)) {
+                        writer.println(word + "\t" + sense.getLemma() + "\t" + synsetOffset + "\t" + sense.getLanguage() +
+                                "\t" + sense.getSynsetID().getID() + "\t" + sense.getWordNetOffset());
+                        processedSynsets.add(sense.getSynsetID().getID());
+                    }
+                } else {
+                    LOGGER.info("Synset: " + synsetOffset + " cannot be found");
                 }
             }
-            else {
-                LOGGER.info("Synset: " + synsetOffset +  " cannot be found");
+            catch (RuntimeException e) {
+                // Daily request limit. Let's change the token
+                break;
             }
         }
 
@@ -75,6 +80,6 @@ public class WikipediaDataProvider {
     }
 
     public static void main(String[] args) throws IOException, InvalidBabelSynsetIDException {
-        WikipediaDataProvider.wordNetSense2WikipediaPageID("synset-info.txt");
+        WikipediaDataProvider.wordNetSense2WikipediaPageID("semcor-synset-info.txt");
     }
 }

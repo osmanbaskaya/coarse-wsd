@@ -13,7 +13,7 @@ class WordNetExtractor(object):
     def fetch_offset_numbers(self, filename):
         # file format: word1\nword2\n
         LOGGER.info("Reading %s", filename)
-        f = open('../coarse-wsd-java/synset-info.txt', 'w')
+        f = open('../coarse-wsd-java/semcor-synset-info.txt', 'w')
         for word in open(filename):
             word = word.strip()
             try:

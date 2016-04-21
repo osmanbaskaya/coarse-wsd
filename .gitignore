@@ -61,3 +61,6 @@ BabelNet-API-3.6/
 coarse-wsd-java/coarse-wsd-java.iml
 coarse-wsd-java/config/
 coarse-wsd-java/out/
+
+# skip word2vec model files
+*.mdl

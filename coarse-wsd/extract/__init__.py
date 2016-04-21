@@ -176,7 +176,7 @@ def extract_from_file(filename, num_process):
         target_word, page_title, offset = line[:3]
         jobs[target_word].append(dict(word=target_word, page_title=page_title, offset=offset, fetch_links=True))
 
-    LOGGER.info("Total {} of jobs available. Consuming has been started.".format(len(jobs)))
+    LOGGER.info("Total {} of jobs available. Num of consumer = {}".format(len(jobs), num_process))
     if num_process > 1:
         pool = Pool(num_process)
         pool.map(extract_instances_for_word, jobs.values())
