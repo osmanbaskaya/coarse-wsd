@@ -1,4 +1,5 @@
 #### Sprint #3
+- Fetch external links for each articles?
 - Refactor makefile and scripts` input/output logic.
 - using instances fetched #1, train word2vec model and represent each **sense** 
 - cluster these sense embeddings.
