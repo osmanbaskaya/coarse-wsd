@@ -39,4 +39,5 @@ extract_synsets: %.txt
 fetch-instances-from-wiki: ${FILENAME}
 	python fetch_instances.py --filename ${FILENAME} --log-level info --num-process 6
 
-
+%-pagetypes.txt: %.txt
+	cat $< | cut -f2 | grep -oP "\(.*\)" | sort | uniq -c | sort -rn > $@
