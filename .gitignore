@@ -64,3 +64,9 @@ coarse-wsd-java/out/
 
 # skip word2vec model files
 *.mdl
+
+# compressed
+*.gz
+*.rar
+*.zip
+
