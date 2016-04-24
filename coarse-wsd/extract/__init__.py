@@ -70,15 +70,15 @@ def extract_from_page(page_title, word, offset, fetch_links):
     p = wiki_page_query(page_title)
     if p is None:
         LOGGER.warning('No page found for {}'.format(page_title))
-        return [], []
+        return [], [], []
 
     instances, instances_replaced, instances_all_replaced, count = extract_instances(p.content, word, pos, 0, p.url)
     if fetch_links:
-        links = fetch_what_links_here(p.title, limit=4000)
+        links = fetch_what_links_here(p.title, limit=1000)
         for link in links:
             link_page_title = link.replace('/wiki/', '')
             # skip talk articles.
-            if link_page_title.startswith('Talk:'):
+            if any(map(lambda x: link_page_title.startswith(x), ['Talk:', 'User talk:', 'User:'])):
                 continue
             link_page = wiki_page_query(link_page_title)
             if link_page is not None:
@@ -89,6 +89,12 @@ def extract_from_page(page_title, word, offset, fetch_links):
                 instances_all_replaced.extend(link_instances_all_replaced)
 
     return instances, instances_replaced, instances_all_replaced
+
+
+def write2file(filename, lines):
+    with codecs.open(filename, 'w', encoding='utf8') as f:
+        f.write('\n'.join(lines))
+        f.write('\n')
 
 
 def extract_instances_for_word(senses, wiki_dir='../datasets/wiki/'):
@@ -108,27 +114,13 @@ def extract_instances_for_word(senses, wiki_dir='../datasets/wiki/'):
 
     # TODO: create a file in ..datasets/wiki/ and write instances.
     # original version
-    with codecs.open(os.path.join(wiki_dir, '%s.txt' % senses[0]['word']), 'w', encoding='utf8') as f:
-        f.write('\n'.join(instances))
-        f.write('\n')
-
+    write2file(os.path.join(wiki_dir, '%s.txt' % senses[0]['word']), instances)
     # target word replaced version (e.g., dogs, DOG, Dog are replaced by 'dog')
-    with codecs.open(os.path.join(wiki_dir, '%s.replaced.txt' % senses[0]['word']), 'w', encoding='utf8') as f:
-        f.write('\n'.join(instances_replaced))
-        f.write('\n')
-
+    write2file(os.path.join(wiki_dir, '%s.replaced.txt' % senses[0]['word']), instances_replaced)
     # replaced version of target word over all occurrences.
-    with codecs.open(os.path.join(wiki_dir, '%s.replaced-all.txt' % senses[0]['word']), 'w', encoding='utf8') as f:
-        f.write('\n'.join(instances_all_replaced))
-        f.write('\n')
-
-    with codecs.open(os.path.join(wiki_dir, '%s.replaced-all.key' % senses[0]['word']), 'w', encoding='utf8') as f:
-        f.write('\n'.join(sense_key_all_replaced))
-        f.write('\n')
-
-    with codecs.open(os.path.join(wiki_dir, '%s.key' % senses[0]['word']), 'w', encoding='utf8') as f:
-        f.write('\n'.join(sense_keys))
-        f.write('\n')
+    write2file(os.path.join(wiki_dir, '%s.replaced-all.txt' % senses[0]['word']), instances_all_replaced)
+    write2file(os.path.join(wiki_dir, '%s.replaced-all.key' % senses[0]['word']), sense_key_all_replaced)
+    write2file(os.path.join(wiki_dir, '%s.key' % senses[0]['word']), sense_keys)
 
 
 def get_next_page_url(soup):
@@ -181,7 +173,8 @@ def extract_from_file(filename, num_process):
         pool = Pool(num_process)
         pool.map(extract_instances_for_word, jobs.values())
     else:
-        for v in jobs.values():
+        # for v in jobs.values():
+        for v in [jobs['wind']]:
             extract_instances_for_word(v)
 
     LOGGER.info("Done.")
