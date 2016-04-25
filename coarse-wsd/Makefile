@@ -37,6 +37,11 @@ corenlp-%.out: %.txt
 extract_synsets: %.txt
 	python extract_synsets.py $<
 
+semcor-pages.txt: semcor-synset-info-txt
+	#TODO: test it
+	javac -cp ../BabelNet-API-3.6/babelnet-api-3.6.jar:../BabelNet-API-3.6/lib/*:../BabelNet-API-3.6/.:../BabelNet-API-3.6/config ../coarse-wsd-java/src/WikipediaDataProvider.java
+	java -cp ../BabelNet-API-3.6/babelnet-api-3.6.jar:../BabelNet-API-3.6/lib/*:../BabelNet-API-3.6/.:../BabelNet-API-3.6/config WikipediDataProvider.java $< $@
+
 # example: make fetch-instances-from-wiki FILENAME=wikipages.txt
 fetch-instances-from-wiki: ${FILENAME}
 	python fetch_instances.py --filename ${FILENAME} --log-level info --num-process ${CPU}
