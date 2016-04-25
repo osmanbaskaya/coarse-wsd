@@ -6,9 +6,10 @@ from multiprocessing import Pool
 import os
 from wikipedia.exceptions import PageError, DisambiguationError
 from collections import defaultdict as dd
-from requests.exceptions import ConnectionError
+from requests.exceptions import ConnectionError, ContentDecodingError
 from time import sleep
 from wikipedia.exceptions import WikipediaException
+
 
 BASE_URL = "https://en.wikipedia.org"
 # What Links Here url. Redirection pages omitted.
@@ -51,9 +52,13 @@ def extract_instances(content, word, pos, starting_instance_id, url=None):
     return instances, instances_replaced, instances_all_replaced, len(instances)
 
 
-def wiki_page_query(page_title):
+def wiki_page_query(page_title, num_try=1):
+
+    if num_try > 5:
+        return None
 
     global SLEEP_INTERVAL
+
     try:
         LOGGER.debug('Retrieving {} from Wikipedia'.format(page_title))
         p = wikipedia.page(page_title)
@@ -74,6 +79,9 @@ def wiki_page_query(page_title):
         SLEEP_INTERVAL *= 2
         LOGGER.debug("Sleeping {} seconds for {}. Reason: {}".format(SLEEP_INTERVAL, page_title, e))
         sleep(SLEEP_INTERVAL)
+    except ContentDecodingError as e:
+        LOGGER.debug("{}... Trying ({})".format(e, num_try+1))
+        wiki_page_query(page_title, num_try+1)
 
 
 def extract_from_page(page_title, word, offset, fetch_links):
