@@ -77,10 +77,10 @@ def wiki_page_query(page_title, num_try=1):
         return None
     except (ConnectionError, WikipediaException) as e:
         SLEEP_INTERVAL *= 2
-        LOGGER.debug("Sleeping {} seconds for {}. Reason: {}".format(SLEEP_INTERVAL, page_title, e))
+        LOGGER.info("Sleeping {} seconds for {}. Reason: {}".format(SLEEP_INTERVAL, page_title, e))
         sleep(SLEEP_INTERVAL)
     except ContentDecodingError as e:
-        LOGGER.debug("{}... Trying ({})".format(e, num_try+1))
+        LOGGER.info("{}... Trying ({})".format(e, num_try+1))
         wiki_page_query(page_title, num_try+1)
 
 
@@ -165,9 +165,10 @@ def fetch_what_links_here(title, limit=1000, fetch_link_size=5000):
         LOGGER.debug("Processing link: %s" % next_page_url)
         try:
             response = requests.get(next_page_url)
+            SLEEP_INTERVAL = 1
         except (ConnectionError, WikipediaException) as e:
             SLEEP_INTERVAL *= 2
-            LOGGER.debug("Sleeping {} seconds for {}. Reason: {}".format(SLEEP_INTERVAL, title, e))
+            LOGGER.info("Sleeping {} seconds for {}. Reason: {}".format(SLEEP_INTERVAL, title, e))
             sleep(SLEEP_INTERVAL)
             continue  # try at the beginning
         if response.status_code == 200:
