@@ -74,12 +74,11 @@ public class WikipediaDataProvider {
         }
     }
 
-    private static void wordNetSense2WikipediaPageID(String filename) throws FileNotFoundException, UnsupportedEncodingException {
+    private static void wordNetSense2WikipediaPageID(String inputFile, String outputFile) throws FileNotFoundException, UnsupportedEncodingException {
 
-        Map<String, List<String[]>> wordMap = createWordMap(filename);
+        Map<String, List<String[]>> wordMap = createWordMap(inputFile);
 
-        String outFilename = "../coarse-wsd/semcor-pages.txt";
-        PrintWriter writer = new PrintWriter(outFilename, "UTF-8");
+        PrintWriter writer = new PrintWriter(outputFile, "UTF-8");
         try {
             run(wordMap, writer);
         }
@@ -88,12 +87,19 @@ public class WikipediaDataProvider {
             writer.close();
         }
 
-
         writer.close();
-        LOGGER.info("Output file: " + outFilename);
+        LOGGER.info("Output file: " + outputFile);
     }
 
     public static void main(String[] args) throws IOException, InvalidBabelSynsetIDException {
-        WikipediaDataProvider.wordNetSense2WikipediaPageID("semcor-synset-info.txt");
+        if (args.length == 2) {
+            String inputFile = args[0];
+            String outputFile = args[1];
+            LOGGER.info("Input: " + inputFile);
+            WikipediaDataProvider.wordNetSense2WikipediaPageID(inputFile, outputFile);
+        }
+        else {
+            LOGGER.error("Wrong number of arguments. Args: Inputfile Outputfile");
+        }
     }
 }
