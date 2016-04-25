@@ -6,6 +6,8 @@ from multiprocessing import Pool
 import os
 from wikipedia.exceptions import PageError, DisambiguationError
 from collections import defaultdict as dd
+from requests.exceptions import ConnectionError
+from time import sleep
 
 BASE_URL = "https://en.wikipedia.org"
 # What Links Here url. Redirection pages omitted.
@@ -13,6 +15,8 @@ WHAT_LINKS_HERE_URL = "https://en.wikipedia.org/w/index.php?title=Special:WhatLi
 MIN_SENTENCE_SIZE = 8
 
 LOGGER = None
+
+SLEEP_INTERVAL = 1
 
 
 def extract_instances(content, word, pos, starting_instance_id, url=None):
@@ -47,9 +51,12 @@ def extract_instances(content, word, pos, starting_instance_id, url=None):
 
 
 def wiki_page_query(page_title):
+
+    global SLEEP_INTERVAL
     try:
         LOGGER.debug('Retrieving {} from Wikipedia'.format(page_title))
         p = wikipedia.page(page_title)
+        SLEEP_INTERVAL = 1
         return p
     except PageError:
         LOGGER.debug("Page '{}' not found.".format(page_title))
@@ -62,6 +69,10 @@ def wiki_page_query(page_title):
     except DisambiguationError:
         LOGGER.exception(u'Disambiguation Error for {}... get skipped.'.format(page_title))
         return None
+    except ConnectionError:
+        SLEEP_INTERVAL *= 2
+        LOGGER.debug("Sleeping {} seconds for {}".format(SLEEP_INTERVAL, page_title))
+        sleep(SLEEP_INTERVAL)
 
 
 def extract_from_page(page_title, word, offset, fetch_links):
@@ -135,6 +146,7 @@ def get_next_page_url(soup):
 
 def fetch_what_links_here(title, limit=1000, fetch_link_size=5000):
     # Max fetch link size is 5000.
+    global SLEEP_INTERVAL
 
     fetch_link_size = min(limit, fetch_link_size)
     all_links = []
@@ -142,7 +154,13 @@ def fetch_what_links_here(title, limit=1000, fetch_link_size=5000):
     total_link_processed = 0
     while total_link_processed < limit and next_page_url is not None:
         LOGGER.debug("Processing link: %s" % next_page_url)
-        response = requests.get(next_page_url)
+        try:
+            response = requests.get(next_page_url)
+        except ConnectionError:
+            SLEEP_INTERVAL *= 2
+            LOGGER.debug("Sleeping {} seconds for inlink: {}".format(SLEEP_INTERVAL, title))
+            sleep(SLEEP_INTERVAL)
+            continue  # try at the beginning
         if response.status_code == 200:
             soup = BeautifulSoup(response.content, 'html.parser')
             rows = soup.find(id='mw-whatlinkshere-list').find_all('li', recursive=False)
