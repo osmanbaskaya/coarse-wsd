@@ -180,8 +180,7 @@ def extract_from_file(filename, num_process):
         pool = Pool(num_process)
         pool.map(extract_instances_for_word, jobs.values())
     else:
-        # for v in jobs.values():
-        for v in [jobs['wind']]:
+        for v in jobs.values():
             extract_instances_for_word(v)
 
     LOGGER.info("Done.")
