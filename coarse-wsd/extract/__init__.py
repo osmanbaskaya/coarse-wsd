@@ -162,11 +162,18 @@ def extract_from_file(filename, num_process):
     global LOGGER
     LOGGER = utils.get_logger()
 
+    dataset_path = '../datasets/wiki'
+
+    # get processed words
+    processed_words = set([word.split('.')[0] for word in
+                           filter(lambda x: x.endswith('.replaced-all.txt'), os.listdir(dataset_path))])
+
     jobs = dd(list)
     for line in open(filename):
         line = line.split()
         target_word, page_title, offset = line[:3]
-        jobs[target_word].append(dict(word=target_word, page_title=page_title, offset=offset, fetch_links=True))
+        if target_word not in processed_words:
+            jobs[target_word].append(dict(word=target_word, page_title=page_title, offset=offset, fetch_links=True))
 
     LOGGER.info("Total {} of jobs available. Num of consumer = {}".format(len(jobs), num_process))
     if num_process > 1:
