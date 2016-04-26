@@ -79,6 +79,7 @@ def wiki_page_query(page_title, num_try=1):
         SLEEP_INTERVAL *= 2
         LOGGER.info(u"Sleeping {} seconds for {}. Reason: {}".format(SLEEP_INTERVAL, page_title, e))
         sleep(SLEEP_INTERVAL)
+        wiki_page_query(page_title)  # try again.
     except ContentDecodingError as e:
         LOGGER.info(u"{}... Trying ({})".format(e, num_try+1))
         wiki_page_query(page_title, num_try+1)
@@ -98,12 +99,21 @@ def extract_from_page(page_title, word, offset, fetch_links):
         for link in links:
             link_page_title = link.replace('/wiki/', '')
             # skip talk articles.
-            if any(map(lambda x: link_page_title.startswith(x), ['Talk:', 'User talk:', 'User:'])):
+            if any(map(lambda x: link_page_title.startswith(x), ['Talk:', 'User_talk:', 'User:'])):
                 continue
             link_page = wiki_page_query(link_page_title)
             if link_page is not None:
-                link_instances, link_instances_replaced, link_instances_all_replaced, link_count = extract_instances(link_page.content, word, pos,
-                                                                                                        len(instances), link_page.url)
+                num_try = 0
+                content = None
+                while num_try < 5 and content is None:
+                    try:
+                        content = link_page.content
+                    except ConnectionError:
+                        LOGGER.info("Content fetch error. {}".format(link_page))
+                        num_try += 1
+                        sleep(3)
+                link_instances, link_instances_replaced, link_instances_all_replaced, link_count = \
+                    extract_instances(content, word, pos, len(instances), link_page.url)
                 instances.extend(link_instances)
                 instances_replaced.extend(link_instances_replaced)
                 instances_all_replaced.extend(link_instances_all_replaced)
@@ -165,6 +175,7 @@ def fetch_what_links_here(title, limit=1000, fetch_link_size=5000):
         LOGGER.debug(u"Processing link: %s" % next_page_url)
         try:
             response = requests.get(next_page_url)
+            content = response.content
             SLEEP_INTERVAL = 1
         except (ConnectionError, WikipediaException) as e:
             SLEEP_INTERVAL *= 2
@@ -172,7 +183,7 @@ def fetch_what_links_here(title, limit=1000, fetch_link_size=5000):
             sleep(SLEEP_INTERVAL)
             continue  # try at the beginning
         if response.status_code == 200:
-            soup = BeautifulSoup(response.content, 'html.parser')
+            soup = BeautifulSoup(content, 'html.parser')
             rows = soup.find(id='mw-whatlinkshere-list').find_all('li', recursive=False)
             links = [row.find('a')['href'] for row in rows]
             next_page_url = get_next_page_url(soup)
