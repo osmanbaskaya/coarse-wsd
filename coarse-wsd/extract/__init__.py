@@ -11,9 +11,9 @@ from time import sleep
 from wikipedia.exceptions import WikipediaException
 
 
-BASE_URL = "https://en.wikipedia.org"
+BASE_URL = u"https://en.wikipedia.org"
 # What Links Here url. Redirection pages omitted.
-WHAT_LINKS_HERE_URL = "https://en.wikipedia.org/w/index.php?title=Special:WhatLinksHere/{}&limit={}&hideredirs=1"
+WHAT_LINKS_HERE_URL = u"https://en.wikipedia.org/w/index.php?title=Special:WhatLinksHere/{}&limit={}&hideredirs=1"
 MIN_SENTENCE_SIZE = 8
 
 LOGGER = None
@@ -41,7 +41,7 @@ def extract_instances(content, word, pos, starting_instance_id, url=None):
                     instances_replaced.append(u"{} <{}.{}.{}>{}</{}.{}.{}> {}\t{}".format(u' '.join(tokens[:i]), word, pos, starting_instance_id,
                                                                                 word, word, pos, starting_instance_id,
                                                                                 u' '.join(tokens[i+1:]), url))
-                    sentence.append("<target>%s<target>" % word)
+                    sentence.append(u"<target>%s<target>" % word)
                     is_observed = True
                 else:
                     sentence.append(tokens[i])
@@ -60,16 +60,16 @@ def wiki_page_query(page_title, num_try=1):
     global SLEEP_INTERVAL
 
     try:
-        LOGGER.debug('Retrieving {} from Wikipedia'.format(page_title))
+        LOGGER.debug(u'Retrieving {} from Wikipedia'.format(page_title))
         p = wikipedia.page(page_title)
         SLEEP_INTERVAL = 1
         return p
     except PageError:
-        LOGGER.debug("Page '{}' not found.".format(page_title))
+        LOGGER.debug(u"Page '{}' not found.".format(page_title))
         # wikipedia library has a possible bug for underscored page titles.
         if '_' in page_title:
             title = page_title.replace('_', ' ')
-            LOGGER.debug("Trying '{}'".format(title))
+            LOGGER.debug(u"Trying '{}'".format(title))
             return wiki_page_query(title)
     # This is most likely the "What links here" page and we can safely skip it.
     except DisambiguationError:
@@ -77,10 +77,10 @@ def wiki_page_query(page_title, num_try=1):
         return None
     except (ConnectionError, WikipediaException) as e:
         SLEEP_INTERVAL *= 2
-        LOGGER.info("Sleeping {} seconds for {}. Reason: {}".format(SLEEP_INTERVAL, page_title, e))
+        LOGGER.info(u"Sleeping {} seconds for {}. Reason: {}".format(SLEEP_INTERVAL, page_title, e))
         sleep(SLEEP_INTERVAL)
     except ContentDecodingError as e:
-        LOGGER.info("{}... Trying ({})".format(e, num_try+1))
+        LOGGER.info(u"{}... Trying ({})".format(e, num_try+1))
         wiki_page_query(page_title, num_try+1)
 
 
@@ -89,7 +89,7 @@ def extract_from_page(page_title, word, offset, fetch_links):
 
     p = wiki_page_query(page_title)
     if p is None:
-        LOGGER.warning('No page found for {}'.format(page_title))
+        LOGGER.warning(u'No page found for {}'.format(page_title))
         return [], [], []
 
     instances, instances_replaced, instances_all_replaced, count = extract_instances(p.content, word, pos, 0, p.url)
@@ -118,7 +118,7 @@ def write2file(filename, lines):
 
 
 def extract_instances_for_word(senses, wiki_dir='../datasets/wiki/'):
-    LOGGER.info("Processing word: %s" % senses[0]['word'])
+    LOGGER.info(u"Processing word: %s" % senses[0]['word'])
     instances = []
     instances_replaced = []
     instances_all_replaced = []
@@ -134,20 +134,20 @@ def extract_instances_for_word(senses, wiki_dir='../datasets/wiki/'):
 
     # TODO: create a file in ..datasets/wiki/ and write instances.
     # original version
-    write2file(os.path.join(wiki_dir, '%s.txt' % senses[0]['word']), instances)
+    write2file(os.path.join(wiki_dir, u'%s.txt' % senses[0]['word']), instances)
     # target word replaced version (e.g., dogs, DOG, Dog are replaced by 'dog')
-    write2file(os.path.join(wiki_dir, '%s.replaced.txt' % senses[0]['word']), instances_replaced)
+    write2file(os.path.join(wiki_dir, u'%s.replaced.txt' % senses[0]['word']), instances_replaced)
     # replaced version of target word over all occurrences.
-    write2file(os.path.join(wiki_dir, '%s.replaced-all.txt' % senses[0]['word']), instances_all_replaced)
-    write2file(os.path.join(wiki_dir, '%s.replaced-all.key' % senses[0]['word']), sense_key_all_replaced)
-    write2file(os.path.join(wiki_dir, '%s.key' % senses[0]['word']), sense_keys)
+    write2file(os.path.join(wiki_dir, u'%s.replaced-all.txt' % senses[0]['word']), instances_all_replaced)
+    write2file(os.path.join(wiki_dir, u'%s.replaced-all.key' % senses[0]['word']), sense_key_all_replaced)
+    write2file(os.path.join(wiki_dir, u'%s.key' % senses[0]['word']), sense_keys)
 
 
 def get_next_page_url(soup):
     # here we assume that next link is always in -6 index.
     element = soup.select_one('#mw-content-text').find_all('a')[-6]
     if element.text.startswith('next'):
-        return "{}{}".format(BASE_URL, element['href'])
+        return u"{}{}".format(BASE_URL, element['href'])
     else:
         # No more element left.
         return None
@@ -162,13 +162,13 @@ def fetch_what_links_here(title, limit=1000, fetch_link_size=5000):
     next_page_url = WHAT_LINKS_HERE_URL.format(title, fetch_link_size)
     total_link_processed = 0
     while total_link_processed < limit and next_page_url is not None:
-        LOGGER.debug("Processing link: %s" % next_page_url)
+        LOGGER.debug(u"Processing link: %s" % next_page_url)
         try:
             response = requests.get(next_page_url)
             SLEEP_INTERVAL = 1
         except (ConnectionError, WikipediaException) as e:
             SLEEP_INTERVAL *= 2
-            LOGGER.info("Sleeping {} seconds for {}. Reason: {}".format(SLEEP_INTERVAL, title, e))
+            LOGGER.info(u"Sleeping {} seconds for {}. Reason: {}".format(SLEEP_INTERVAL, title, e))
             sleep(SLEEP_INTERVAL)
             continue  # try at the beginning
         if response.status_code == 200:
@@ -179,7 +179,7 @@ def fetch_what_links_here(title, limit=1000, fetch_link_size=5000):
             total_link_processed += len(links)
             all_links.extend(links)
         else:
-            LOGGER.error("Error while link fetching: %s" % next_page_url)
+            LOGGER.error(u"Error while link fetching: %s" % next_page_url)
 
     return all_links
 
