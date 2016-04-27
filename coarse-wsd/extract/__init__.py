@@ -67,11 +67,11 @@ def wiki_page_query(page_title, num_try=1):
         SLEEP_INTERVAL = 1
         return p
     except PageError:
-        LOGGER.debug(u"Page '{}' not found.".format(page_title.decode('utf-8')))
+        LOGGER.info(u"Page '{}' not found.".format(page_title.decode('utf-8')))
         # wikipedia library has a possible bug for underscored page titles.
         if '_' in page_title:
             title = page_title.replace('_', ' ')
-            LOGGER.debug(u"Trying '{}'".format(title.decode('utf-8')))
+            LOGGER.info(u"Trying '{}'".format(title.decode('utf-8')))
             return wiki_page_query(title)
     # This is most likely the "What links here" page and we can safely skip it.
     except DisambiguationError:
