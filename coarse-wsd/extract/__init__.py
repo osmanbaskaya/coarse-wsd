@@ -62,24 +62,23 @@ def wiki_page_query(page_title, num_try=1):
     global SLEEP_INTERVAL
 
     try:
-        LOGGER.debug(u'Retrieving {} from Wikipedia'.format(page_title.decode('utf-8')))
+        LOGGER.info(u'Retrieving {} from Wikipedia'.format(page_title))
         p = wikipedia.page(page_title)
         SLEEP_INTERVAL = 1
         return p
     except PageError:
-        LOGGER.info(u"Page '{}' not found.".format(page_title.decode('utf-8')))
+        LOGGER.info(u"Page '{}' not found.".format(page_title))
         # wikipedia library has a possible bug for underscored page titles.
         if '_' in page_title:
             title = page_title.replace('_', ' ')
-            LOGGER.info(u"Trying '{}'".format(title.decode('utf-8')))
             return wiki_page_query(title)
     # This is most likely the "What links here" page and we can safely skip it.
     except DisambiguationError:
-        LOGGER.exception(u'Disambiguation Error for {}... get skipped.'.format(page_title.decode('utf-8')))
+        LOGGER.exception(u'Disambiguation Error for {}... get skipped.'.format(page_title))
         return None
     except (ConnectionError, WikipediaException) as e:
         SLEEP_INTERVAL *= 2
-        LOGGER.info(u"Sleeping {} seconds for {}. Reason: {}".format(SLEEP_INTERVAL, page_title.decode('utf-8'), e))
+        LOGGER.info(u"Sleeping {} seconds for {}. Reason: {}".format(SLEEP_INTERVAL, page_title, e))
         sleep(SLEEP_INTERVAL)
         wiki_page_query(page_title)  # try again.
     except ContentDecodingError as e:
@@ -92,12 +91,12 @@ def extract_from_page(page_title, word, offset, fetch_links):
 
     p = wiki_page_query(page_title)
     if p is None:
-        LOGGER.warning(u'No page found for {}'.format(page_title.decode('utf-8')))
+        LOGGER.warning(u'No page found for {}'.format(page_title))
         return [], [], []
 
     instances, instances_replaced, instances_all_replaced, count = extract_instances(p.content, word, pos, 0, p.url)
     if fetch_links:
-        links = fetch_what_links_here(p.title, limit=1)
+        links = fetch_what_links_here(p.title, limit=1000)
         for link in links:
             link_page_title = link.replace(u'/wiki/', '')
             # skip talk articles.
@@ -112,7 +111,7 @@ def extract_from_page(page_title, word, offset, fetch_links):
                     try:
                         content = link_page.content
                     except ConnectionError:
-                        LOGGER.info(u"Content fetch error. {}".format(link_page_title.decode('utf-8')))
+                        LOGGER.info("Content fetch error")
                         num_try += 1
                         second_to_sleep *= 2
                         sleep(second_to_sleep)
@@ -133,7 +132,7 @@ def write2file(filename, lines):
 
 
 def extract_instances_for_word(senses, wiki_dir=u'../datasets/wiki/'):
-    LOGGER.info(u"Processing word: %s" % senses[0]['word'].decode('utf-8'))
+    LOGGER.info(u"Processing word: %s" % senses[0]['word'])
     instances = []
     instances_replaced = []
     instances_all_replaced = []
@@ -177,14 +176,14 @@ def fetch_what_links_here(title, limit=1000, fetch_link_size=5000):
     next_page_url = WHAT_LINKS_HERE_URL.format(title, fetch_link_size)
     total_link_processed = 0
     while total_link_processed < limit and next_page_url is not None:
-        LOGGER.debug(u"Processing link: %s" % next_page_url.decode('utf-8'))
+        LOGGER.debug(u"Processing link: %s" % next_page_url)
         try:
             response = requests.get(next_page_url)
             content = response.content
             SLEEP_INTERVAL = 1
         except (ConnectionError, WikipediaException) as e:
             SLEEP_INTERVAL *= 2
-            LOGGER.info(u"Sleeping {} seconds for {}. Reason: {}".format(SLEEP_INTERVAL, title.decode('utf-8'), e))
+            LOGGER.info(u"Sleeping {} seconds for {}. Reason: {}".format(SLEEP_INTERVAL, title, e))
             sleep(SLEEP_INTERVAL)
             continue  # try at the beginning
         if response.status_code == 200:
@@ -195,7 +194,7 @@ def fetch_what_links_here(title, limit=1000, fetch_link_size=5000):
             total_link_processed += len(links)
             all_links.extend(links)
         else:
-            LOGGER.error(u"Error while link fetching: %s" % next_page_url.decode('utf-8'))
+            LOGGER.error(u"Error while link fetching: %s" % next_page_url)
 
     return all_links
 
@@ -223,7 +222,7 @@ def extract_from_file(filename, num_process):
         pool = Pool(num_process)
         pool.map(extract_instances_for_word, jobs.values())
     else:
-        for v in jobs.values():
+        for v in [jobs['milk']]:
             extract_instances_for_word(v)
 
     LOGGER.info("Done.")
