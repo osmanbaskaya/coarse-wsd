@@ -29,8 +29,8 @@ def configure_logger(log_level='INFO'):
         console_handler.setLevel(logging.getLevelName(log_level.upper()))
         file_handler.setLevel(logging.DEBUG)
 
-        detailed_formatter = logging.Formatter('[%(asctime)s] p%(process)s %(pathname)s:%(lineno)d %(levelname)s - %(message)s')
-        formatter = logging.Formatter('[%(asctime)s] p%(process)s %(filename)s:%(lineno)d %(levelname)s - %(message)s')
+        detailed_formatter = logging.Formatter(u'[%(asctime)s] p%(process)s %(pathname)s:%(lineno)d %(levelname)s - %(message)s')
+        formatter = logging.Formatter(u'[%(asctime)s] p%(process)s %(filename)s:%(lineno)d %(levelname)s - %(message)s')
 
         file_handler.setFormatter(detailed_formatter)
         console_handler.setFormatter(formatter)
