@@ -62,7 +62,7 @@ def wiki_page_query(page_title, num_try=1):
     global SLEEP_INTERVAL
 
     try:
-        LOGGER.info(u'Retrieving {} from Wikipedia'.format(page_title))
+        LOGGER.debug(u'Retrieving {} from Wikipedia'.format(page_title))
         p = wikipedia.page(page_title)
         SLEEP_INTERVAL = 1
         return p
@@ -74,7 +74,7 @@ def wiki_page_query(page_title, num_try=1):
             return wiki_page_query(title)
     # This is most likely the "What links here" page and we can safely skip it.
     except DisambiguationError:
-        LOGGER.exception(u'Disambiguation Error for {}... get skipped.'.format(page_title))
+        LOGGER.debug(u'Disambiguation Error for {}... get skipped.'.format(page_title))
         return None
     except (ConnectionError, WikipediaException) as e:
         SLEEP_INTERVAL *= 2
