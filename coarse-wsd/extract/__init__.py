@@ -97,7 +97,7 @@ def extract_from_page(page_title, word, offset, fetch_links):
 
     instances, instances_replaced, instances_all_replaced, count = extract_instances(p.content, word, pos, 0, p.url)
     if fetch_links:
-        links = fetch_what_links_here(p.title, limit=1000)
+        links = fetch_what_links_here(p.title, limit=1)
         for link in links:
             link_page_title = link.replace(u'/wiki/', '')
             # skip talk articles.
@@ -127,7 +127,8 @@ def extract_from_page(page_title, word, offset, fetch_links):
 
 def write2file(filename, lines):
     with codecs.open(filename, 'w', encoding='utf8') as f:
-        f.write('\n'.join(lines))
+        LOGGER.info("Writing {}".format(filename))
+        f.write(u'\n'.join(lines))
         f.write('\n')
 
 
