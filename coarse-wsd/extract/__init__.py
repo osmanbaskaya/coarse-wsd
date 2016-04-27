@@ -99,7 +99,7 @@ def extract_from_page(page_title, word, offset, fetch_links):
     if fetch_links:
         links = fetch_what_links_here(p.title, limit=1000)
         for link in links:
-            link_page_title = link.replace('/wiki/', '')
+            link_page_title = link.replace(u'/wiki/', '')
             # skip talk articles.
             if any(map(lambda x: link_page_title.startswith(x), ['Talk:', 'User_talk:', 'User:'])):
                 continue
@@ -131,7 +131,7 @@ def write2file(filename, lines):
         f.write('\n')
 
 
-def extract_instances_for_word(senses, wiki_dir='../datasets/wiki/'):
+def extract_instances_for_word(senses, wiki_dir=u'../datasets/wiki/'):
     LOGGER.info(u"Processing word: %s" % senses[0]['word'].decode('utf-8'))
     instances = []
     instances_replaced = []
@@ -205,13 +205,13 @@ def extract_from_file(filename, num_process):
     global LOGGER
     LOGGER = utils.get_logger()
 
-    dataset_path = '../datasets/wiki'
+    dataset_path = u'../datasets/wiki'
     # get processed words
     processed_words = set([word.split('.')[0] for word in
                            filter(lambda x: x.endswith('.replaced-all.txt'), os.listdir(dataset_path))])
 
     jobs = dd(list)
-    for line in open(filename):
+    for line in codecs.open(filename, encoding='utf-8'):
         line = line.split()
         target_word, page_title, offset = line[:3]
         if target_word not in processed_words:
