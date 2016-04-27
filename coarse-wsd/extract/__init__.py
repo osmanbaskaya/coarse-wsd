@@ -111,7 +111,7 @@ def extract_from_page(page_title, word, offset, fetch_links):
                     try:
                         content = link_page.content
                     except ConnectionError:
-                        LOGGER.info("Content fetch error. {}".format(link_page.decode('utf-8')))
+                        LOGGER.info(u"Content fetch error. {}".format(link_page.decode('utf-8')))
                         num_try += 1
                         sleep(3)
                 link_instances, link_instances_replaced, link_instances_all_replaced, link_count = \
