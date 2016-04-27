@@ -107,13 +107,15 @@ def extract_from_page(page_title, word, offset, fetch_links):
             if link_page is not None:
                 num_try = 0
                 content = None
+                second_to_sleep = 10
                 while num_try < 5 and content is None:
                     try:
                         content = link_page.content
                     except ConnectionError:
-                        LOGGER.info(u"Content fetch error. {}".format(link_page.decode('utf-8')))
+                        LOGGER.info(u"Content fetch error. {}".format(link_page_title.decode('utf-8')))
                         num_try += 1
-                        sleep(3)
+                        second_to_sleep *= 2
+                        sleep(second_to_sleep)
                 link_instances, link_instances_replaced, link_instances_all_replaced, link_count = \
                     extract_instances(content, word, pos, len(instances), link_page.url)
                 instances.extend(link_instances)
