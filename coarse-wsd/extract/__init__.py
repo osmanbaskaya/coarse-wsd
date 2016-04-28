@@ -111,17 +111,19 @@ def extract_from_page(page_title, word, offset, fetch_links):
             if link_page is not None:
                 num_try = 0
                 content = None
+                url = None
                 second_to_sleep = 10
-                while num_try < 5 and content is None:
+                while num_try < 5 and (content is None or url is None):
                     try:
                         content = link_page.content
+                        url = link_page.url
                     except ConnectionError:
                         LOGGER.info("Content fetch error")
                         num_try += 1
                         second_to_sleep *= 2
                         sleep(second_to_sleep)
                 link_instances, link_instances_replaced, link_instances_all_replaced, link_count = \
-                    extract_instances(content, word, pos, len(instances), link_page.url)
+                    extract_instances(content, word, pos, len(instances), url)
                 instances.extend(link_instances)
                 instances_replaced.extend(link_instances_replaced)
                 instances_all_replaced.extend(link_instances_all_replaced)

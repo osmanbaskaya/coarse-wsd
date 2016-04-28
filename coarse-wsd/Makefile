@@ -27,7 +27,7 @@ corenlp-%.out: %.txt
 # Create original version of the instances fetched from Wikipedia.
 # Call example: laptop.original.txt
 %.original.txt: ../datasets/wiki/%.txt
-	cat $< | sed -re 's|<\w+\.\w\.[0-9]+>||g' -e 's|</\w+\.\w\.[0-9]+>||g' > ../datasets/wiki/$@
+	cut -f1 $< | sed -re 's|<\w+\.\w\.[0-9]+>||g' -e 's|</\w+\.\w\.[0-9]+>||g' | uniq > ../datasets/wiki-orig/$@
 
 %-filtered.txt: %.txt
 	echo Input file: `wc $<`
@@ -44,7 +44,7 @@ semcor-pages.txt: semcor-synset-info-txt
 
 # example: make fetch-instances-from-wiki FILENAME=wikipages.txt
 fetch-instances-from-wiki: ${FILENAME}
-	python fetch_instances.py --filename ${FILENAME} --log-level info --num-process ${CPU}
+	python fetch_instances.py --filename ${FILENAME} --log-level debug --num-process ${CPU}
 
 %-pagetypes.txt: %.txt
 	cat $< | cut -f2 | grep -oP "\(.*\)" | sort | uniq -c | sort -rn > $@
