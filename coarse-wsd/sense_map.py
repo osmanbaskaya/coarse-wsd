@@ -12,6 +12,7 @@ def run():
     files = [os.path.join(input_directory, f) for f in files]
     logger.info('total number of files: %d' % len(files))
     sense_mapping(files, out_directory)
+    logger.info('done')
 
 
 if __name__ == '__main__':

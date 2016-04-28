@@ -24,7 +24,7 @@ def configure_logger(log_level='INFO'):
         root_logger = logging.getLogger('')
         root_logger.setLevel(logging.DEBUG)
 
-        file_handler = logging.FileHandler("coarse-wsd.log", encoding='utf-8', mode='w')
+        file_handler = logging.FileHandler("coarse-wsd.log", encoding='utf-8', mode='a+')
         console_handler = logging.StreamHandler(stream=sys.stdout)
         console_handler.setLevel(logging.getLevelName(log_level.upper()))
         file_handler.setLevel(logging.DEBUG)
