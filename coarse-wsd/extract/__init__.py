@@ -89,7 +89,12 @@ def wiki_page_query(page_title, num_try=1):
 def extract_from_page(page_title, word, offset, fetch_links):
     pos = offset[-1]
 
-    p = wiki_page_query(page_title)
+    try:
+        p = wiki_page_query(page_title)
+    except ValueError:
+        LOGGER.warning(u'ValueError for {}'.format(page_title))
+        return [], [], []
+
     if p is None:
         LOGGER.warning(u'No page found for {}'.format(page_title))
         return [], [], []
@@ -175,6 +180,7 @@ def fetch_what_links_here(title, limit=1000, fetch_link_size=5000):
     all_links = []
     next_page_url = WHAT_LINKS_HERE_URL.format(title, fetch_link_size)
     total_link_processed = 0
+    content = None
     while total_link_processed < limit and next_page_url is not None:
         LOGGER.debug(u"Processing link: %s" % next_page_url)
         try:
@@ -186,7 +192,10 @@ def fetch_what_links_here(title, limit=1000, fetch_link_size=5000):
             LOGGER.info(u"Sleeping {} seconds for {}. Reason: {}".format(SLEEP_INTERVAL, title, e))
             sleep(SLEEP_INTERVAL)
             continue  # try at the beginning
-        if response.status_code == 200:
+        except ValueError:
+            LOGGER.warning("ValueError occured for {}".format(title))
+
+        if response.status_code == 200 and content is not None:
             soup = BeautifulSoup(content, 'html.parser')
             rows = soup.find(id='mw-whatlinkshere-list').find_all('li', recursive=False)
             links = [row.find('a')['href'] for row in rows]
@@ -194,7 +203,7 @@ def fetch_what_links_here(title, limit=1000, fetch_link_size=5000):
             total_link_processed += len(links)
             all_links.extend(links)
         else:
-            LOGGER.error(u"Error while link fetching: %s" % next_page_url)
+            LOGGER.error(u"Error while link fetching: %s and %s" % (next_page_url, response.status_code))
 
     return all_links
 
