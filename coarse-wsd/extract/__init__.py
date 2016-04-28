@@ -195,15 +195,18 @@ def fetch_what_links_here(title, limit=1000, fetch_link_size=5000):
         except ValueError:
             LOGGER.warning("ValueError occured for {}".format(title))
 
-        if response.status_code == 200 and content is not None:
-            soup = BeautifulSoup(content, 'html.parser')
-            rows = soup.find(id='mw-whatlinkshere-list').find_all('li', recursive=False)
-            links = [row.find('a')['href'] for row in rows]
-            next_page_url = get_next_page_url(soup)
-            total_link_processed += len(links)
-            all_links.extend(links)
-        else:
-            LOGGER.error(u"Error while link fetching: %s and %s" % (next_page_url, response.status_code))
+        try:
+            if response.status_code == 200 and content is not None:
+                soup = BeautifulSoup(content, 'html.parser')
+                rows = soup.find(id='mw-whatlinkshere-list').find_all('li', recursive=False)
+                links = [row.find('a')['href'] for row in rows]
+                next_page_url = get_next_page_url(soup)
+                total_link_processed += len(links)
+                all_links.extend(links)
+            else:
+                LOGGER.error(u"Error while link fetching: %s and %s" % (next_page_url, response.status_code))
+        except ValueError:
+            LOGGER.warning("ValueError occured 1 for {}".format(title))
 
     return all_links
 
@@ -231,7 +234,7 @@ def extract_from_file(filename, num_process):
         pool = Pool(num_process)
         pool.map(extract_instances_for_word, jobs.values())
     else:
-        for v in [jobs['milk']]:
+        for v in jobs.values():
             extract_instances_for_word(v)
 
     LOGGER.info("Done.")
