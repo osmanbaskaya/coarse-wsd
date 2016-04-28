@@ -207,6 +207,7 @@ def fetch_what_links_here(title, limit=1000, fetch_link_size=5000):
                 LOGGER.error(u"Error while link fetching: %s and %s" % (next_page_url, response.status_code))
         except ValueError:
             LOGGER.warning("ValueError occured 1 for {}".format(title))
+            exit(-1)
 
     return all_links
 
