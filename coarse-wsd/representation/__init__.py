@@ -11,7 +11,7 @@ def load_wiki_data(directory='../datasets/wikisenses/'):
             yield line.split()
 
 
-def run_word2vec(sentences, size=100, window=3, min_count=1, workers=4):
+def run_word2vec(sentences, size=100, window=5, min_count=20, workers=10):
     model = Word2Vec(sentences, size=size, window=window, min_count=min_count, workers=workers)
     model_id = "wiki-word2vec-{}.mdl".format(time.time())
     model.save(model_id)

@@ -23,35 +23,34 @@ LOGGER = None
 SLEEP_INTERVAL = 1
 
 
-def extract_instances(content, word, pos, starting_instance_id, url=None):
+def extract_instances(content, word, pos, sense_offset, target_word_page, categories, url=None):
     instances = []
     instances_replaced = []
-    instances_all_replaced = []
     for line in content.split('\n'):
         tokens = line.split()
         num_of_tokens = len(tokens)
         if num_of_tokens >= MIN_SENTENCE_SIZE:
             sentence = []
+            sentence_not_replaced = []
             is_observed = False
             for i in xrange(num_of_tokens):
                 if word in tokens[i].lower():
-                    starting_instance_id += 1
-                    instances.append(u"{} <{}.{}.{}>{}</{}.{}.{}> {}\t{}".format(u' '.join(tokens[:i]), word, pos, starting_instance_id,
-                                                                                 tokens[i], word, pos, starting_instance_id,
-                                                                                 u' '.join(tokens[i+1:]), url))
-
-                    instances_replaced.append(u"{} <{}.{}.{}>{}</{}.{}.{}> {}\t{}".format(u' '.join(tokens[:i]), word, pos, starting_instance_id,
-                                                                                word, word, pos, starting_instance_id,
-                                                                                u' '.join(tokens[i+1:]), url))
-                    sentence.append(u"<target>%s<target>" % word)
+                    sentence.append(u"<target>%s<target>" % word)  # replaced
+                    sentence_not_replaced.append(u"<target>%s<target>" % tokens[i])
                     is_observed = True
                 else:
                     sentence.append(tokens[i])
+                    sentence_not_replaced.append(tokens[i])
 
             if is_observed:
-                instances_all_replaced.append(' '.join(sentence))
+                instances.append(u"{}\t{}\t{}\t{}\t{}\t{}".format(u' '.join(sentence_not_replaced),
+                                                                  pos, sense_offset, target_word_page, url,
+                                                                  u'\t'.join(categories)))
+                instances_replaced.append(u"{}\t{}\t{}\t{}\t{}\t{}".format(' '.join(sentence), pos, sense_offset,
+                                                                           target_word_page, url,
+                                                                           u'\t'.join(categories)))
 
-    return instances, instances_replaced, instances_all_replaced, len(instances)
+    return instances, instances_replaced
 
 
 def wiki_page_query(page_title, num_try=1):
@@ -65,9 +64,16 @@ def wiki_page_query(page_title, num_try=1):
         LOGGER.debug(u'Retrieving {} from Wikipedia'.format(page_title))
         p = wikipedia.page(page_title)
         SLEEP_INTERVAL = 1
-        return p
-    except PageError:
-        LOGGER.info(u"Page '{}' not found.".format(page_title))
+        if p is not None:
+            try:
+                categories = p.categories
+            except KeyError:  # Somehow sometimes wikipedia library can't fetch any category.
+                categories = []
+            return p.title, p.content, p.url, categories
+        else:
+            return None
+    except PageError as e:
+        LOGGER.info(u"PageError: {}".format(page_title, e))
         # wikipedia library has a possible bug for underscored page titles.
         if '_' in page_title:
             title = page_title.replace('_', ' ')
@@ -76,57 +82,48 @@ def wiki_page_query(page_title, num_try=1):
     except DisambiguationError:
         LOGGER.debug(u'Disambiguation Error for {}... get skipped.'.format(page_title))
         return None
-    except (ConnectionError, WikipediaException) as e:
-        SLEEP_INTERVAL *= 2
-        LOGGER.info(u"Sleeping {} seconds for {}. Reason: {}".format(SLEEP_INTERVAL, page_title, e))
+    except ConnectionError as e:
+        SLEEP_INTERVAL *= 4
+        LOGGER.info(u"ConnectionError: Sleeping {} seconds for {}.".format(SLEEP_INTERVAL, page_title))
         sleep(SLEEP_INTERVAL)
-        wiki_page_query(page_title)  # try again.
+        wiki_page_query(page_title, num_try + 1)  # try again.
+    except WikipediaException:
+        wiki_page_query(page_title, num_try + 1)  # try again.
     except ContentDecodingError as e:
-        LOGGER.info(u"{}... Trying ({})".format(e, num_try+1))
+        LOGGER.info(u"ContentDecodingError: Trying ({})".format(num_try+1))
+        wiki_page_query(page_title, num_try+1)
+    except ValueError as e:
+        LOGGER.info(u"ValueError... Sleep and Trying ({})".format(num_try+1))
+        sleep(4)
         wiki_page_query(page_title, num_try+1)
 
 
 def extract_from_page(page_title, word, offset, fetch_links):
     pos = offset[-1]
 
-    try:
-        p = wiki_page_query(page_title)
-    except ValueError:
-        LOGGER.warning(u'ValueError for {}'.format(page_title))
-        return [], [], []
-
-    if p is None:
+    response = wiki_page_query(page_title)
+    if response is not None:
+        title, content, url, categories = response
+    else:
         LOGGER.warning(u'No page found for {}'.format(page_title))
-        return [], [], []
+        return [], []
 
-    instances, instances_replaced, instances_all_replaced, count = extract_instances(p.content, word, pos, 0, p.url)
+    instances, instances_replaced = extract_instances(content, word, pos, offset, True, categories, url)
     if fetch_links:
-        links = fetch_what_links_here(p.title, limit=1000)
+        links = fetch_what_links_here(title, limit=1000)
         for link in links:
             link_page_title = link.replace(u'/wiki/', '')
-            # skip talk articles.
+            # skip irrelevant articles.
             if any(map(lambda x: link_page_title.startswith(x), ['Talk:', 'User_talk:', 'User:'])):
                 continue
-            link_page = wiki_page_query(link_page_title)
-            if link_page is not None:
-                num_try = 0
-                content = None
-                second_to_sleep = 10
-                while num_try < 5 and content is None:
-                    try:
-                        content = link_page.content
-                    except ConnectionError:
-                        LOGGER.info("Content fetch error")
-                        num_try += 1
-                        second_to_sleep *= 2
-                        sleep(second_to_sleep)
-                link_instances, link_instances_replaced, link_instances_all_replaced, link_count = \
-                    extract_instances(content, word, pos, len(instances), link_page.url)
+            link_page_response = wiki_page_query(link_page_title)
+            if link_page_response is not None:
+                title, content, url, categories = link_page_response
+                link_instances, link_instances_replaced = extract_instances(content, word, pos, offset, False, categories, url)
                 instances.extend(link_instances)
                 instances_replaced.extend(link_instances_replaced)
-                instances_all_replaced.extend(link_instances_all_replaced)
 
-    return instances, instances_replaced, instances_all_replaced
+    return instances, instances_replaced
 
 
 def write2file(filename, lines):
@@ -140,26 +137,13 @@ def extract_instances_for_word(senses, wiki_dir=u'../datasets/wiki/'):
     LOGGER.info(u"Processing word: %s" % senses[0]['word'])
     instances = []
     instances_replaced = []
-    instances_all_replaced = []
-    sense_keys = []
-    sense_key_all_replaced = []
     for sense_args in senses:
-        sense_instances, sense_instances_replaced, sense_instances_all_replaced = extract_from_page(**sense_args)
+        sense_instances, sense_instances_replaced = extract_from_page(**sense_args)
         instances.extend(sense_instances)
         instances_replaced.extend(sense_instances_replaced)
-        instances_all_replaced.extend(sense_instances_all_replaced)
-        sense_key_all_replaced.extend([sense_args['offset']] * len(sense_instances_all_replaced))
-        sense_keys.extend([sense_args['offset']] * len(sense_instances))
 
-    # TODO: create a file in ..datasets/wiki/ and write instances.
-    # original version
     write2file(os.path.join(wiki_dir, u'%s.txt' % senses[0]['word']), instances)
-    # target word replaced version (e.g., dogs, DOG, Dog are replaced by 'dog')
-    write2file(os.path.join(wiki_dir, u'%s.replaced.txt' % senses[0]['word']), instances_replaced)
-    # replaced version of target word over all occurrences.
-    write2file(os.path.join(wiki_dir, u'%s.replaced-all.txt' % senses[0]['word']), instances_all_replaced)
-    write2file(os.path.join(wiki_dir, u'%s.replaced-all.key' % senses[0]['word']), sense_key_all_replaced)
-    write2file(os.path.join(wiki_dir, u'%s.key' % senses[0]['word']), sense_keys)
+    write2file(os.path.join(wiki_dir, u'%s.tw.txt' % senses[0]['word']), instances_replaced)
 
 
 def get_next_page_url(soup):
@@ -189,21 +173,25 @@ def fetch_what_links_here(title, limit=1000, fetch_link_size=5000):
             SLEEP_INTERVAL = 1
         except (ConnectionError, WikipediaException) as e:
             SLEEP_INTERVAL *= 2
-            LOGGER.info(u"Sleeping {} seconds for {}. Reason: {}".format(SLEEP_INTERVAL, title, e))
+            LOGGER.info(u"ConnectionError, WikiException: Sleeping {} seconds for {}.".format(SLEEP_INTERVAL, title))
             sleep(SLEEP_INTERVAL)
             continue  # try at the beginning
         except ValueError:
             LOGGER.warning("ValueError occured for {}".format(title))
-
-        if response.status_code == 200 and content is not None:
-            soup = BeautifulSoup(content, 'html.parser')
-            rows = soup.find(id='mw-whatlinkshere-list').find_all('li', recursive=False)
-            links = [row.find('a')['href'] for row in rows]
-            next_page_url = get_next_page_url(soup)
-            total_link_processed += len(links)
-            all_links.extend(links)
-        else:
-            LOGGER.error(u"Error while link fetching: %s and %s" % (next_page_url, response.status_code))
+        try:
+            if response.status_code == 200 and content is not None:
+                soup = BeautifulSoup(content, 'html.parser')
+                rows = soup.find(id='mw-whatlinkshere-list').find_all('li', recursive=False)
+                links = [row.find('a')['href'] for row in rows]
+                next_page_url = get_next_page_url(soup)
+                total_link_processed += len(links)
+                all_links.extend(links)
+            else:
+                LOGGER.error(u"Error while link fetching: %s and %s" % (next_page_url, response.status_code))
+                break
+        except ValueError:
+            LOGGER.warning("ValueError occured 1 for {}".format(title))
+            exit(-1)
 
     return all_links
 
@@ -231,6 +219,7 @@ def extract_from_file(filename, num_process):
         pool = Pool(num_process)
         pool.map(extract_instances_for_word, jobs.values())
     else:
+        # for v in jobs.values():
         for v in [jobs['milk']]:
             extract_instances_for_word(v)
 
