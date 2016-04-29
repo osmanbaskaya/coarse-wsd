@@ -65,11 +65,15 @@ def wiki_page_query(page_title, num_try=1):
         p = wikipedia.page(page_title)
         SLEEP_INTERVAL = 1
         if p is not None:
-            return p.title, p.content, p.url, p.categories
+            try:
+                categories = p.categories
+            except KeyError:  # Somehow sometimes wikipedia library can't fetch any category.
+                categories = []
+            return p.title, p.content, p.url, categories
         else:
             return None
-    except PageError:
-        LOGGER.info(u"Page '{}' not found.".format(page_title))
+    except PageError as e:
+        LOGGER.info(u"PageError: {}".format(page_title, e))
         # wikipedia library has a possible bug for underscored page titles.
         if '_' in page_title:
             title = page_title.replace('_', ' ')
@@ -80,13 +84,17 @@ def wiki_page_query(page_title, num_try=1):
         return None
     except ConnectionError as e:
         SLEEP_INTERVAL *= 4
-        LOGGER.info(u"Sleeping {} seconds for {}. Reason: {}".format(SLEEP_INTERVAL, page_title, e))
+        LOGGER.info(u"ConnectionError: Sleeping {} seconds for {}.".format(SLEEP_INTERVAL, page_title))
         sleep(SLEEP_INTERVAL)
         wiki_page_query(page_title, num_try + 1)  # try again.
     except WikipediaException:
         wiki_page_query(page_title, num_try + 1)  # try again.
     except ContentDecodingError as e:
-        LOGGER.info(u"{}... Trying ({})".format(e, num_try+1))
+        LOGGER.info(u"ContentDecodingError: Trying ({})".format(num_try+1))
+        wiki_page_query(page_title, num_try+1)
+    except ValueError as e:
+        LOGGER.info(u"ValueError... Sleep and Trying ({})".format(num_try+1))
+        sleep(4)
         wiki_page_query(page_title, num_try+1)
 
 
@@ -102,7 +110,7 @@ def extract_from_page(page_title, word, offset, fetch_links):
 
     instances, instances_replaced = extract_instances(content, word, pos, offset, True, categories, url)
     if fetch_links:
-        links = fetch_what_links_here(title, limit=1)
+        links = fetch_what_links_here(title, limit=1000)
         for link in links:
             link_page_title = link.replace(u'/wiki/', '')
             # skip irrelevant articles.
@@ -165,12 +173,11 @@ def fetch_what_links_here(title, limit=1000, fetch_link_size=5000):
             SLEEP_INTERVAL = 1
         except (ConnectionError, WikipediaException) as e:
             SLEEP_INTERVAL *= 2
-            LOGGER.info(u"Sleeping {} seconds for {}. Reason: {}".format(SLEEP_INTERVAL, title, e))
+            LOGGER.info(u"ConnectionError, WikiException: Sleeping {} seconds for {}.".format(SLEEP_INTERVAL, title))
             sleep(SLEEP_INTERVAL)
             continue  # try at the beginning
         except ValueError:
             LOGGER.warning("ValueError occured for {}".format(title))
-
         try:
             if response.status_code == 200 and content is not None:
                 soup = BeautifulSoup(content, 'html.parser')
@@ -181,6 +188,7 @@ def fetch_what_links_here(title, limit=1000, fetch_link_size=5000):
                 all_links.extend(links)
             else:
                 LOGGER.error(u"Error while link fetching: %s and %s" % (next_page_url, response.status_code))
+                break
         except ValueError:
             LOGGER.warning("ValueError occured 1 for {}".format(title))
             exit(-1)
