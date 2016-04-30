@@ -35,8 +35,8 @@ def extract_instances(content, word, pos, sense_offset, target_word_page, catego
             is_observed = False
             for i in xrange(num_of_tokens):
                 if word in tokens[i].lower():
-                    sentence.append(u"<target>%s<target>" % word)  # replaced
-                    sentence_not_replaced.append(u"<target>%s<target>" % tokens[i])
+                    sentence.append(u"<target>%s</target>" % word)  # replaced
+                    sentence_not_replaced.append(u"<target>%s</target>" % tokens[i])
                     is_observed = True
                 else:
                     sentence.append(tokens[i])

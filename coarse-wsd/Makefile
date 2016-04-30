@@ -26,8 +26,8 @@ corenlp-%.out: %.txt
 
 # Create original version of the instances fetched from Wikipedia.
 # Call example: laptop.original.txt
-%.original.txt: ../datasets/wiki/%.txt
-	cut -f1 $< | sed -re 's|<\w+\.\w\.[0-9]+>||g' -e 's|</\w+\.\w\.[0-9]+>||g' | uniq > ../datasets/wiki-orig/$@
+target-label-remove: ../datasets/wiki
+	python scripts/remove_target_label.py $<
 
 %-filtered.txt: %.txt
 	echo Input file: `wc $<`
