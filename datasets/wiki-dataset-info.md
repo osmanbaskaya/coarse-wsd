@@ -11,7 +11,7 @@ In `target_word.tw.txt` file, all occurrences of a target word are replaced with
 In both files, columns are separated with eachother with \t and organized as follows:
 
 
-Sentence POS_Tag Sense_Offset Does_Sentence_Belong_to_the_Main_Article_Page? URL_of_the_Page Categories(All are tab separated and varying size)
+`Sentence` `POS_Tag` `Sense_Offset` `Does_Sentence_Belong_to_the_Main_Article_Page?` `URL_of_the_Page Categories(All are tab separated and varying size)`
 
 #### Some info about non-trivial columns
 
