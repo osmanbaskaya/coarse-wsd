@@ -10,8 +10,12 @@ def get_sense_counts(wiki_dir='../data/wiki'):
         fn = os.path.join(wiki_dir, "%s.txt" % word)
         for line in codecs.open(fn, encoding='utf8'):
             line = line.strip().split('\t')
-            sense = line[2]
-            word_sense_dict[word].append(sense)
+            try:
+                sense = line[2]
+                word_sense_dict[word].append(sense)
+            except IndexError:
+                print "IndexError for %s - %s" % (word, line)
+
 
     word_sense_count = dict()
 

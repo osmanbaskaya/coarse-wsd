@@ -55,5 +55,5 @@ fetch-instances-from-wiki: ${FILENAME}
 	cat $< | python scripts/wiki_page_excluder.py ${PAGE_EXCLUDE_LIST} > $@
 	echo Output file: `wc $@`
 
-create_sense_count_table: ../datasets/wiki semcor-pages.txt
+create_sense_count_table: ../datasets/wiki semcor-pages-filtered.txt
 	python data_stats.py --function $@ --args $^

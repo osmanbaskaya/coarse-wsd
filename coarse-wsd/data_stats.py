@@ -15,7 +15,7 @@ def create_sense_count_table(data_dir, page_fn):
         for sense, count in sense_dist.iteritems():
             table.append((word, perplexity, sense, sense_page_link[sense], count / total, total))
 
-    out = 'data-stats.txt'
+    out = 'wiki-data-stats.txt'
     with codecs.open(out, 'w', encoding='utf-8') as f:
         f.write(tabulate.tabulate(table, headers=header))
 
