@@ -14,6 +14,11 @@ __author__ = "Osman Baskaya"
 LOGGER = None
 
 
+def get_target_words(directory='../datasets/wiki'):
+    return set(fn.split('.', 1)[0] for fn in os.listdir(directory))
+
+
+
 def get_logger():
     assert LOGGER is not None, "Configure Logger first"
     return LOGGER

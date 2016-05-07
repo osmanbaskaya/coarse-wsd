@@ -1,10 +1,11 @@
 import os
 from collections import Counter, defaultdict as dd
 import codecs
+from utils import get_target_words
 
 
-def get_sense_counts(wiki_dir='../data/wiki'):
-    words = set(fn.split('.', 1)[0] for fn in os.listdir(wiki_dir))
+def get_sense_counts(wiki_dir='../datasets/wiki'):
+    words = get_target_words(wiki_dir)
     word_sense_dict = dd(list)
     for word in words:
         fn = os.path.join(wiki_dir, "%s.txt" % word)
@@ -15,7 +16,6 @@ def get_sense_counts(wiki_dir='../data/wiki'):
                 word_sense_dict[word].append(sense)
             except IndexError:
                 print "IndexError for %s - %s" % (word, line)
-
 
     word_sense_count = dict()
 

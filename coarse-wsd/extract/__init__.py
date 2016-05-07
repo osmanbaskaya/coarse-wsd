@@ -10,6 +10,7 @@ from wikipedia.exceptions import PageError, DisambiguationError
 from collections import defaultdict as dd
 from requests.exceptions import ConnectionError, ContentDecodingError
 from time import sleep
+from utils import get_target_words
 from wikipedia.exceptions import WikipediaException
 
 
@@ -204,8 +205,7 @@ def extract_from_file(filename, num_process):
 
     dataset_path = u'../datasets/wiki'
     # get processed words
-    processed_words = set([word.split('.')[0] for word in
-                           filter(lambda x: x.endswith('.replaced-all.txt'), os.listdir(dataset_path))])
+    processed_words = get_target_words(dataset_path)
 
     jobs = dd(list)
     for line in codecs.open(filename, encoding='utf-8'):
