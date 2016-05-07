@@ -5,6 +5,9 @@ from collections import defaultdict as dd
 import logging
 import logging.handlers
 import sys
+import math
+import fnmatch
+import os
 
 __author__ = "Osman Baskaya"
 
@@ -55,10 +58,33 @@ def top_words(files):
     for word, freq in freq_sorted:
         print "{}\t{}".format(word, freq)
 
+
+def find_files(topdir, pattern):
+    for path, dirname, filelist in os.walk(topdir):
+        for name in filelist:
+            if fnmatch.fnmatch(name, pattern):
+                yield os.path.join(path,name)
+
+
+def calc_perplexity(d):
+    """
+    >>> d = {u'bn:00289737n': 10, u'wn:07739125n': 10}
+    >>> calc_entropy(d)
+    2.0
+    """
+    total = float(sum(d.values()))
+    e = 0
+    for count in d.values():
+        p = count / total
+        e -= p * math.log(p, 2)
+
+    return 2 ** e
+
+
 def run():
     method = globals()[sys.argv[1]] 
-    files = sys.argv[2:]
-    method(files)
+    args = sys.argv[2:]
+    method(args)
 
 if __name__ == "__main__":
     run()
