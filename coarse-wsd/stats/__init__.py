@@ -8,7 +8,7 @@ def get_sense_counts(wiki_dir='../datasets/wiki'):
     words = get_target_words(wiki_dir)
     word_sense_dict = dd(list)
     for word in words:
-        fn = os.path.join(wiki_dir, "%s.txt" % word)
+        fn = os.path.join(wiki_dir, "%s.lem.txt" % word)
         for line in codecs.open(fn, encoding='utf8'):
             line = line.strip().split('\t')
             try:
