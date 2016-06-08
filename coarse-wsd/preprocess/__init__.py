@@ -23,18 +23,25 @@ def sense_mapping(files, directory_to_write):
         directory, fn = os.path.split(f)
         fn, ext = os.path.splitext(fn)
         target_word = fn.split('.')[0]
-        key_fn = os.path.join(directory, "%s.key" % fn)
-        senses = open(key_fn).read().splitlines()
-        sense_map = dict(zip(set(senses), count(1)))
-        replaced_instances = []
-        for line, sense in izip(codecs.open(f, encoding='utf8'), senses):
-            line = line.strip()
-            instance = regex.sub(u"{}.{}".format(target_word, sense_map[sense]), line)
-            replaced_instances.append(instance)
+        d = dict()
+        replaced_sentence = []
+        for line in codecs.open(f, encoding='utf8'):
+            line = line.strip().split('\t')
+            sentence, sense = line[0], line[2]
+            sense = sense.replace('wn:', '')  # remove the first wn: part. Just in case for preprocessing options (may remove all punctuations and we can end up)
+            sense_id = d.get(sense, None)
+            if sense_id is None:
+                sense_id = len(d)
+                d[sense] = sense_id
+            sentence = regex.sub(u"{}.{}".format(target_word, sense_id), sentence)
+            replaced_sentence.append(sentence)
         with codecs.open(os.path.join(directory_to_write, '%s.txt' % target_word), 'w', encoding='utf8') \
                 as out:
-            out.write('\n'.join(replaced_instances))
-        with open(os.path.join(directory_to_write, "%s.keydict.txt" % target_word), 'w') as keydict_out:
-            keydict_out.write("\n".join((["{}\t{}".format(*sense) for sense in sense_map.iteritems()])))
-            keydict_out.write('\n')
+            out.write('\n'.join(replaced_sentence))
+        with open(os.path.join(directory_to_write, "%s.keydict.txt" % target_word), 'w') as keyfile:
+            keyfile.write("\n".join((["{}\t{}".format(*sense) for sense in d.iteritems()])))
+            keyfile.write('\n')
+
+
+
 
