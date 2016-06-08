@@ -28,7 +28,6 @@ def sense_mapping(files, directory_to_write):
         for line in codecs.open(f, encoding='utf8'):
             line = line.strip().split('\t')
             sentence, sense = line[0], line[2]
-            sense = sense.replace('wn:', '')  # remove the first wn: part. Just in case for preprocessing options (may remove all punctuations and we can end up)
             sense_id = d.get(sense, None)
             if sense_id is None:
                 sense_id = len(d)
