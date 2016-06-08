@@ -126,7 +126,7 @@ def create_IMS_formatted_dataset(files, directory_to_write, k=5):
             test = itemgetter(*test_idx)(lines)
             out_dir = os.path.join(directory_to_write, "fold-%d" % fold)
             for dataset_type, dataset in (('train', train), ('test', test)):
-                out_fn_data = os.path.join(out_dir, '%s.%s.txt' % (target_word, dataset_type))
+                out_fn_data = os.path.join(out_dir, '%s.%s.xml' % (target_word, dataset_type))
                 out_fn_key = os.path.join(out_dir, '%s.%s.key' % (target_word, dataset_type))
-                transform_into_IMS_input_format(lines, out_fn_data, target_word)
-                transform_into_IMS_key_format(lines, out_fn_key, target_word)
+                transform_into_IMS_input_format(dataset, out_fn_data, target_word)
+                transform_into_IMS_key_format(dataset, out_fn_key, target_word)
