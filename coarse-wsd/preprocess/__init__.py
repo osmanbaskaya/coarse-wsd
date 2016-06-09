@@ -1,15 +1,19 @@
 import os
 import re
 import codecs
-import utils
-from sklearn.cross_validation import KFold
+from xml.sax.saxutils import escape
 import shutil
 import random
 from operator import itemgetter
 
+from sklearn.cross_validation import KFold
+
+import utils
+
 LOGGER = None
 
 regex = re.compile(u"<target>\w+<target>")
+
 
 
 def create_sense_dataset(files, directory_to_write):
@@ -88,6 +92,10 @@ def transform_into_IMS_input_format(lines, out_fn, target_word):
         out.write(start)
         for i, line in enumerate(lines, 1):
             sentence = line.split('\t')[0]
+            sentence = escape(sentence)
+            # TODO: remove 1 in sub function and add '/' second target tag after David changes the java code.
+            sentence = re.sub("&lt;target&gt;%s&lt;target&gt;" % target_word, "<head>%s</head>" % target_word,
+                              sentence, 1)
             out.write(instance.format(target_word, i, sentence))
         out.write(end)
 
