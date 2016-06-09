@@ -57,3 +57,12 @@ fetch-instances-from-wiki: ${FILENAME}
 
 create_sense_count_table: ../datasets/wiki semcor-pages-filtered.txt
 	python data_stats.py --function $@ --args $^
+
+../datasets/ims: ../datasets/wiki-filtered
+	python create_ims_dataset.py $< $@
+
+ims.tw-list.txt: ../datasets/ims
+	ls $</fold-1 | grep ".train.xml" | sed 's|.train.xml||g' > $@
+
+evaluate.ims: ims.tw-list.txt ../datasets/ims 
+	python ims_eval.py $^

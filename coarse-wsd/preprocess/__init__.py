@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 import re
+import sys
 import codecs
 from xml.sax.saxutils import escape
 import shutil
