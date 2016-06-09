@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os
 import re
 import codecs
@@ -5,7 +6,6 @@ from xml.sax.saxutils import escape
 import shutil
 import random
 from operator import itemgetter
-
 from sklearn.cross_validation import KFold
 
 import utils
@@ -13,7 +13,6 @@ import utils
 LOGGER = None
 
 regex = re.compile(u"<target>\w+<target>")
-
 
 
 def create_sense_dataset(files, directory_to_write):
@@ -58,7 +57,7 @@ def create_sense_dataset(files, directory_to_write):
             keyfile.write('\n')
 
 
-def transform_into_IMS_input_format(lines, out_fn, target_word):
+def transform_into_IMS_input_format(lines, out_fn, target_word, data_idx):
     """<?xml version="1.0" encoding="iso-8859-1" ?><!DOCTYPE corpus SYSTEM "lexical-sample.dtd">
          <corpus lang='english'>
          <lexelt item="bank.n">
@@ -88,11 +87,16 @@ def transform_into_IMS_input_format(lines, out_fn, target_word):
 
     end = u"</lexelt>\n</corpus>\n"
 
+    # replace_set = [(u"–", ' '), (u"被", " "), (u"給", " ")]
+
     with codecs.open(out_fn, 'w', encoding='utf8') as out:
         out.write(start)
-        for i, line in enumerate(lines, 1):
+        for line, i in zip(lines, data_idx):
             sentence = line.split('\t')[0]
+            sentence = utils.remove_non_ascii(sentence)
             sentence = escape(sentence)
+            # for t in replace_set:
+            #     sentence = sentence.replace(*t)
             # TODO: remove 1 in sub function and add '/' second target tag after David changes the java code.
             sentence = re.sub("&lt;target&gt;%s&lt;target&gt;" % target_word, "<head>%s</head>" % target_word,
                               sentence, 1)
@@ -100,9 +104,9 @@ def transform_into_IMS_input_format(lines, out_fn, target_word):
         out.write(end)
 
 
-def transform_into_IMS_key_format(lines, out_fn, target_word):
+def transform_into_IMS_key_format(lines, out_fn, target_word, test_idx):
     with codecs.open(out_fn, 'w', encoding='utf8') as out:
-        for i, line in enumerate(lines, 1):
+        for line, i in zip(lines, test_idx):
             sense = line.split('\t')[2]
             out.write(u"{} {}.{} {}\n".format(target_word, target_word, i, sense))
 
@@ -133,8 +137,8 @@ def create_IMS_formatted_dataset(files, directory_to_write, k=5):
             train = itemgetter(*train_idx)(lines)
             test = itemgetter(*test_idx)(lines)
             out_dir = os.path.join(directory_to_write, "fold-%d" % fold)
-            for dataset_type, dataset in (('train', train), ('test', test)):
+            for dataset_type, dataset, data_idx in (('train', train, train_idx), ('test', test, test_idx)):
                 out_fn_data = os.path.join(out_dir, '%s.%s.xml' % (target_word, dataset_type))
                 out_fn_key = os.path.join(out_dir, '%s.%s.key' % (target_word, dataset_type))
-                transform_into_IMS_input_format(dataset, out_fn_data, target_word)
-                transform_into_IMS_key_format(dataset, out_fn_key, target_word)
+                transform_into_IMS_input_format(dataset, out_fn_data, target_word, data_idx)
+                transform_into_IMS_key_format(dataset, out_fn_key, target_word, data_idx)

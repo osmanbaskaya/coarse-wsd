@@ -5,6 +5,7 @@ from collections import defaultdict as dd
 import logging
 import logging.handlers
 import sys
+from unidecode import unidecode
 import math
 import fnmatch
 import os
@@ -84,6 +85,10 @@ def calc_perplexity(d):
         e -= p * math.log(p, 2)
 
     return 2 ** e
+
+
+def remove_non_ascii(text):
+    return unidecode(text)
 
 
 def run():
