@@ -70,3 +70,5 @@ coarse-wsd-java/out/
 *.rar
 *.zip
 
+*.class
+
