@@ -127,8 +127,8 @@ class IMS(object):
         return f1_macro, f1_micro
 
     def evaluate(self, remove_intermediate):
-        # self.train()
-        # self.test()
+        self.train()
+        self.test()
         scores = self.score()
         if remove_intermediate:
             shutil.rmtree(self.output_path)
