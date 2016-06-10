@@ -109,7 +109,7 @@ def transform_into_IMS_key_format(lines, out_fn, target_word, test_idx):
     with codecs.open(out_fn, 'w', encoding='utf8') as out:
         for line, i in zip(lines, test_idx):
             sense = line.split('\t')[2]
-            out.write(u"{} {}.{} {}\n".format(target_word, target_word, i, sense))
+            out.write(u"{} {}.{} {}\n".format("BNC", target_word, i, sense))
 
 
 def create_directories_for_folding(directory_to_write, k):
