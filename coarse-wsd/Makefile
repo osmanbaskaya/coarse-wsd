@@ -64,5 +64,6 @@ create_sense_count_table: ../datasets/wiki semcor-pages-filtered.txt
 ims.tw-list.txt: ../datasets/ims
 	ls $</fold-1 | grep ".train.xml" | sed 's|.train.xml||g' > $@
 
+# call example: make evaluate.ims CPU=4
 evaluate.ims: ims.tw-list.txt ../datasets/ims 
-	python ims_eval.py $^
+	python ims_eval.py $^ ${CPU}
