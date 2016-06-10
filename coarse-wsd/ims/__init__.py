@@ -1,18 +1,20 @@
 import os
 import shutil
 from multiprocessing import Pool
+from utils import cd
 
 
 class IMS(object):
 
-    def __init__(self, target_words, input_path, ims_path='../ims/ims_0.9.2.1'):
+    def __init__(self, target_words, input_path, ims_lib_path='../ims/ims_0.9.2.1'):
         self.target_words = target_words
         self.input_path = input_path
         self.is_trained = False
         self.is_tested = False
-        self.train_sh = os.path.join(ims_path, 'train_one.bash')
-        self.test_sh = os.path.join(ims_path, 'test_one.bash')
-        self.score_sh = os.path.join(ims_path, 'scorer.bash')
+        self.ims_lib_path = ims_lib_path  # ims_lib_path
+        self.train_sh = './train_one.bash'
+        self.test_sh = './test_one.bash'
+        self.score_sh = './scorer.bash'
 
         output_path, num_fold = IMS.prepare(input_path)
 
@@ -35,18 +37,18 @@ class IMS(object):
         return directory_to_write, num_fold
 
     def train(self):
-        for fold in xrange(1, self.num_fold+1):
-            fold = "fold-%d" % fold
-            for target_word in self.target_words:
-                root_path = os.path.join(self.input_path, fold)
-                train_xml = os.path.join(root_path, "%s.train.xml" % target_word)
-                key_file = os.path.join(root_path, "%s.train.key" % target_word)
-                out = os.path.join(self.output_path, fold, target_word)
-                command = "{} {} {} {}".format(self.train_sh, train_xml, key_file, out)
-                print command
-                os.system(command)
+        with cd(self.ims_lib_path):
+            for fold in xrange(1, self.num_fold+1):
+                fold = "fold-%d" % fold
+                for target_word in self.target_words:
+                    root_path = os.path.join('../../datasets/ims', fold)
+                    train_xml = os.path.join(root_path, "%s.train.xml" % target_word)
+                    key_file = os.path.join(root_path, "%s.train.key" % target_word)
+                    out = os.path.join(self.output_path, fold)
+                    command = "{} {} {} {}".format(self.train_sh, train_xml, key_file, out)
+                    os.system(command)
+                    break
                 break
-            break
 
     def test(self):
         pass

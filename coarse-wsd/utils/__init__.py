@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from collections import defaultdict as dd
+from contextlib import contextmanager
 import logging
 import logging.handlers
 import sys
@@ -15,9 +16,19 @@ __author__ = "Osman Baskaya"
 LOGGER = None
 
 
+# *-*-*- Context Managers -*-*-*
+@contextmanager
+def cd(path):
+    old_dir = os.getcwd()
+    os.chdir(path)
+    try:
+        yield
+    finally:
+        os.chdir(old_dir)
+
+
 def get_target_words(directory='../datasets/wiki'):
     return set(fn.split('.', 1)[0] for fn in os.listdir(directory))
-
 
 
 def get_logger():
