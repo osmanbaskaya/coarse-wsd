@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from collections import defaultdict as dd
+from contextlib import contextmanager
 import logging
 import logging.handlers
 import sys
@@ -15,9 +16,19 @@ __author__ = "Osman Baskaya"
 LOGGER = None
 
 
+# *-*-*- Context Managers -*-*-*
+@contextmanager
+def cd(path):
+    old_dir = os.getcwd()
+    os.chdir(path)
+    try:
+        yield
+    finally:
+        os.chdir(old_dir)
+
+
 def get_target_words(directory='../datasets/wiki'):
     return set(fn.split('.', 1)[0] for fn in os.listdir(directory))
-
 
 
 def get_logger():
@@ -89,6 +100,24 @@ def calc_perplexity(d):
 
 def remove_non_ascii(text):
     return unidecode(text)
+
+
+def get_all_files(path, regex=None):
+    matches = []
+    for root, dirnames, filenames in os.walk(path):
+        if regex is None:
+            matches.extend(map(lambda fn: os.path.join(root, fn), filenames))
+        else:
+            for filename in fnmatch.filter(filenames, regex):
+                matches.append(os.path.join(root, filename))
+
+    return matches
+
+
+def get_all_target_words(dataset_path, regex=None):
+    files = get_all_files(dataset_path, regex)
+    files = map(lambda path: os.path.split(path)[-1], files)
+    target_words = set(map(lambda t: t.split('.')[0], files))
 
 
 def run():
