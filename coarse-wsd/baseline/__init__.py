@@ -49,7 +49,7 @@ class BaselineEvaluator(object):
         for target_word, instance_dict in self.instance_sense_map.iteritems():
             senses = Counter(instance_dict.values()).keys()
             num_sense = len(senses)
-            matches = [senses[randint(num_sense)] == i for i in instance_dict.values()]
+            matches = [senses[randint(0, num_sense-1)] == i for i in instance_dict.values()]
             true_pos += sum(matches)
             total += len(matches)
 
