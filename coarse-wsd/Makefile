@@ -65,5 +65,22 @@ ims.tw-list.txt: ../datasets/ims
 	ls $</fold-1 | grep ".train.xml" | sed 's|.train.xml||g' > $@
 
 # call example: make evaluate.ims CPU=4
-evaluate.ims: ims.tw-list.txt ../datasets/ims 
+evaluate.ims: ims.tw-list.txt ../datasets/ims ../ims/ims_0.9.2.1
 	python ims_eval.py $^ ${CPU}
+
+../ims/ims_0.9.2.1:
+	#wget http://www.comp.nus.edu.sg/~nlp/sw/IMS_v0.9.2.1.tar.gz
+	#wget http://www.comp.nus.edu.sg/~nlp/sw/lib.tar.gz
+	-mkdir ../ims
+	#mv IMS_v0.9.2.1.tar.gz lib.tar.gz ../ims/
+	tar xzvf ../ims/IMS_v0.9.2.1.tar.gz -C ../ims
+	chmod +x $@/*.bash
+	cd $@; make
+	touch $@
+
+%.key: ../datasets/%
+	cat ../datasets/ims/fold-*/*.test.key > $@
+	wc $@
+
+calculate_baseline.%: %.key 
+	python calculate_baseline.py $<

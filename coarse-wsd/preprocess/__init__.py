@@ -13,7 +13,7 @@ import utils
 
 LOGGER = None
 
-regex = re.compile(u"<target>\w+<target>")
+regex = re.compile(u"<target>\w+</target>")
 
 
 def create_sense_dataset(files, directory_to_write):
@@ -99,7 +99,7 @@ def transform_into_IMS_input_format(lines, out_fn, target_word, data_idx):
             # for t in replace_set:
             #     sentence = sentence.replace(*t)
             # TODO: remove 1 in sub function and add '/' second target tag after David changes the java code.
-            sentence = re.sub("&lt;target&gt;%s&lt;target&gt;" % target_word, "<head>%s</head>" % target_word,
+            sentence = re.sub("&lt;target&gt;\w+&lt;/target&gt;", "<head>%s</head>" % target_word,
                               sentence, 1)
             out.write(instance.format(target_word, i, sentence))
         out.write(end)

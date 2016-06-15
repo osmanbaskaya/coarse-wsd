@@ -10,7 +10,8 @@ class TestBaselineEvaluator(unittest.TestCase):
         self.create_key_files(key_files)
         self.evaluator = BaselineEvaluator(key_files)
 
-    def create_key_files(self, key_files):
+    @staticmethod
+    def create_key_files(key_files):
         seed(42)
         target_words = ['agent', 'artificial']
         key_file_line_format = 'BNC {target_word}.{instance_id} {sense}\n'
