@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 import re
-import sys
+from multiprocessing import Pool
 import codecs
 from xml.sax.saxutils import escape
 import shutil
@@ -122,24 +122,36 @@ def create_directories_for_folding(directory_to_write, k):
     map(lambda fold: os.mkdir(os.path.join(directory_to_write, "fold-%d" % fold)), xrange(1, k+1))
 
 
+def prepare_one_target_word(args):
+    f, directory_to_write, k = args
+    _, fn = os.path.split(f)
+    target_word = fn.split('.')[0]
+    lines = codecs.open(f, encoding='utf8').read().splitlines()
+    if len(lines) > 100:
+        print "Processing {}".format(target_word)
+    else:
+        print "Skipping {} because the file doesn't contain enough data: {}".format(target_word, len(lines))
+        return
+    random.shuffle(lines)
+    kf = KFold(len(lines), k)
+    for fold, (train_idx, test_idx) in enumerate(kf, 1):
+        train = itemgetter(*train_idx)(lines)
+        test = itemgetter(*test_idx)(lines)
+        out_dir = os.path.join(directory_to_write, "fold-%d" % fold)
+        for dataset_type, dataset, data_idx in (('train', train, train_idx), ('test', test, test_idx)):
+            out_fn_data = os.path.join(out_dir, '%s.%s.xml' % (target_word, dataset_type))
+            out_fn_key = os.path.join(out_dir, '%s.%s.key' % (target_word, dataset_type))
+            transform_into_IMS_input_format(dataset, out_fn_data, target_word, data_idx)
+            transform_into_IMS_key_format(dataset, out_fn_key, target_word, data_idx)
+
+
 def create_IMS_formatted_dataset(files, directory_to_write, k=5):
     """
     It creates a k-fold datasets for IMS.
     """
     create_directories_for_folding(directory_to_write, k)
     random.seed(42)
-    for f in files:
-        _, fn = os.path.split(f)
-        target_word = fn.split('.')[0]
-        lines = codecs.open(f, encoding='utf8').read().splitlines()
-        random.shuffle(lines)
-        kf = KFold(len(lines), k)
-        for fold, (train_idx, test_idx) in enumerate(kf, 1):
-            train = itemgetter(*train_idx)(lines)
-            test = itemgetter(*test_idx)(lines)
-            out_dir = os.path.join(directory_to_write, "fold-%d" % fold)
-            for dataset_type, dataset, data_idx in (('train', train, train_idx), ('test', test, test_idx)):
-                out_fn_data = os.path.join(out_dir, '%s.%s.xml' % (target_word, dataset_type))
-                out_fn_key = os.path.join(out_dir, '%s.%s.key' % (target_word, dataset_type))
-                transform_into_IMS_input_format(dataset, out_fn_data, target_word, data_idx)
-                transform_into_IMS_key_format(dataset, out_fn_key, target_word, data_idx)
+    pool = Pool(3)
+    args = [(f, directory_to_write, k) for f in files]
+    pool.map(prepare_one_target_word, args)
+
