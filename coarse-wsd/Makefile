@@ -10,6 +10,8 @@ export PATH:=/ai/home/obaskaya/java/jdk1.8.0_65/bin/:${PATH}
 TARGET_WORD_EXCLUDE_LIST=mg new_york old_man fig cm hr bronchial_artery one two c pa tsh carbon_tetrachloride l 0 no 1 radio_emission men bull\'s_eye mm 30_minutes ma business_concern yes ml a los_angeles sense_of_touch m lb kansas_city interior_designer gm
 PAGE_EXCLUDE_LIST=album song EP
 
+WORD_EMBEDDING_DIM=100
+
 
 ### PATH
 CORE_NLP=java -cp "../tools/stanford-corenlp/*" -Xmx60g edu.stanford.nlp.pipeline.StanfordCoreNLP -replaceExtension -cpu ${CPU}
@@ -66,7 +68,7 @@ ims.tw-list.txt: ../datasets/ims
 
 # call example: make evaluate.ims CPU=4
 evaluate.ims: ims.tw-list.txt ../datasets/ims ../ims/ims_0.9.2.1
-	python ims_eval.py $^ ${CPU}
+	python ims_eval.py $^ ${CPU} 2>&1 | tee $@.out
 
 ../ims/ims_0.9.2.1:
 	#wget http://www.comp.nus.edu.sg/~nlp/sw/IMS_v0.9.2.1.tar.gz
@@ -84,3 +86,11 @@ evaluate.ims: ims.tw-list.txt ../datasets/ims ../ims/ims_0.9.2.1
 
 calculate_baseline.%: %.key 
 	python calculate_baseline.py $<
+
+# wiki-filtered comes from Stanford CoreNLP
+../datasets/wiki-senses: ../datasets/wiki-filtered
+	python sense_map.py $< $@
+
+run-word2vec: ../datasets/wiki-senses
+	python run_word2vec.py $< ${CPU} ${WORD_EMBEDDING_DIM}
+

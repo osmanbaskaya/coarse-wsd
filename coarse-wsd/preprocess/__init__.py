@@ -25,7 +25,6 @@ def create_sense_dataset(files, directory_to_write):
     :return:
     """
 
-
     global LOGGER
 
     LOGGER = utils.get_logger()
@@ -33,7 +32,9 @@ def create_sense_dataset(files, directory_to_write):
     try:
         os.mkdir(directory_to_write)
     except OSError:
-        LOGGER.debug("{} is already exist".format(directory_to_write))
+        LOGGER.debug("{} is already exist. Directory is removed.".format(directory_to_write))
+        shutil.rmtree(directory_to_write)  # remove the directory with its content.
+        os.mkdir(directory_to_write)
 
     for f in files:
         directory, fn = os.path.split(f)
@@ -101,6 +102,7 @@ def transform_into_IMS_input_format(lines, out_fn, target_word, data_idx):
             # TODO: remove 1 in sub function and add '/' second target tag after David changes the java code.
             sentence = re.sub("&lt;target&gt;\w+&lt;/target&gt;", "<head>%s</head>" % target_word,
                               sentence, 1)
+            assert "<head>%s</head>" % target_word in sentence, "headword not found."
             out.write(instance.format(target_word, i, sentence))
         out.write(end)
 
@@ -145,13 +147,16 @@ def prepare_one_target_word(args):
             transform_into_IMS_key_format(dataset, out_fn_key, target_word, data_idx)
 
 
-def create_IMS_formatted_dataset(files, directory_to_write, k=5):
+def create_IMS_formatted_dataset(files, directory_to_write, k=5, num_of_process=1):
     """
     It creates a k-fold datasets for IMS.
     """
     create_directories_for_folding(directory_to_write, k)
     random.seed(42)
-    pool = Pool(3)
     args = [(f, directory_to_write, k) for f in files]
-    pool.map(prepare_one_target_word, args)
+    if num_of_process > 1:
+        pool = Pool(num_of_process)
+        pool.map(prepare_one_target_word, args)
+    else:
+        map(prepare_one_target_word, args)
 
