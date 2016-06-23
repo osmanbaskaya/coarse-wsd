@@ -136,7 +136,8 @@ def prepare_one_target_word(args):
     if len(lines) > 0:
         least_populated = min(Counter(y).values())  # number of instance for least populated class.
     if len(lines) < 100 or least_populated < k:
-        print "Skipping {} because the file doesn't contain enough data: {}".format(target_word, len(lines))
+        print "Skipping {} because the file doesn't contain enough data {} or class {}".format(target_word, len(lines),
+                                                                                               least_populated)
         return
 
     print "Processing {}".format(target_word)
