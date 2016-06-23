@@ -55,7 +55,7 @@ class IMS(object):
         else:
             return map(run_parallel, commands)
 
-    def train(self):
+    def train(self, override=False):
         print "Training started"
         with cd(self.ims_lib_path):
             commands = []
@@ -70,12 +70,15 @@ class IMS(object):
                         os.mkdir(out)  # create target directory for saving models and stats data.
                     except OSError:
                         pass
+                    if not override:
+                        if os.path.exists(os.path.join(out, "%s.model.gz" % target_word)):
+                            continue  # model is already there. Skip it.
                     command = "{} {} {} {}".format(self.train_sh, train_xml, key_file, out)
                     commands.append(command)
             self.run(commands)
         print "Training finished"
 
-    def test(self):
+    def test(self, override=False):
         print "Test started"
         with cd(self.ims_lib_path):
             commands = []
@@ -85,6 +88,9 @@ class IMS(object):
                     root_path = os.path.join('../../datasets/ims', fold)
                     test_xml = os.path.join(root_path, "%s.test.xml" % target_word)
                     out = os.path.join(self.output_path, fold, target_word)
+                    if not override:
+                        if os.path.exists(os.path.join(out, "%s.result" % target_word)):
+                            continue  # model is already there. Skip it.
                     command = "{} {} {} {}".format(self.test_sh, out, test_xml, out)
                     commands.append(command)
             self.run(commands)

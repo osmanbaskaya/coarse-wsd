@@ -27,6 +27,8 @@ def cd(path):
         os.chdir(old_dir)
 
 
+# *-*-*- Utility Functions -*-*-*
+
 def get_target_words(directory='../datasets/wiki'):
     return set(fn.split('.', 1)[0] for fn in os.listdir(directory))
 
@@ -118,6 +120,11 @@ def get_all_target_words(dataset_path, regex=None):
     files = get_all_files(dataset_path, regex)
     files = map(lambda path: os.path.split(path)[-1], files)
     target_words = set(map(lambda t: t.split('.')[0], files))
+    return target_words
+
+
+def get_sense_wiki_link_dict(path='../datasets/wiki-filtered'):
+    pass
 
 
 def run():

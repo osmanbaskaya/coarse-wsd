@@ -94,3 +94,5 @@ calculate_baseline.%: %.key
 run-word2vec: ../datasets/wiki-senses
 	python run_word2vec.py $< ${CPU} ${WORD_EMBEDDING_DIM}
 
+wiki-tags.txt: ../datasets/wiki-filtered
+	cat $</*.clean.txt | grep -P "\tTrue\t" | cut -f6- | tr '\t' '\n' | sort | uniq -c | sort -nr > $@

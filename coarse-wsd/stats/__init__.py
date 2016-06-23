@@ -4,11 +4,11 @@ import codecs
 from utils import get_target_words
 
 
-def get_sense_counts(wiki_dir='../datasets/wiki'):
+def get_sense_counts(wiki_dir):
     words = get_target_words(wiki_dir)
     word_sense_dict = dd(list)
     for word in words:
-        fn = os.path.join(wiki_dir, "%s.lem.txt" % word)
+        fn = os.path.join(wiki_dir, "%s.clean.txt" % word)
         for line in codecs.open(fn, encoding='utf8'):
             line = line.strip().split('\t')
             try:
@@ -33,5 +33,3 @@ def get_sense_pagelinks(fn='../semcor-pages'):
         sense_page_map[sense] = page
 
     return sense_page_map
-
-
