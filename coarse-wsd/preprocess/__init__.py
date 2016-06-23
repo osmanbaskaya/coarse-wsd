@@ -131,12 +131,15 @@ def prepare_one_target_word(args):
     target_word = fn.split('.')[0]
     lines = codecs.open(f, encoding='utf8').read().splitlines()
     y = map(lambda line: line.split('\t')[2], lines)
-    least_populated = min(Counter(y).values())  # number of instance for least populated class.
-    if len(lines) > 100 and least_populated >= k:
-        print "Processing {}".format(target_word)
-    else:
+
+    least_populated = 0
+    if len(lines) > 0:
+        least_populated = min(Counter(y).values())  # number of instance for least populated class.
+    if len(lines) < 100 or least_populated < k:
         print "Skipping {} because the file doesn't contain enough data: {}".format(target_word, len(lines))
         return
+
+    print "Processing {}".format(target_word)
     skf = StratifiedKFold(y, k, shuffle=True)
     for fold, (train_idx, test_idx) in enumerate(skf, 1):
         train = itemgetter(*train_idx)(lines)
