@@ -2,12 +2,13 @@
 import os
 import re
 from multiprocessing import Pool
+from collections import Counter
 import codecs
 from xml.sax.saxutils import escape
 import shutil
 import random
 from operator import itemgetter
-from sklearn.cross_validation import KFold
+from sklearn.cross_validation import StratifiedKFold
 
 import utils
 
@@ -129,14 +130,15 @@ def prepare_one_target_word(args):
     _, fn = os.path.split(f)
     target_word = fn.split('.')[0]
     lines = codecs.open(f, encoding='utf8').read().splitlines()
-    if len(lines) > 100:
+    y = map(lambda line: line.split('\t')[2], lines)
+    least_populated = min(Counter(y).values())  # number of instance for least populated class.
+    if len(lines) > 100 and least_populated >= k:
         print "Processing {}".format(target_word)
     else:
         print "Skipping {} because the file doesn't contain enough data: {}".format(target_word, len(lines))
         return
-    random.shuffle(lines)
-    kf = KFold(len(lines), k)
-    for fold, (train_idx, test_idx) in enumerate(kf, 1):
+    skf = StratifiedKFold(y, k, shuffle=True)
+    for fold, (train_idx, test_idx) in enumerate(skf, 1):
         train = itemgetter(*train_idx)(lines)
         test = itemgetter(*test_idx)(lines)
         out_dir = os.path.join(directory_to_write, "fold-%d" % fold)
