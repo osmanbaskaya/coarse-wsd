@@ -162,15 +162,17 @@ def prepare_one_target_word(args):
                 out_fn_key = os.path.join(out_dir, '%s.%s.key' % (target_word, dataset_type))
                 transform_into_IMS_input_format(dataset, out_fn_data, target_word, data_idx)
                 transform_into_IMS_key_format(dataset, out_fn_key, target_word, data_idx)
+    else:
+        print "\tSkipping {}".format(target_word)
 
 
-def create_IMS_formatted_dataset(files, directory_to_write, k=5, num_of_process=1):
+def create_IMS_formatted_dataset(files, directory_to_write, k=6, num_of_process=1):
     """
     It creates a k-fold datasets for IMS.
     """
     create_directories_for_folding(directory_to_write, k)
     random.seed(42)
-    args = [(f, directory_to_write, k) for f in files]
+    args = [(f, directory_to_write, k) for f in sorted(files)]
     if num_of_process > 1:
         pool = Pool(num_of_process)
         pool.map(prepare_one_target_word, args)

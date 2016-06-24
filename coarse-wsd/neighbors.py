@@ -17,8 +17,13 @@ def run():
     for word in words:
         sense_idx_map = get_sense_idx_map(keydict_path, word)
         for sense, idx in sense_idx_map.iteritems():
-            similar_words = model.most_similar(positive=[idx], topn=10)
-            print similar_words, tag_map[sense], link_map[sense]
+            try:
+                similar_words = model.most_similar(positive=[idx], topn=10)
+                print '\n'.join(u'%s\t%f' % (word, sim) for word, sim in similar_words), '\n', \
+                    tag_map[sense], '\n', link_map[sense]
+                print
+            except KeyError:
+                pass
 
 
 if __name__ == '__main__':
