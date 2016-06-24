@@ -29,7 +29,7 @@ def cd(path):
 
 # *-*-*- Utility Functions -*-*-*
 
-def get_target_words(directory='../datasets/wiki'):
+def get_target_words(directory='../datasets/wiki-filtered'):
     return set(fn.split('.', 1)[0] for fn in os.listdir(directory))
 
 

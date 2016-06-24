@@ -96,3 +96,6 @@ run-word2vec: ../datasets/wiki-senses
 
 wiki-tags.txt: ../datasets/wiki-filtered
 	cat $</*.clean.txt | grep -P "\tTrue\t" | cut -f6- | tr '\t' '\n' | sort | uniq -c | sort -nr > $@
+
+wiki-sense-tag-mapping.txt: ../datasets/wiki-filtered excluded-tags.txt
+	python -m wikipedia.__init__ $^ $@

@@ -1,8 +1,8 @@
 articles
 wikipedia
 citations with
-featured articles
 all pages
 pages with
 dates from
 pages needing
+from \w+ \d{4}
