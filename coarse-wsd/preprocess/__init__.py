@@ -125,31 +125,43 @@ def create_directories_for_folding(directory_to_write, k):
     map(lambda fold: os.mkdir(os.path.join(directory_to_write, "fold-%d" % fold)), xrange(1, k+1))
 
 
+def get_filtered_instances(lines, k):
+    if len(lines) > 0:
+        y = map(lambda line: line.split('\t')[2], lines)
+        sense_dict = Counter(y)
+
+        pairs = sorted(sense_dict.items(), key=lambda t: t[1])
+        pairs = filter(lambda p: p[1] > k, pairs)  # filter out senses that have less than k instances.
+        pairs = set(map(lambda t: t[0], pairs))
+        if len(pairs) > 1:
+            idx = [i for i, sense in enumerate(y) if sense in pairs]
+            filtered_lines = itemgetter(*idx)(lines)
+            return filtered_lines
+
+    return []
+
+
 def prepare_one_target_word(args):
     f, directory_to_write, k = args
     _, fn = os.path.split(f)
     target_word = fn.split('.')[0]
-    lines = codecs.open(f, encoding='utf8').read().splitlines()
-    y = map(lambda line: line.split('\t')[2], lines)
-    sense_dict = Counter(y)
-    least_populated = 0
-    if len(lines) > 0 and len(sense_dict) > 1:
-        least_populated = min(sense_dict.values())  # number of instance for least populated class.
-    if len(lines) < 100 or least_populated < k:
-        print "\tSkipping {}.. num_lines = {}, num_of_sense = {}, least_pop = {}".format(target_word, len(lines), len(sense_dict), least_populated)
-        return
 
-    print "Processing {}".format(target_word)
-    skf = StratifiedKFold(y, k, shuffle=True)
-    for fold, (train_idx, test_idx) in enumerate(skf, 1):
-        train = itemgetter(*train_idx)(lines)
-        test = itemgetter(*test_idx)(lines)
-        out_dir = os.path.join(directory_to_write, "fold-%d" % fold)
-        for dataset_type, dataset, data_idx in (('train', train, train_idx), ('test', test, test_idx)):
-            out_fn_data = os.path.join(out_dir, '%s.%s.xml' % (target_word, dataset_type))
-            out_fn_key = os.path.join(out_dir, '%s.%s.key' % (target_word, dataset_type))
-            transform_into_IMS_input_format(dataset, out_fn_data, target_word, data_idx)
-            transform_into_IMS_key_format(dataset, out_fn_key, target_word, data_idx)
+    lines = codecs.open(f, encoding='utf8').read().splitlines()
+    lines = get_filtered_instances(lines, k)
+    y = map(lambda line: line.split('\t')[2], lines)
+
+    if len(lines) > 100:
+        print "Processing {}".format(target_word)
+        skf = StratifiedKFold(y, k, shuffle=True)
+        for fold, (train_idx, test_idx) in enumerate(skf, 1):
+            train = itemgetter(*train_idx)(lines)
+            test = itemgetter(*test_idx)(lines)
+            out_dir = os.path.join(directory_to_write, "fold-%d" % fold)
+            for dataset_type, dataset, data_idx in (('train', train, train_idx), ('test', test, test_idx)):
+                out_fn_data = os.path.join(out_dir, '%s.%s.xml' % (target_word, dataset_type))
+                out_fn_key = os.path.join(out_dir, '%s.%s.key' % (target_word, dataset_type))
+                transform_into_IMS_input_format(dataset, out_fn_data, target_word, data_idx)
+                transform_into_IMS_key_format(dataset, out_fn_key, target_word, data_idx)
 
 
 def create_IMS_formatted_dataset(files, directory_to_write, k=5, num_of_process=1):

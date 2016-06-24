@@ -127,6 +127,16 @@ def get_sense_wiki_link_dict(path='../datasets/wiki-filtered'):
     pass
 
 
+def get_sense_idx_map(keydict_path, target_word):
+    d = {}
+    keydict_file = os.path.join(keydict_path, "%s.keydict.txt" % target_word)
+    with open(keydict_file) as f:
+        for line in f:
+            sense, idx = line.strip().split('\t')
+            d[sense] = "{}.{}".format(target_word, idx)
+    return d
+
+
 def run():
     method = globals()[sys.argv[1]] 
     args = sys.argv[2:]
