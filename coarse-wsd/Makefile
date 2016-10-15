@@ -102,3 +102,6 @@ wiki-sense-tag-mapping.txt: ../datasets/wiki-filtered blacklist-for-tags.txt
 
 neighbors-%d.txt: wiki-word2vec-%.mdl wiki-sense-tag-mapping.txt
 	python neighbors.py $^ ../datasets/wiki-senses $@ drive hat bill branch seed hit left race lot
+
+jaccard_sims.txt: wiki-sense-tag-mapping.txt
+	python sense_similarity.py $^ ../datasets/wiki-senses

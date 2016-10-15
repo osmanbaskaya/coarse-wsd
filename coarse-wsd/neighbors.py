@@ -26,9 +26,11 @@ def run():
         for sense, idx in sense_idx_map.iteritems():
             try:
                 similar_words = model.most_similar(positive=[idx], topn=10)
-                table[i].extend([u"%s" % t[0] for t in similar_words])
+                table[i].extend([u"%s %s" % (t[0], t[1]) for t in similar_words])
                 table[i].append(u",".join(tag_map[sense]))
-                table[i].append(u"%s" % link_map[sense])
+                similarities = [t[1] for t in similar_words]
+                avg_sim = sum(similarities) / len(similarities)
+                table[i].append(u"%s %f" % (link_map[sense], avg_sim))
                 i += 1
             except KeyError:
                 pass
