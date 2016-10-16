@@ -9,7 +9,7 @@ export PATH:=/ai/home/obaskaya/java/jdk1.8.0_65/bin/:${PATH}
 
 TARGET_WORD_EXCLUDE_LIST=mg new_york old_man fig cm hr bronchial_artery one two c pa tsh carbon_tetrachloride l 0 no 1 radio_emission men bull\'s_eye mm 30_minutes ma business_concern yes ml a los_angeles sense_of_touch m lb kansas_city interior_designer gm
 PAGE_EXCLUDE_LIST=album song EP
-
+NUM_OF_FOLD=5
 WORD_EMBEDDING_DIM=100
 
 
@@ -61,7 +61,7 @@ create_sense_count_table: ../datasets/wiki semcor-pages-filtered.txt
 	python data_stats.py --function $@ --args $^
 
 ../datasets/ims: ../datasets/wiki-filtered
-	python create_ims_dataset.py $< $@
+	python create_ims_dataset.py $< $@ ${NUM_OF_FOLD}
 
 ims.tw-list.txt: ../datasets/ims
 	ls $</fold-1 | grep ".train.xml" | sed 's|.train.xml||g' > $@

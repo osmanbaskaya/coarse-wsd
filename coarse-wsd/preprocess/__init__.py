@@ -152,21 +152,36 @@ def prepare_one_target_word(args):
 
     if len(lines) > 100:
         print "Processing {}".format(target_word)
-        skf = StratifiedKFold(y, k, shuffle=True)
-        for fold, (train_idx, test_idx) in enumerate(skf, 1):
-            train = itemgetter(*train_idx)(lines)
-            test = itemgetter(*test_idx)(lines)
+        if k > 1:
+            skf = StratifiedKFold(y, k, shuffle=True)
+            for fold, (train_idx, test_idx) in enumerate(skf, 1):
+                train = itemgetter(*train_idx)(lines)
+                test = itemgetter(*test_idx)(lines)
+                out_dir = os.path.join(directory_to_write, "fold-%d" % fold)
+                for dataset_type, dataset, data_idx in (('train', train, train_idx), ('test', test, test_idx)):
+                    out_fn_data = os.path.join(out_dir, '%s.%s.xml' % (target_word, dataset_type))
+                    out_fn_key = os.path.join(out_dir, '%s.%s.key' % (target_word, dataset_type))
+                    transform_into_IMS_input_format(dataset, out_fn_data, target_word, data_idx)
+                    transform_into_IMS_key_format(dataset, out_fn_key, target_word, data_idx)
+        elif k == 1:
+            # Create a data to train only. Use all the data for training.
+            train = lines
+            train_idx = range(len(lines))
+            fold = 1
             out_dir = os.path.join(directory_to_write, "fold-%d" % fold)
-            for dataset_type, dataset, data_idx in (('train', train, train_idx), ('test', test, test_idx)):
+            for dataset_type, dataset, data_idx in (('train', train, train_idx),):
                 out_fn_data = os.path.join(out_dir, '%s.%s.xml' % (target_word, dataset_type))
                 out_fn_key = os.path.join(out_dir, '%s.%s.key' % (target_word, dataset_type))
                 transform_into_IMS_input_format(dataset, out_fn_data, target_word, data_idx)
                 transform_into_IMS_key_format(dataset, out_fn_key, target_word, data_idx)
+
+        else:
+            raise ValueError("k should be bigger than 0")
     else:
         print "\tSkipping {}".format(target_word)
 
 
-def create_IMS_formatted_dataset(files, directory_to_write, k=6, num_of_process=1):
+def create_IMS_formatted_dataset(files, directory_to_write, k=5, num_of_process=1):
     """
     It creates a k-fold datasets for IMS.
     """
