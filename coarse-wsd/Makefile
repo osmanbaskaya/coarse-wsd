@@ -105,3 +105,7 @@ neighbors-%d.txt: wiki-word2vec-%.mdl wiki-sense-tag-mapping.txt
 
 jaccard_sims.txt: wiki-sense-tag-mapping.txt
 	python sense_similarity.py $^ ../datasets/wiki-senses
+
+# refine later.
+disambiguate:
+	python disambiguate.py > chair.txt
