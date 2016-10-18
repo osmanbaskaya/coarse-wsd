@@ -3,7 +3,9 @@ import shutil
 from multiprocessing import Pool
 from utils import cd
 import re
+from bs4 import BeautifulSoup
 from subprocess import check_output
+from collections import OrderedDict
 
 
 def f1score(p, r):
@@ -139,4 +141,70 @@ class IMS(object):
         if remove_intermediate:
             shutil.rmtree(self.output_path)
         return scores
+
+
+class IMSPredictor(object):
+
+    def __init__(self, model_dir, ims_lib_path='../ims/ims_0.9.2.1'):
+        self.ims_lib_path = ims_lib_path
+        self.model_dir = model_dir
+        self.test_sh = './test_one.bash'
+        self.target_words = set(fn.split('.', 1)[0] for fn in os.listdir(model_dir))
+
+    def predict(self, target_word, test_xml):
+        if target_word in self.target_words:
+            curr_dir = os.getcwd()
+            target_model_dir = os.path.join(curr_dir, self.model_dir, target_word)
+            test_xml = os.path.join(curr_dir, test_xml)
+            with cd(self.ims_lib_path):
+                out = "/tmp"
+                command = "{} {} {} {}".format(self.test_sh, target_model_dir, test_xml, out)
+                check_output(command.split())
+
+    def transform(self, target_word, test_xml):
+        """
+        This method transforms the output of IMS for next procedures such as Machine translation.
+        """
+        self.predict(target_word, test_xml)
+
+        input_reader = IMSInputReader()
+        output_reader = IMSOutputReader()
+
+        input_instances = input_reader.read(test_xml, fill_sense_field=True)
+        output_instances = output_reader.read('/tmp/{}.result'.format(target_word))
+        for instance_id, sense in output_instances.iteritems():
+            if sense == "U":
+                print input_instances[instance_id].replace(".<SENSE>", '')
+            else:
+                print input_instances[instance_id].replace("<SENSE>", sense)
+
+
+class IMSInputReader(object):
+
+    def read(self, xml_file, fill_sense_field=False):
+        d = dict()
+        soup = BeautifulSoup(open(xml_file), 'xml')
+        instances = soup.findAll('instance')
+        for instance in instances:
+            instance_id = instance['id']
+            text = ""
+            for c in instance.context.contents:
+                if c.name == 'head':
+                    c = c.text
+                    if fill_sense_field:
+                        c = "{}.<SENSE>".format(c)
+                text = "{}{}".format(text, c)
+            d[instance_id] = text.strip()
+        return d
+
+
+class IMSOutputReader(object):
+
+    def read(self, result_file):
+        d = OrderedDict()
+        for line in open(result_file):
+            _, instance_id, sense = line.split()
+            d[instance_id] = sense
+        return d
+
 
