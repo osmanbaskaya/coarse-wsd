@@ -14,10 +14,10 @@ import utils
 
 LOGGER = None
 
-regex = re.compile(u"<target>\w+</target>")
+regex = re.compile(u"<target>(\w+)</target>")
 
 
-def create_sense_dataset(files, directory_to_write):
+def create_sense_dataset(files, directory_to_write, preserve_surface_form=True):
     """
     It creates a dataset by concatenating each target word with its sense. This may help to create sense aware
     word embeddings. This method creates an input for embeddings methods (i.e. Word2Vec)
@@ -41,6 +41,7 @@ def create_sense_dataset(files, directory_to_write):
         directory, fn = os.path.split(f)
         fn, ext = os.path.splitext(fn)
         target_word = fn.split('.')[0]
+        surface_form = target_word
         d = dict()
         replaced_sentence = []
         for line in codecs.open(f, encoding='utf8'):
@@ -50,7 +51,9 @@ def create_sense_dataset(files, directory_to_write):
             if sense_id is None:
                 sense_id = len(d)
                 d[sense] = sense_id
-            sentence = regex.sub(u"{}.{}".format(target_word, sense_id), sentence)
+            if preserve_surface_form:
+                surface_form = regex.search(sentence).group(1)
+            sentence = regex.sub(u"{}.{}".format(surface_form, sense_id), sentence)
             replaced_sentence.append(sentence)
         with codecs.open(os.path.join(directory_to_write, '%s.txt' % target_word), 'w', encoding='utf8') \
                 as out:
