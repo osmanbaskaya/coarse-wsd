@@ -1,4 +1,4 @@
-from preprocess import create_IMS_formatted_dataset_for_MT
+from preprocess.mt import create_IMS_formatted_dataset_for_MT
 import utils
 import os
 import sys
