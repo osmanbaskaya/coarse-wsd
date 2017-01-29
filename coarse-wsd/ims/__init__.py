@@ -1,4 +1,9 @@
 import os
+from preprocess.mt import get_single_and_plural_form
+import gzip
+import glob
+import utils
+import codecs
 import shutil
 from multiprocessing import Pool
 from utils import cd
@@ -6,6 +11,9 @@ import re
 from bs4 import BeautifulSoup
 from subprocess import check_output
 from collections import OrderedDict
+
+
+LOGGER = None
 
 
 def f1score(p, r):
@@ -172,11 +180,14 @@ class IMSPredictor(object):
 
         input_instances = input_reader.read(test_xml, fill_sense_field=True)
         output_instances = output_reader.read('/tmp/{}.result'.format(target_word))
+        instances = []
         for instance_id, sense in output_instances.iteritems():
             if sense == "U":
-                print input_instances[instance_id].replace(".<SENSE>", '')
+                instances.append(input_instances[instance_id].replace(".<SENSE>", u''))
             else:
-                print input_instances[instance_id].replace("<SENSE>", sense)
+                instances.append(input_instances[instance_id].replace("<SENSE>", sense))
+
+        return instances
 
 
 class IMSInputReader(object):
@@ -208,3 +219,85 @@ class IMSOutputReader(object):
         return d
 
 
+class IMSOutputMerger(object):
+    """This class helps to merge instances where more than one target word are obverved in the test sentence. It's
+    exactly the case for Machine translation input file. """
+
+    def merge(self, input_file, ims_output_dir):
+        unmatched_f = codecs.open(os.path.join("/tmp", 'new-unmatched-sentences.txt'), 'w', encoding='utf8')
+        matched_f = codecs.open(os.path.join("/tmp", 'matched-sentences.txt'), 'w', encoding='utf8')
+
+        target_words = [f.split('.')[0] for f in os.listdir(ims_output_dir)]
+        words = map(get_single_and_plural_form, target_words)
+        model_map = {}
+        for word, plural in words:
+            model_map[plural] = word
+            model_map[word] = word  # seems stupid; you're right Mr. Sherlock.
+
+        words_with_models = set(model_map.keys())
+        file2descriptors = dict()
+
+        for j, line in enumerate(gzip.open(input_file), 1):
+            line = line.decode('utf-8')
+            line = line.strip().split('\t')[0]  # get the original sentence.
+            tokens = line.split()
+            tokens_lowercase = line.lower().split()
+            sentence = []
+            match = False
+            for i, (token_lower, token) in enumerate(zip(tokens_lowercase, tokens)):
+                if token_lower in words_with_models:
+                    match = True
+                    token = get_disambiguated_form(ims_output_dir, file2descriptors, model_map[token_lower], i)
+                sentence.append(token)
+            if match:
+                matched_f.write(u"{}\n".format(u" ".join(sentence)))
+                # print("\n".join(str(e) for e in zip(sentence, line.split())))
+                # print '\n-------\n'
+            else:
+                unmatched_f.write(u"{}\n".format(u" ".join(sentence)))
+
+
+def get_disambiguated_form(ims_output_dir, file2descriptors, target_word, i):
+
+    fn = os.path.join(ims_output_dir, "%s.txt" % target_word)
+    if fn in file2descriptors:
+        f = file2descriptors[fn]
+    else:
+        f = codecs.open(fn, 'rt', encoding='utf8')
+        file2descriptors[fn] = f
+
+    sentence = f.readline().strip().split()  # read the line
+    return sentence[i]  # return the ith word (disambiguated word)
+
+
+def __predict_parallel(args):
+    predictor, input_xml_fn, output_dir = args
+    LOGGER.info("Processing %s" % input_xml_fn)
+    target_word = os.path.basename(input_xml_fn).split('.', 1)[0]
+    instances = predictor.transform(target_word, input_xml_fn)
+    with codecs.open(os.path.join(output_dir, "%s.txt" % target_word), 'wt', encoding='utf8') as f:
+        f.write("\n".join(instances))
+
+
+def predict(model_dir, input_dir, output_dir, num_of_process=1):
+    global LOGGER
+
+    LOGGER = utils.get_logger()
+
+    files = sorted(glob.glob(os.path.join(input_dir, "*.xml")))
+
+    try:
+        os.mkdir(output_dir)
+    except OSError:
+        LOGGER.debug("{} is already exist. Directory is removed.".format(output_dir))
+        shutil.rmtree(output_dir)  # remove the directory with its content.
+        os.mkdir(output_dir)
+
+    predictor = IMSPredictor(model_dir)
+
+    args = [(predictor, fn, output_dir) for fn in sorted(files)]
+    if num_of_process > 1:
+        pool = Pool(num_of_process)
+        pool.map(__predict_parallel, args)
+    else:
+        map(__predict_parallel, args)
