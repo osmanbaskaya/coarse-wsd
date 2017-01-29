@@ -1,9 +1,11 @@
-from ims import IMSPredictor
+from ims import predict
+import utils
 
 
 if __name__ == '__main__':
+    utils.configure_logger()
     model_dir = '../datasets/models/'
-    test_xml = '/tmp/ims-mt-dataset/ability.xml'
-    target_word = 'ability'
-    predictor = IMSPredictor(model_dir)
-    predictor.transform(target_word, test_xml)
+    input_dir = '/tmp/ims-mt-dataset/'
+    output_dir = '/tmp/ims-outputs/'
+    predict(model_dir, input_dir, output_dir, num_of_process=7)
+
