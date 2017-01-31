@@ -232,14 +232,14 @@ class IMSOutputMerger(object):
         model_map = {}
         for word, plural in words:
             model_map[plural] = word
-            model_map[word] = word  # seems stupid; you're right Mr. Sherlock.
+            model_map[word] = word
 
         words_with_models = set(model_map.keys())
         file2descriptors = dict()
 
         for j, line in enumerate(gzip.open(input_file), 1):
-            line = line.decode('utf-8')
-            line = line.strip().split('\t')[0]  # get the original sentence.
+            line = line.decode('utf-8').strip().split('\t')
+            line, translation = line[0], "translation"  # FIXME like line[:2]
             tokens = line.split()
             tokens_lowercase = line.lower().split()
             sentence = []
@@ -250,11 +250,11 @@ class IMSOutputMerger(object):
                     token = get_disambiguated_form(ims_output_dir, file2descriptors, model_map[token_lower], i)
                 sentence.append(token)
             if match:
-                matched_f.write(u"{}\n".format(u" ".join(sentence)))
+                matched_f.write(u"{}\t{}\n".format(u" ".join(sentence), translation))
                 # print("\n".join(str(e) for e in zip(sentence, line.split())))
                 # print '\n-------\n'
             else:
-                unmatched_f.write(u"{}\n".format(u" ".join(sentence)))
+                unmatched_f.write(u"{}\t{}\n".format(u" ".join(sentence), translation))
 
 
 def get_disambiguated_form(ims_output_dir, file2descriptors, target_word, i):

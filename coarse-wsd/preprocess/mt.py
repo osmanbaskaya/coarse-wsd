@@ -114,7 +114,7 @@ def get_single_and_plural_form(word):
     return word, plural
 
 
-def create_IMS_formatted_dataset_for_MT(file='giga-fren.release2.fixed.en.lem.gz', directory_to_write='/tmp/mt-dataset',
+def create_IMS_formatted_dataset_for_MT(file='giga-fren.release2.fixed.en.lem.small.gz', directory_to_write='/tmp/mt-dataset',
                                         write_every_n_line=200000):
     """Create IMS formatted dataset for Machine translation task"""
 

@@ -1,1 +1,1 @@
-MODEL_PATH = '../datasets/models'
+MODEL_PATH = '../datasets/models-small'
