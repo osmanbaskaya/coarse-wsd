@@ -11,7 +11,7 @@ TARGET_WORD_EXCLUDE_LIST=mg new_york old_man fig cm hr bronchial_artery one two 
 PAGE_EXCLUDE_LIST=album song EP
 NUM_OF_FOLD=5
 WORD_EMBEDDING_DIM=100
-
+MT_INPUT_FILE=nmt-input-data.raw.1k-sample.tsv.gz
 
 ### PATH
 CORE_NLP=java -cp "../tools/stanford-corenlp/*" -Xmx60g edu.stanford.nlp.pipeline.StanfordCoreNLP -replaceExtension -cpu ${CPU}
@@ -106,6 +106,5 @@ neighbors-%d.txt: wiki-word2vec-%.mdl wiki-sense-tag-mapping.txt
 jaccard_sims.txt: wiki-sense-tag-mapping.txt
 	python sense_similarity.py $^ ../datasets/wiki-senses
 
-# refine later.
-disambiguate:
-	python disambiguate.py > chair.txt
+preprocess-mt-dataset: 
+	python preprocess-mt-dataset.py --input-file ${MT_INPUT_FILE} --directory-to-write ../datasets/mt/data --log-level debug

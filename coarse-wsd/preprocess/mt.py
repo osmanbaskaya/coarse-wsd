@@ -114,8 +114,7 @@ def get_single_and_plural_form(word):
     return word, plural
 
 
-def create_IMS_formatted_dataset_for_MT(file='giga-fren.release2.fixed.en.lem.small.gz', directory_to_write='/tmp/mt-dataset',
-                                        write_every_n_line=200000):
+def create_IMS_formatted_dataset_for_MT(file, directory_to_write, write_every_n_line=200000):
     """Create IMS formatted dataset for Machine translation task"""
 
     global LOGGER
@@ -124,7 +123,7 @@ def create_IMS_formatted_dataset_for_MT(file='giga-fren.release2.fixed.en.lem.sm
 
     def write2files():
         for key, lines in sentences.iteritems():
-            fn = os.path.join(directory_to_write, "%s.txt" % key)
+            fn = os.path.join(words_dir, "%s.txt" % key)
             if fn in file2descriptor:
                 f = file2descriptor[fn]
             else:
@@ -133,12 +132,15 @@ def create_IMS_formatted_dataset_for_MT(file='giga-fren.release2.fixed.en.lem.sm
             for curr_line in lines:
                 f.write(curr_line)
 
+    words_dir = os.path.join(directory_to_write, "words")
     try:
         os.mkdir(directory_to_write)
+        os.mkdir(words_dir)
     except OSError:
-        LOGGER.debug("{} is already exist. Directory is removed.".format(directory_to_write))
+        LOGGER.debug("{} is already exist. Directory is removing first.".format(directory_to_write))
         shutil.rmtree(directory_to_write)  # remove the directory with its content.
         os.mkdir(directory_to_write)
+        os.mkdir(words_dir)
 
     # load models into a set.
     words = map(get_single_and_plural_form, os.listdir(MODEL_PATH))
@@ -152,7 +154,7 @@ def create_IMS_formatted_dataset_for_MT(file='giga-fren.release2.fixed.en.lem.sm
     sentences = dd(list)
 
     # FIXME: change /tmp directory.
-    unmatched_f = codecs.open(os.path.join("/tmp", 'unmatched-sentences.txt'), 'w', encoding='utf8')
+    unmatched_f = codecs.open(os.path.join(directory_to_write, 'unmatched-sentences.txt'), 'w', encoding='utf8')
 
     file2descriptor = dict()
 
@@ -162,25 +164,25 @@ def create_IMS_formatted_dataset_for_MT(file='giga-fren.release2.fixed.en.lem.sm
 
     for j, line in enumerate(gzip.open(file), 1):
         line = line.decode('utf-8')
-        line = line.strip().split('\t')[0]  # get the original sentence.
-        tokens = line.split()
-        tokens_lowercase = line.lower().split()
+        token_line, translation = line.strip().split('\t')[1:]  # get the original sentence and translation
+        tokens = token_line.split()
+        tokens_lowercase = token_line.lower().split()
         matched_sentences = []
         for i, word in enumerate(tokens_lowercase):
             if word in words_with_models:
                 num_of_matched += 1
                 matched_sentences.append((word, u"{} <target>{}</target> {}".format(u" ".join(tokens[:i]), tokens[i],
-                                                                                      u" ".join(tokens[i+1:]))))
+                                                                                    u" ".join(tokens[i+1:]))))
 
         # TODO add translation at the end of the line and remove the line at the end.
         if len(matched_sentences) == 0:
-            unmatched_f.write(u"{}\t{}\t{}\n".format(j, line, "translation"))
+            unmatched_f.write(u"{}\t{}\t{}\n".format(j, token_line, translation))
         elif len(matched_sentences) == 1:
             word, matched_sentence = matched_sentences[0]
-            sentences[model_map[word]].append(u"{}\t{}\t{}\n".format(j, matched_sentence, "translation"))
+            sentences[model_map[word]].append(u"{}\t{}\t{}\n".format(j, matched_sentence, translation))
         else:
             for i, (word, matched_sentence) in enumerate(matched_sentences):
-                sentences[model_map[word]].append(u"m-{}-{}\t{}\t{}\n".format(i, j, matched_sentence, "translation"))
+                sentences[model_map[word]].append(u"m-{}-{}\t{}\t{}\n".format(i, j, matched_sentence, translation))
 
         if num_of_matched >= write_every_n_line:
             total_matched += num_of_matched

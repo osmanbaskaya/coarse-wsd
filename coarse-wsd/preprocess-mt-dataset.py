@@ -1,18 +1,20 @@
 from preprocess.mt import create_IMS_formatted_dataset_for_MT
 import utils
-import os
-import sys
 
 
 def run():
-    utils.configure_logger('debug')
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--input-file', required=True)
+    parser.add_argument('--directory-to-write', default='/tmp/mt-data')
+    parser.add_argument('--log-level', default='debug')
+    args = parser.parse_args()
+
+    utils.configure_logger(args.log_level)
     logger = utils.get_logger()
-    # input_directory = sys.argv[1]  # '../datasets/wiki-filtered'
-    # out_directory = sys.argv[2]  # '../datasets/wiki-senses'
-    # files = os.listdir(input_directory)
-    # files = [os.path.join(input_directory, f) for f in files]
-    # logger.info('total number of files: %d' % len(files))
-    create_IMS_formatted_dataset_for_MT()
+    logger.debug("Args: {}".format(args))
+
+    create_IMS_formatted_dataset_for_MT(file=args.input_file, directory_to_write=args.directory_to_write)
     logger.info('done')
 
 
