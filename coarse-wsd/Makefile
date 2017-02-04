@@ -111,3 +111,6 @@ preprocess-mt-dataset:
 
 create-ims-formatted-mt-data:
 	python ims_formatted_data_for_mt.py --input-dir ../datasets/mt/data/words --directory-to-write ../datasets/mt/ims-data
+
+disambiguate:
+	python disambiguate.py --input-dir ../datasets/mt/ims-data --directory-to-write ../datasets/mt/disambiguated --model-dir ../datasets/models --num-of-process ${CPU}
