@@ -108,3 +108,6 @@ jaccard_sims.txt: wiki-sense-tag-mapping.txt
 
 preprocess-mt-dataset: 
 	python preprocess-mt-dataset.py --input-file ${MT_INPUT_FILE} --directory-to-write ../datasets/mt/data --log-level debug
+
+create-ims-formatted-mt-data:
+	python ims_formatted_data_for_mt.py --input-dir ../datasets/mt/data/words --directory-to-write ../datasets/mt/ims-data

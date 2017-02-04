@@ -80,9 +80,12 @@ def prepare_one_target_word(args):
 
 def create_IMS_formatted_dataset(files, directory_to_write, num_of_process=1):
     """
-    It creates a k-fold datasets for IMS.
+    It creates a datasets for IMS specifically from MT input..
+
+    Requirement:
+
+    1. preprocess-mt-dataset.py (See Makefile)
     """
-    # create_directory_here
 
     global LOGGER
 
