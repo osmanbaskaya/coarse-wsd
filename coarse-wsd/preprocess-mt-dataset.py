@@ -1,4 +1,4 @@
-from preprocess.mt import create_IMS_formatted_dataset_for_MT
+from preprocess.mt import preprocess_mt_input_file
 import utils
 
 
@@ -14,7 +14,7 @@ def run():
     logger = utils.get_logger()
     logger.debug("Args: {}".format(args))
 
-    create_IMS_formatted_dataset_for_MT(file=args.input_file, directory_to_write=args.directory_to_write)
+    preprocess_mt_input_file(args.input_file, args.directory_to_write)
     logger.info('done')
 
 

@@ -114,8 +114,8 @@ def get_single_and_plural_form(word):
     return word, plural
 
 
-def create_IMS_formatted_dataset_for_MT(file, directory_to_write, write_every_n_line=200000):
-    """Create IMS formatted dataset for Machine translation task"""
+def preprocess_mt_input_file(input_file, directory_to_write, write_every_n_line=200000):
+    """Provide word-sentence separation and make ready to code to create IMS formatted dataset"""
 
     global LOGGER
 
@@ -162,7 +162,7 @@ def create_IMS_formatted_dataset_for_MT(file, directory_to_write, write_every_n_
     total_matched = 0
     j = 0
 
-    for j, line in enumerate(gzip.open(file), 1):
+    for j, line in enumerate(gzip.open(input_file), 1):
         line = line.decode('utf-8')
         token_line, translation = line.strip().split('\t')[1:]  # get the original sentence and translation
         tokens = token_line.split()
