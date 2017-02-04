@@ -12,6 +12,7 @@ PAGE_EXCLUDE_LIST=album song EP
 NUM_OF_FOLD=5
 WORD_EMBEDDING_DIM=100
 MT_INPUT_FILE=nmt-input-data.raw.1k-sample.tsv.gz
+LOG_LEVEL=debug
 
 ### PATH
 CORE_NLP=java -cp "../tools/stanford-corenlp/*" -Xmx60g edu.stanford.nlp.pipeline.StanfordCoreNLP -replaceExtension -cpu ${CPU}
@@ -107,13 +108,19 @@ jaccard_sims.txt: wiki-sense-tag-mapping.txt
 	python sense_similarity.py $^ ../datasets/wiki-senses
 
 preprocess-mt-dataset: 
-	python preprocess-mt-dataset.py --input-file ${MT_INPUT_FILE} --directory-to-write ../datasets/mt/data --log-level debug
+	-mkdir ../datasets/mt
+	python preprocess-mt-dataset.py --input-file ${MT_INPUT_FILE} --directory-to-write ../datasets/mt/data --log-level ${LOG_LEVEL}
 
 create-ims-formatted-mt-data:
-	python ims_formatted_data_for_mt.py --input-dir ../datasets/mt/data/words --directory-to-write ../datasets/mt/ims-data
+	python ims_formatted_data_for_mt.py --input-dir ../datasets/mt/data/words --directory-to-write ../datasets/mt/ims-data --log-level ${LOG_LEVEL}
 
 disambiguate:
-	python disambiguate.py --input-dir ../datasets/mt/ims-data --directory-to-write ../datasets/mt/disambiguated --model-dir ../datasets/models --num-of-process ${CPU}
+	python disambiguate.py --input-dir ../datasets/mt/ims-data --directory-to-write ../datasets/mt/disambiguated --model-dir ../datasets/models --num-of-process ${CPU} --log-level ${LOG_LEVEL}
 
 merge: 
-	python merge.py --input-file nmt-input-data.raw.1k-sample.tsv.gz --wsd-output-dir ../datasets/mt/ims-output --directory-to-write ../datasets/mt/mt-input --log-level debug
+	python merge.py --input-file nmt-input-data.raw.1k-sample.tsv.gz --wsd-output-dir ../datasets/mt/ims-output --directory-to-write ../datasets/mt/mt-input --log-level ${LOG_LEVEL}
+
+# make create-disambiguated-dataset CPU=10 MT_INPUT_FILE=nmt-input-data.raw.1k-sample.tsv.gz
+create-disambiguated-dataset: preprocess-mt-dataset create-ims-formatted-mt-data disambiguate merge
+
+
