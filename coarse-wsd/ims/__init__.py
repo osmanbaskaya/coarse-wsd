@@ -223,9 +223,20 @@ class IMSOutputMerger(object):
     """This class helps to merge instances where more than one target word are obverved in the test sentence. It's
     exactly the case for Machine translation input file. """
 
-    def merge(self, input_file, ims_output_dir):
-        unmatched_f = codecs.open(os.path.join("/tmp", 'new-unmatched-sentences.txt'), 'w', encoding='utf8')
-        matched_f = codecs.open(os.path.join("/tmp", 'matched-sentences.txt'), 'w', encoding='utf8')
+    def merge(self, input_file, ims_output_dir, directory_to_write):
+
+        global LOGGER
+        LOGGER = utils.get_logger()
+
+        try:
+            os.mkdir(directory_to_write)
+        except OSError:
+            LOGGER.debug("{} is already exist. Directory is removed.".format(directory_to_write))
+            shutil.rmtree(directory_to_write)  # remove the directory with its content.
+            os.mkdir(directory_to_write)
+
+        unmatched_f = codecs.open(os.path.join(directory_to_write, 'unmatched-sentences.txt'), 'w', encoding='utf8')
+        matched_f = codecs.open(os.path.join(directory_to_write, 'disambiguated-sentences.txt'), 'w', encoding='utf8')
 
         target_words = [f.split('.')[0] for f in os.listdir(ims_output_dir)]
         words = map(get_single_and_plural_form, target_words)
@@ -239,7 +250,7 @@ class IMSOutputMerger(object):
 
         for j, line in enumerate(gzip.open(input_file), 1):
             line = line.decode('utf-8').strip().split('\t')
-            line, translation = line[0], "translation"  # FIXME like line[:2]
+            line, translation = line[1:]
             tokens = line.split()
             tokens_lowercase = line.lower().split()
             sentence = []
@@ -251,8 +262,6 @@ class IMSOutputMerger(object):
                 sentence.append(token)
             if match:
                 matched_f.write(u"{}\t{}\n".format(u" ".join(sentence), translation))
-                # print("\n".join(str(e) for e in zip(sentence, line.split())))
-                # print '\n-------\n'
             else:
                 unmatched_f.write(u"{}\t{}\n".format(u" ".join(sentence), translation))
 

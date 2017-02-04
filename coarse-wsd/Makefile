@@ -114,3 +114,6 @@ create-ims-formatted-mt-data:
 
 disambiguate:
 	python disambiguate.py --input-dir ../datasets/mt/ims-data --directory-to-write ../datasets/mt/disambiguated --model-dir ../datasets/models --num-of-process ${CPU}
+
+merge: 
+	python merge.py --input-file nmt-input-data.raw.1k-sample.tsv.gz --wsd-output-dir ../datasets/mt/ims-output --directory-to-write ../datasets/mt/mt-input --log-level debug
