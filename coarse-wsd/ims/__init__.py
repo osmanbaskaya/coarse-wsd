@@ -231,8 +231,8 @@ class IMSOutputMerger(object):
 
         create_fresh_dir(directory_to_write)
 
-        unmatched_f = codecs.open(os.path.join(directory_to_write, 'unmatched-sentences.txt'), 'w', encoding='latin')
-        matched_f = codecs.open(os.path.join(directory_to_write, 'disambiguated-sentences.txt'), 'w', encoding='latin')
+        unmatched_f = codecs.open(os.path.join(directory_to_write, 'unmatched-sentences.txt'), 'w', encoding='utf8')
+        matched_f = codecs.open(os.path.join(directory_to_write, 'disambiguated-sentences.txt'), 'w', encoding='utf8')
         LOGGER.info("Output will be written on: {}".format(directory_to_write))
         target_words = [f.split('.')[0] for f in os.listdir(ims_output_dir)]
         words = map(get_single_and_plural_form, target_words)
@@ -245,7 +245,7 @@ class IMSOutputMerger(object):
         file2descriptors = dict()
 
         for j, line in enumerate(gzip.open(input_file), 1):
-            line = line.decode('latin').strip().split('\t')
+            line = line.decode('utf8').strip().split('\t')
             line, translation = line[1:]
             tokens = line.split()
             tokens_lowercase = line.lower().split()
