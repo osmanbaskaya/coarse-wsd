@@ -122,5 +122,6 @@ disambiguate:
 merge: 
 	python merge.py --input-file nmt-input-data.raw.1k-sample.tsv.gz --wsd-output-dir ../datasets/mt/ims-output --directory-to-write ../datasets/mt/mt-input --log-level ${LOG_LEVEL}
 
+# first: make ../ims/ims_0.9.2.1
 # make create-disambiguated-dataset CPU=10 MT_INPUT_FILE=nmt-input-data.raw.1k-sample.tsv.gz
 create-disambiguated-dataset: preprocess-mt-dataset create-ims-formatted-mt-data disambiguate merge

@@ -233,7 +233,7 @@ class IMSOutputMerger(object):
 
         unmatched_f = codecs.open(os.path.join(directory_to_write, 'unmatched-sentences.txt'), 'w', encoding='latin')
         matched_f = codecs.open(os.path.join(directory_to_write, 'disambiguated-sentences.txt'), 'w', encoding='latin')
-        LOGGER.info("Output will be written: {}".format(ims_output_dir))
+        LOGGER.info("Output will be written on: {}".format(directory_to_write))
         target_words = [f.split('.')[0] for f in os.listdir(ims_output_dir)]
         words = map(get_single_and_plural_form, target_words)
         model_map = {}
