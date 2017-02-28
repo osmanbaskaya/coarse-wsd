@@ -13,6 +13,7 @@ NUM_OF_FOLD=5
 WORD_EMBEDDING_DIM=100
 MT_INPUT_FILE=nmt-input-data.raw.1k-sample.tsv.gz
 LOG_LEVEL=debug
+MODEL_DIR='../datasets/models'
 
 ### PATH
 CORE_NLP=java -cp "../tools/stanford-corenlp/*" -Xmx60g edu.stanford.nlp.pipeline.StanfordCoreNLP -replaceExtension -cpu ${CPU}
@@ -62,7 +63,7 @@ create_sense_count_table: ../datasets/wiki semcor-pages-filtered.txt
 	python data_stats.py --function $@ --args $^
 
 ../datasets/ims: ../datasets/wiki-filtered
-	python create_ims_dataset.py $< $@ ${NUM_OF_FOLD}
+	python create_ims_dataset.py $< $@ ${NUM_OF_FOLD} ${CPU}
 
 ims.tw-list.txt: ../datasets/ims
 	ls $</fold-1 | grep ".train.xml" | sed 's|.train.xml||g' > $@
@@ -109,18 +110,16 @@ jaccard_sims.txt: wiki-sense-tag-mapping.txt
 
 preprocess-mt-dataset: 
 	-mkdir ../datasets/mt
-	python preprocess-mt-dataset.py --input-file ${MT_INPUT_FILE} --directory-to-write ../datasets/mt/data --log-level ${LOG_LEVEL}
+	python preprocess-mt-dataset.py --input-file ${MT_INPUT_FILE} --model-dir ${MODEL_DIR} --directory-to-write ../datasets/mt/data --log-level ${LOG_LEVEL}
 
 create-ims-formatted-mt-data:
-	python ims_formatted_data_for_mt.py --input-dir ../datasets/mt/data/words --directory-to-write ../datasets/mt/ims-data --log-level ${LOG_LEVEL}
+	python ims_formatted_data_for_mt.py --input-dir ../datasets/mt/data/words --directory-to-write ../datasets/mt/ims-data --log-level ${LOG_LEVEL} --num-of-process ${CPU}
 
 disambiguate:
-	python disambiguate.py --input-dir ../datasets/mt/ims-data --directory-to-write ../datasets/mt/disambiguated --model-dir ../datasets/models --num-of-process ${CPU} --log-level ${LOG_LEVEL}
+	python disambiguate.py --input-dir ../datasets/mt/ims-data --directory-to-write ../datasets/mt/ims-output --model-dir ${MODEL_DIR} --num-of-process ${CPU} --log-level ${LOG_LEVEL}
 
 merge: 
 	python merge.py --input-file nmt-input-data.raw.1k-sample.tsv.gz --wsd-output-dir ../datasets/mt/ims-output --directory-to-write ../datasets/mt/mt-input --log-level ${LOG_LEVEL}
 
 # make create-disambiguated-dataset CPU=10 MT_INPUT_FILE=nmt-input-data.raw.1k-sample.tsv.gz
 create-disambiguated-dataset: preprocess-mt-dataset create-ims-formatted-mt-data disambiguate merge
-
-

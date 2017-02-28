@@ -6,7 +6,7 @@ import utils
 import codecs
 import shutil
 from multiprocessing import Pool
-from utils import cd
+from utils import cd, create_fresh_dir
 import re
 from bs4 import BeautifulSoup
 from subprocess import check_output
@@ -160,6 +160,7 @@ class IMSPredictor(object):
         self.target_words = set(fn.split('.', 1)[0] for fn in os.listdir(model_dir))
 
     def predict(self, target_word, test_xml):
+        # LOGGER.info("{} - {}".format(target_word, "\n".join(self.target_words)))
         if target_word in self.target_words:
             curr_dir = os.getcwd()
             target_model_dir = os.path.join(curr_dir, self.model_dir, target_word)
@@ -228,16 +229,11 @@ class IMSOutputMerger(object):
         global LOGGER
         LOGGER = utils.get_logger()
 
-        try:
-            os.mkdir(directory_to_write)
-        except OSError:
-            LOGGER.debug("{} is already exist. Directory is removed.".format(directory_to_write))
-            shutil.rmtree(directory_to_write)  # remove the directory with its content.
-            os.mkdir(directory_to_write)
+        create_fresh_dir(directory_to_write)
 
-        unmatched_f = codecs.open(os.path.join(directory_to_write, 'unmatched-sentences.txt'), 'w', encoding='utf8')
-        matched_f = codecs.open(os.path.join(directory_to_write, 'disambiguated-sentences.txt'), 'w', encoding='utf8')
-
+        unmatched_f = codecs.open(os.path.join(directory_to_write, 'unmatched-sentences.txt'), 'w', encoding='latin')
+        matched_f = codecs.open(os.path.join(directory_to_write, 'disambiguated-sentences.txt'), 'w', encoding='latin')
+        LOGGER.info("Output will be written: {}".format(ims_output_dir))
         target_words = [f.split('.')[0] for f in os.listdir(ims_output_dir)]
         words = map(get_single_and_plural_form, target_words)
         model_map = {}
@@ -249,7 +245,7 @@ class IMSOutputMerger(object):
         file2descriptors = dict()
 
         for j, line in enumerate(gzip.open(input_file), 1):
-            line = line.decode('utf-8').strip().split('\t')
+            line = line.decode('latin').strip().split('\t')
             line, translation = line[1:]
             tokens = line.split()
             tokens_lowercase = line.lower().split()
@@ -283,8 +279,9 @@ def __predict_parallel(args):
     predictor, input_xml_fn, output_dir = args
     LOGGER.info("Processing %s" % input_xml_fn)
     target_word = os.path.basename(input_xml_fn).split('.', 1)[0]
+    LOGGER.info("Target word: {}".format(target_word))
     instances = predictor.transform(target_word, input_xml_fn)
-    with codecs.open(os.path.join(output_dir, "%s.txt" % target_word), 'wt', encoding='utf8') as f:
+    with codecs.open(os.path.join(output_dir, "%s.txt" % target_word), 'wt', encoding='latin') as f:
         f.write("\n".join(instances))
 
 

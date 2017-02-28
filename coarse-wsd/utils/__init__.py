@@ -10,6 +10,7 @@ from unidecode import unidecode
 import math
 import fnmatch
 import os
+import shutil
 
 __author__ = "Osman Baskaya"
 
@@ -136,6 +137,13 @@ def get_sense_idx_map(keydict_path, target_word):
             d[sense] = "{}.{}".format(target_word, idx)
     return d
 
+def create_fresh_dir(directory):
+    try:
+        os.mkdir(directory)
+    except OSError:
+        LOGGER.debug("{} is already exist. Directory is removed.".format(directory))
+        shutil.rmtree(directory)  # remove the directory with its content.
+        os.mkdir(directory)
 
 def run():
     method = globals()[sys.argv[1]] 

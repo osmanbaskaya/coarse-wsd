@@ -7,7 +7,6 @@ from collections import defaultdict as dd
 import codecs
 from xml.sax.saxutils import escape
 import shutil
-from constant import MODEL_PATH
 
 import utils
 
@@ -52,8 +51,9 @@ def transform_into_IMS_input_format(f, out_fn, target_word):
 
     with codecs.open(out_fn, 'w', encoding='utf8') as out:
         out.write(start)
-        for line in codecs.open(f, mode='rt', encoding='utf8'):
+        for line in codecs.open(f, mode='rt', encoding='latin'):
             line = line.strip().split('\t')
+            # LOGGER.info(line)
             assert len(line) == 3, u"Line should have 3 elements. %s" % line
             instance_id, sentence = line[:2]
             sentence = utils.remove_non_ascii(sentence)
@@ -117,7 +117,7 @@ def get_single_and_plural_form(word):
     return word, plural
 
 
-def preprocess_mt_input_file(input_file, directory_to_write, write_every_n_line=200000):
+def preprocess_mt_input_file(input_file, model_dir, directory_to_write, write_every_n_line=200000):
     """Provide word-sentence separation and make ready to code to create IMS formatted dataset"""
 
     global LOGGER
@@ -146,7 +146,7 @@ def preprocess_mt_input_file(input_file, directory_to_write, write_every_n_line=
         os.mkdir(words_dir)
 
     # load models into a set.
-    words = map(get_single_and_plural_form, os.listdir(MODEL_PATH))
+    words = map(get_single_and_plural_form, os.listdir(model_dir))
     model_map = {}
     for word, plural in words:
         model_map[plural] = word
