@@ -74,10 +74,11 @@ evaluate.ims: ims.tw-list.txt ../datasets/ims ../ims/ims_0.9.2.1
 
 ../ims/ims_0.9.2.1:
 	#wget http://www.comp.nus.edu.sg/~nlp/sw/IMS_v0.9.2.1.tar.gz
-	#wget http://www.comp.nus.edu.sg/~nlp/sw/lib.tar.gz
+	wget http://www.comp.nus.edu.sg/~nlp/sw/lib.tar.gz
 	-mkdir ../ims
-	#mv IMS_v0.9.2.1.tar.gz lib.tar.gz ../ims/
+	-mv IMS_v0.9.2.1.tar.gz lib.tar.gz ../ims/
 	tar xzvf ../ims/IMS_v0.9.2.1.tar.gz -C ../ims
+	tar xzvf ../ims/lib.tar.gz -C $@
 	chmod +x $@/*.bash
 	cd $@; make
 	touch $@
