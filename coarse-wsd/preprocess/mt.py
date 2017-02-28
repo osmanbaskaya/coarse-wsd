@@ -72,7 +72,6 @@ def prepare_one_target_word(args):
     _, fn = os.path.split(f)
     target_word = fn.split('.')[0]
 
-    print "Processing {}".format(target_word)
     out_dir = os.path.join(directory_to_write)
     out_fn_data = os.path.join(out_dir, '%s.xml' % target_word)
     transform_into_IMS_input_format(f, out_fn_data, target_word)

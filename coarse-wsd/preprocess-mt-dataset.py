@@ -16,7 +16,7 @@ def run():
     logger.debug("Args: {}".format(args))
 
     preprocess_mt_input_file(args.input_file, args.model_dir, args.directory_to_write)
-    logger.info('done')
+    logger.info('Done')
 
 
 if __name__ == '__main__':
