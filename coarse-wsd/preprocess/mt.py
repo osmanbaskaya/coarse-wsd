@@ -164,7 +164,12 @@ def preprocess_mt_input_file(input_file, model_dir, directory_to_write, write_ev
     total_matched = 0
     j = 0
 
-    for j, line in enumerate(gzip.open(input_file), 1):
+    if '.gz' in input_file:
+        tmp_fh = gzip.open(input_file)
+    else:
+        tmp_fh = open(input_file)
+
+    for j, line in enumerate(tmp_fh, 1):
         line = line.decode('utf-8')
         token_line, translation = line.strip().split('\t')[1:]  # get the original sentence and translation
         tokens = token_line.split()
@@ -197,3 +202,4 @@ def preprocess_mt_input_file(input_file, model_dir, directory_to_write, write_ev
     total_matched += num_of_matched
     LOGGER.info("{} processing. Total match: {}".format(j, total_matched))
     write2files()
+    tmp_fh.close()
