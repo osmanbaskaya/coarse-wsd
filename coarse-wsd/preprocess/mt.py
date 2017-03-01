@@ -160,6 +160,8 @@ def preprocess_mt_input_file(input_file, model_dir, directory_to_write, write_ev
 
     file2descriptor = dict()
 
+    num_skipped_line = 0
+
     num_of_matched = 0
     total_matched = 0
     j = 0
@@ -171,7 +173,11 @@ def preprocess_mt_input_file(input_file, model_dir, directory_to_write, write_ev
 
     for j, line in enumerate(tmp_fh, 1):
         line = line.decode('utf-8')
-        token_line, translation = line.strip().split('\t')[1:]  # get the original sentence and translation
+        try:
+            token_line, translation = line.strip().split('\t')[1:]  # get the original sentence and translation
+        except ValueError:
+            num_skipped_line += 1
+            continue
         tokens = token_line.split()
         tokens_lowercase = token_line.lower().split()
         matched_sentences = []
@@ -200,6 +206,7 @@ def preprocess_mt_input_file(input_file, model_dir, directory_to_write, write_ev
             num_of_matched = 0
 
     total_matched += num_of_matched
+    LOGGER.info("Number of skipped line: {}".format(num_skipped_line))
     LOGGER.info("{} processing. Total match: {}".format(j, total_matched))
     write2files()
     tmp_fh.close()
