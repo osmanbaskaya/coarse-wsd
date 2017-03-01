@@ -54,7 +54,8 @@ def transform_into_IMS_input_format(f, out_fn, target_word):
         for line in codecs.open(f, mode='rt', encoding='latin'):
             line = line.strip().split('\t')
             # LOGGER.info(line)
-            assert len(line) == 3, u"Line should have 3 elements. %s" % line
+            if len(line) != 3:
+                continue
             instance_id, sentence = line[:2]
             sentence = utils.remove_non_ascii(sentence)
             sentence = escape(sentence)
