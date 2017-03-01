@@ -244,7 +244,12 @@ class IMSOutputMerger(object):
         words_with_models = set(model_map.keys())
         file2descriptors = dict()
 
-        for j, line in enumerate(gzip.open(input_file), 1):
+        fopen = open
+
+        if input_file.endswith('.gz'):
+            fopen = gzip.open
+
+        for j, line in enumerate(fopen(input_file), 1):
             line = line.decode('utf8').strip().split('\t')
             line, translation = line[1:]
             tokens = line.split()
