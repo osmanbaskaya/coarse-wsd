@@ -10,6 +10,7 @@ def run():
     parser.add_argument('--directory-to-write', required=True)
     parser.add_argument('--model-dir', required=True)
     parser.add_argument('--log-level', default='debug')
+    parser.add_argument('--fresh-start', action="store_true")
     parser.add_argument('--num-of-process', default=cpu_count()-1, type=int)
     args = parser.parse_args()
 
@@ -21,7 +22,7 @@ def run():
     logger = utils.get_logger()
     logger.debug("Args: {}".format(args))
 
-    predict(model_dir, input_dir, output_dir, num_of_process=args.num_of_process)
+    predict(model_dir, input_dir, output_dir, num_of_process=args.num_of_process, fresh_start=args.fresh_start)
     logger.info('Done')
 
 

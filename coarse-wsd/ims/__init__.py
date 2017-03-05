@@ -290,23 +290,41 @@ def __predict_parallel(args):
         f.write("\n".join(instances))
 
 
-def predict(model_dir, input_dir, output_dir, num_of_process=1):
+def filter_already_done_files(files_done, files):
+    filtered_files = []
+    files_done = set(files_done)
+    for fn in files:
+        ff = os.path.basename(os.path.splitext(fn)[0])
+        if ff not in files_done:
+            filtered_files.append(fn)
+
+    return filtered_files
+
+
+def predict(model_dir, input_dir, output_dir, num_of_process=1, fresh_start=True):
     global LOGGER
 
     LOGGER = utils.get_logger()
 
     files = sorted(glob.glob(os.path.join(input_dir, "*.xml")))
+    LOGGER.info("Total input file: {}".format(len(files)))
 
-    try:
-        os.mkdir(output_dir)
-    except OSError:
-        LOGGER.debug("{} is already exist. Directory is removed.".format(output_dir))
-        shutil.rmtree(output_dir)  # remove the directory with its content.
-        os.mkdir(output_dir)
+    if fresh_start:
+        try:
+            os.mkdir(output_dir)
+        except OSError:
+            LOGGER.debug("{} is already exist. Directory is removed.".format(output_dir))
+            shutil.rmtree(output_dir)  # remove the directory with its content.
+            os.mkdir(output_dir)
+    else:
+        files_done = [os.path.splitext(os.path.basename(fn))[0] for fn in glob.glob(os.path.join(output_dir, "*.txt"))]
+        files = filter_already_done_files(files_done, files)
 
     predictor = IMSPredictor(model_dir)
 
-    args = [(predictor, fn, output_dir) for fn in sorted(files)]
+    LOGGER.info("Total input file to run: {}".format(len(files)))
+    args = [(predictor, fn, output_dir) for fn in files]
+
     if num_of_process > 1:
         pool = Pool(num_of_process)
         pool.map(__predict_parallel, args)

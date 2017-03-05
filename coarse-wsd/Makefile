@@ -14,6 +14,7 @@ WORD_EMBEDDING_DIM=100
 MT_INPUT_FILE=nmt-input-data.raw.1k-sample.tsv.gz
 LOG_LEVEL=debug
 MODEL_DIR='../datasets/models'
+FRESH_START="--fresh-start"
 
 ### PATH
 CORE_NLP=java -cp "../tools/stanford-corenlp/*" -Xmx60g edu.stanford.nlp.pipeline.StanfordCoreNLP -replaceExtension -cpu ${CPU}
@@ -117,7 +118,7 @@ create-ims-formatted-mt-data:
 	python ims_formatted_data_for_mt.py --input-dir ../datasets/mt/data/words --directory-to-write ../datasets/mt/ims-data --log-level ${LOG_LEVEL} --num-of-process ${CPU}
 
 disambiguate:
-	python disambiguate.py --input-dir ../datasets/mt/ims-data --directory-to-write ../datasets/mt/ims-output --model-dir ${MODEL_DIR} --num-of-process ${CPU} --log-level ${LOG_LEVEL}
+	python disambiguate.py --input-dir ../datasets/mt/ims-data --directory-to-write ../datasets/mt/ims-output --model-dir ${MODEL_DIR} --num-of-process ${CPU} --log-level ${LOG_LEVEL} ${FRESH_START}
 
 merge: 
 	python merge.py --input-file ${MT_INPUT_FILE} --wsd-output-dir ../datasets/mt/ims-output --directory-to-write ../datasets/mt/mt-input --log-level ${LOG_LEVEL}
