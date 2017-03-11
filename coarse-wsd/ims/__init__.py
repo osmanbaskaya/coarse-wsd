@@ -395,7 +395,8 @@ def predict(model_dir, input_dir, output_dir, num_of_process=1, fresh_start=True
         status = check_pool_status(result, q, len(args), 100)
         if status == "stuck":
             pool.terminate()
-            LOGGER.info("Pool has been terminated.")
+            LOGGER.info("Pool has been terminated. Waiting processes in the pool are terminated.")
+            pool.join()
             # Run again.
             LOGGER.info("Prediction will be restarted with fresh_start=False")
             predict(model_dir, input_dir, output_dir, num_of_process, fresh_start=False)
