@@ -121,7 +121,7 @@ disambiguate:
 	python disambiguate.py --input-dir ../datasets/mt/ims-data --directory-to-write ../datasets/mt/ims-output --model-dir ${MODEL_DIR} --num-of-process ${CPU} --log-level ${LOG_LEVEL} ${FRESH_START}
 
 merge: 
-	python merge.py --input-file ${MT_INPUT_FILE} --wsd-output-dir ../datasets/mt/ims-output --directory-to-write ../datasets/mt/mt-input --log-level ${LOG_LEVEL}
+	python merge.py --input-file ${MT_INPUT_FILE} --wsd-output-dir ../datasets/mt/ims-output-merged --directory-to-write ../datasets/mt/mt-input --log-level ${LOG_LEVEL}
 
 # first: make ../ims/ims_0.9.2.1
 # make create-disambiguated-dataset CPU=10 MT_INPUT_FILE=nmt-input-data.raw.1k-sample.tsv.gz

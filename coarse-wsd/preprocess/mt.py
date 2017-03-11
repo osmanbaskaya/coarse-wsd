@@ -14,10 +14,25 @@ LOGGER = None
 
 regex = re.compile(u"<target>(\w+)</target>")
 
-IRREGULAR_NOUNS = set(["boy",])
+IRREGULAR_NOUNS = {"boy"}
 
 
-def transform_into_IMS_input_format(f, out_fn, target_word):
+def write_instances(target_word, out_dir, instances, chunk_id):
+
+    start = u"""<?xml version="1.0" encoding="iso-8859-1" ?><!DOCTYPE corpus SYSTEM "lexical-sample.dtd">
+      <corpus lang='english'>
+      <lexelt item="{}">\n""".format(target_word)
+
+    end = u"</lexelt>\n</corpus>\n"
+
+    out_fn = os.path.join(out_dir, '{}-{}.xml'.format(target_word, chunk_id))
+    with codecs.open(out_fn, 'w', encoding='utf8') as out:
+        out.write(start)
+        out.write(u"\n".join(instances))
+        out.write(end)
+
+
+def transform_into_IMS_input_format(f, out_dir, target_word, chunk_size=1000):
     """<?xml version="1.0" encoding="iso-8859-1" ?><!DOCTYPE corpus SYSTEM "lexical-sample.dtd">
          <corpus lang='english'>
          <lexelt item="bank.n">
@@ -34,10 +49,6 @@ def transform_into_IMS_input_format(f, out_fn, target_word):
         </corpus>
     """
 
-    start = u"""<?xml version="1.0" encoding="iso-8859-1" ?><!DOCTYPE corpus SYSTEM "lexical-sample.dtd">
-      <corpus lang='english'>
-      <lexelt item="{}">\n""".format(target_word)
-
     instance = u"""
             <instance id="{}.{}" docsrc="BNC">
             <context>
@@ -45,27 +56,27 @@ def transform_into_IMS_input_format(f, out_fn, target_word):
             </context>
             </instance>\n"""
 
-    end = u"</lexelt>\n</corpus>\n"
-
     # replace_set = [(u"–", ' '), (u"被", " "), (u"給", " ")]
-
-    with codecs.open(out_fn, 'w', encoding='utf8') as out:
-        out.write(start)
-        for line in codecs.open(f, mode='rt', encoding='latin'):
-            line = line.strip().split('\t')
-            # LOGGER.info(line)
-            if len(line) != 3:
-                continue
+    instances = []
+    chunk_id = 1
+    for i, line in enumerate(codecs.open(f, mode='rt', encoding='latin'), 1):
+        line = line.strip().split('\t')
+        if len(line) == 3:  # This should be unnecessary.
             instance_id, sentence = line[:2]
             sentence = utils.remove_non_ascii(sentence)
             sentence = escape(sentence)
-            # for t in replace_set:
-            #     sentence = sentence.replace(*t)
             sentence = re.sub("&lt;target&gt;\w+&lt;/target&gt;", "<head>%s</head>" % target_word,
                               sentence, 1)
-            # assert "<head>%s</head>" % target_word in sentence, "headword not found."
-            out.write(instance.format(target_word, instance_id, sentence))
-        out.write(end)
+            instances.append(instance.format(target_word, instance_id, sentence))
+            if i % chunk_size == 0:
+                write_instances(target_word, out_dir, instances, chunk_id)
+                instances = []  # refresh the list
+                chunk_id += 1
+
+    # Write the remaining.
+    if len(instances) != 0:
+        write_instances(target_word, out_dir, instances, chunk_id)
+
 
 
 def prepare_one_target_word(args):
@@ -74,8 +85,7 @@ def prepare_one_target_word(args):
     target_word = fn.split('.')[0]
 
     out_dir = os.path.join(directory_to_write)
-    out_fn_data = os.path.join(out_dir, '%s.xml' % target_word)
-    transform_into_IMS_input_format(f, out_fn_data, target_word)
+    transform_into_IMS_input_format(f, out_dir, target_word)
 
 
 def create_IMS_formatted_dataset(files, directory_to_write, num_of_process=1):
@@ -167,16 +177,15 @@ def preprocess_mt_input_file(input_file, model_dir, directory_to_write, write_ev
     total_matched = 0
     j = 0
 
-    if '.gz' in input_file:
-        tmp_fh = gzip.open(input_file)
-    else:
-        tmp_fh = open(input_file)
+    fopen = open
+    if input_file.endswith('.gz'):
+        fopen = gzip.open
 
-    for j, line in enumerate(tmp_fh, 1):
-        line = line.decode('utf-8')
-        try:
-            token_line, translation = line.strip().split('\t')[1:]  # get the original sentence and translation
-        except ValueError:
+    for j, line in enumerate(fopen(input_file), 1):
+        line = line.decode('utf-8').strip().split('\t')
+        if len(line) == 3:
+            token_line, translation = line[1:]  # get the original sentence and translation
+        else:
             num_skipped_line += 1
             continue
         tokens = token_line.split()
@@ -210,4 +219,3 @@ def preprocess_mt_input_file(input_file, model_dir, directory_to_write, write_ev
     LOGGER.info("Number of skipped line: {}".format(num_skipped_line))
     LOGGER.info("{} processing. Total match: {}".format(j, total_matched))
     write2files()
-    tmp_fh.close()

@@ -25,6 +25,11 @@ def run_parallel(command):
     return check_output(command.split())
 
 
+def get_model_name(target_word):
+    # get the target word stem if target word is in form targetword-\d+. For the big file, IMS does not work well.
+    return target_word.split('-', 1)[0]
+
+
 class IMS(object):
 
     def __init__(self, target_words, input_path, num_process=2, ims_lib_path='../ims/ims_0.9.2.1'):
@@ -157,18 +162,22 @@ class IMSPredictor(object):
         self.ims_lib_path = ims_lib_path
         self.model_dir = model_dir
         self.test_sh = './test_one.bash'
-        self.target_words = set(fn.split('.', 1)[0] for fn in os.listdir(model_dir))
+        self.models = set(fn.split('.', 1)[0] for fn in os.listdir(model_dir))
+
 
     def predict(self, target_word, test_xml):
         # LOGGER.info("{} - {}".format(target_word, "\n".join(self.target_words)))
-        if target_word in self.target_words:
+        out = "/tmp"
+        model_name = get_model_name(target_word)
+        if model_name in self.models:
             curr_dir = os.getcwd()
-            target_model_dir = os.path.join(curr_dir, self.model_dir, target_word)
+            target_model_dir = os.path.join(curr_dir, self.model_dir, model_name)
             test_xml = os.path.join(curr_dir, test_xml)
             with cd(self.ims_lib_path):
-                out = "/tmp"
                 command = "{} {} {} {}".format(self.test_sh, target_model_dir, test_xml, out)
                 check_output(command.split())
+
+        shutil.move(os.path.join(out, "%s.result" % model_name), os.path.join(out, "%s.result" % target_word))
 
     def transform(self, target_word, test_xml):
         """
@@ -234,7 +243,7 @@ class IMSOutputMerger(object):
         unmatched_f = codecs.open(os.path.join(directory_to_write, 'unmatched-sentences.txt'), 'w', encoding='utf8')
         matched_f = codecs.open(os.path.join(directory_to_write, 'disambiguated-sentences.txt'), 'w', encoding='utf8')
         LOGGER.info("Output will be written on: {}".format(directory_to_write))
-        target_words = [f.split('.')[0] for f in os.listdir(ims_output_dir)]
+        target_words = [f.split('.')[0].split('-', 1)[0] for f in os.listdir(ims_output_dir)]
         words = map(get_single_and_plural_form, target_words)
         model_map = {}
         for word, plural in words:
@@ -288,6 +297,7 @@ def __predict_parallel(args):
     instances = predictor.transform(target_word, input_xml_fn)
     with codecs.open(os.path.join(output_dir, "%s.txt" % target_word), 'wt', encoding='latin') as f:
         f.write("\n".join(instances))
+        f.write('\n')
 
 
 def filter_already_done_files(files_done, files):
@@ -299,6 +309,31 @@ def filter_already_done_files(files_done, files):
             filtered_files.append(fn)
 
     return filtered_files
+
+
+def merge_output(ims_output_dir):
+
+    def sort_func(fn):
+        target_word, chunk_index = os.path.splitext(os.path.basename(fn))[0].split('-')
+        return target_word, int(chunk_index)
+
+    dir_name = os.path.dirname(ims_output_dir)
+    out_dir = os.path.join(dir_name, "ims-output-merged")
+    create_fresh_dir(out_dir)
+
+    files = sorted(glob.glob(os.path.join(ims_output_dir, "*.txt")), key=sort_func)
+    f = None
+    prev_model = None
+    for fn in files:
+        model = get_model_name(os.path.basename(fn))
+        if prev_model != model:
+            if prev_model:
+                f.close()  # close to previous.
+            f = codecs.open(os.path.join(out_dir, "%s.txt" % model), 'wt', encoding='latin')
+            prev_model = model
+        f.write(codecs.open(fn, encoding='latin').read())
+
+    f.close()
 
 
 def predict(model_dir, input_dir, output_dir, num_of_process=1, fresh_start=True):
@@ -330,3 +365,5 @@ def predict(model_dir, input_dir, output_dir, num_of_process=1, fresh_start=True
         pool.map(__predict_parallel, args)
     else:
         map(__predict_parallel, args)
+
+    merge_output(output_dir)
