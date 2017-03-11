@@ -345,7 +345,7 @@ def merge_output(ims_output_dir):
     f.close()
 
 
-def check_pool_status(result, q, timeout=100):
+def check_pool_status(result, q, total_task_size, timeout=100):
     num_of_completed_task = -1
     while True:
         if result.ready():
@@ -353,7 +353,7 @@ def check_pool_status(result, q, timeout=100):
             break
         else:
             size = q.qsize()
-            LOGGER.info(size)
+            LOGGER.info("Completed Task / Total Task: {} / {}".format(size, total_task_size))
             if num_of_completed_task == size:
                 LOGGER.info("Completed task number does not change. Seems like program gets stuck.")
                 return "stuck"
@@ -392,7 +392,7 @@ def predict(model_dir, input_dir, output_dir, num_of_process=1, fresh_start=True
         q = manager.Queue()
         args = [(predictor, fn, output_dir, q) for fn in files]
         result = pool.map_async(__predict_parallel, args)
-        status = check_pool_status(result, q, 100)
+        status = check_pool_status(result, q, len(args), 100)
         if status == "stuck":
             pool.terminate()
             LOGGER.info("Pool has been terminated.")
