@@ -3,6 +3,7 @@ import time
 import gzip
 import glob
 import utils
+import random
 import codecs
 import shutil
 from subprocess import check_output
@@ -368,7 +369,9 @@ def predict(model_dir, input_dir, output_dir, num_of_process=1, fresh_start=True
 
     LOGGER = utils.get_logger()
 
-    files = sorted(glob.glob(os.path.join(input_dir, "*.xml")))
+    files = glob.glob(os.path.join(input_dir, "*.xml"))
+    random.shuffle(files)
+
     LOGGER.info("Total input file: {}".format(len(files)))
 
     if fresh_start:
@@ -392,7 +395,7 @@ def predict(model_dir, input_dir, output_dir, num_of_process=1, fresh_start=True
         q = manager.Queue()
         args = [(predictor, fn, output_dir, q) for fn in files]
         result = pool.map_async(__predict_parallel, args)
-        status = check_pool_status(result, q, len(args), 100)
+        status = check_pool_status(result, q, len(args), 15)
         if status == "stuck":
             pool.terminate()
             LOGGER.info("Pool has been terminated. Waiting processes in the pool are terminated.")
