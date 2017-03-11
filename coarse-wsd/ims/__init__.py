@@ -1,16 +1,19 @@
 import os
-from preprocess.mt import get_single_and_plural_form
+import time
 import gzip
 import glob
 import utils
 import codecs
 import shutil
-from multiprocessing import Pool
-from utils import cd, create_fresh_dir
-import re
-from bs4 import BeautifulSoup
 from subprocess import check_output
 from collections import OrderedDict
+from multiprocessing import Pool, Manager
+import re
+
+from bs4 import BeautifulSoup
+
+from preprocess.mt import get_single_and_plural_form
+from utils import cd, create_fresh_dir
 
 
 LOGGER = None
@@ -290,6 +293,12 @@ def get_disambiguated_form(ims_output_dir, file2descriptors, target_word, i):
 
 
 def __predict_parallel(args):
+    predictor, input_xml_fn, output_dir, q = args
+    __predict((predictor, input_xml_fn, output_dir))
+    q.put(input_xml_fn)
+
+
+def __predict(args):
     predictor, input_xml_fn, output_dir = args
     LOGGER.info("Processing %s" % input_xml_fn)
     target_word = os.path.basename(input_xml_fn).split('.', 1)[0]
@@ -336,6 +345,24 @@ def merge_output(ims_output_dir):
     f.close()
 
 
+def check_pool_status(result, q, timeout=100):
+    num_of_completed_task = -1
+    while True:
+        if result.ready():
+            LOGGER.info("All work Done.")
+            break
+        else:
+            size = q.qsize()
+            LOGGER.info(size)
+            if num_of_completed_task == size:
+                LOGGER.info("Completed task number does not change. Seems like program gets stuck.")
+                return "stuck"
+            num_of_completed_task = size
+            time.sleep(timeout)
+
+    return "success"
+
+
 def predict(model_dir, input_dir, output_dir, num_of_process=1, fresh_start=True):
     global LOGGER
 
@@ -358,12 +385,22 @@ def predict(model_dir, input_dir, output_dir, num_of_process=1, fresh_start=True
     predictor = IMSPredictor(model_dir)
 
     LOGGER.info("Total input file to run: {}".format(len(files)))
-    args = [(predictor, fn, output_dir) for fn in files]
 
     if num_of_process > 1:
         pool = Pool(num_of_process)
-        pool.map(__predict_parallel, args)
+        manager = Manager()
+        q = manager.Queue()
+        args = [(predictor, fn, output_dir, q) for fn in files]
+        result = pool.map_async(__predict_parallel, args)
+        status = check_pool_status(result, q, 100)
+        if status == "stuck":
+            pool.terminate()
+            LOGGER.info("Pool has been terminated.")
+            # Run again.
+            LOGGER.info("Prediction will be restarted with fresh_start=False")
+            predict(model_dir, input_dir, output_dir, num_of_process, fresh_start=False)
     else:
-        map(__predict_parallel, args)
+        args = [(predictor, fn, output_dir) for fn in files]
+        map(__predict, args)
 
     merge_output(output_dir)
