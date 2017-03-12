@@ -267,6 +267,8 @@ class IMSOutputMerger(object):
                 if token_lower in words_with_models:
                     match = True
                     token = get_disambiguated_form(ims_output_dir, file2descriptors, model_map[token_lower], i)
+                    if token is None:
+                        raise ValueError(u"{}\t{}\t{}\t{}".format(ims_output_dir, file2descriptors, model_map[token_lower], tokens))
                 sentence.append(token)
             if match:
                 matched_f.write(u"{}\t{}\n".format(u" ".join(sentence), translation))
@@ -286,9 +288,11 @@ def get_disambiguated_form(ims_output_dir, file2descriptors, target_word, i):
     sentence = f.readline().strip().split()  # read the line
     try:
         word = sentence[i]  # return the ith word (disambiguated word)
-        return word
     except IndexError:
-        raise IndexError(sentence, i)
+        LOGGER.error("IndexError: {} --- index: {}".format(sentence, i))
+        word = None
+
+    return word
 
 
 def __predict_parallel(args):
