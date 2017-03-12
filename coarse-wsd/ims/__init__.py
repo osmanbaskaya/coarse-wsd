@@ -284,7 +284,11 @@ def get_disambiguated_form(ims_output_dir, file2descriptors, target_word, i):
         file2descriptors[fn] = f
 
     sentence = f.readline().strip().split()  # read the line
-    return sentence[i]  # return the ith word (disambiguated word)
+    try:
+        word = sentence[i]  # return the ith word (disambiguated word)
+        return word
+    except IndexError:
+        raise IndexError(sentence, i)
 
 
 def __predict_parallel(args):
