@@ -268,7 +268,7 @@ class IMSOutputMerger(object):
                     match = True
                     token = get_disambiguated_form(ims_output_dir, file2descriptors, model_map[token_lower], i)
                     if token is None:
-                        raise ValueError(u"{}\t{}\t{}\t{}".format(ims_output_dir, file2descriptors, model_map[token_lower], tokens))
+                        raise ValueError(u"{}\t{}\t{}".format(ims_output_dir, model_map[token_lower], tokens))
                 sentence.append(token)
             if match:
                 matched_f.write(u"{}\t{}\n".format(u" ".join(sentence), translation))
