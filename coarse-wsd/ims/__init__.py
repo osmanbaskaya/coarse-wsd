@@ -14,7 +14,7 @@ import re
 from bs4 import BeautifulSoup
 
 from preprocess.mt import get_single_and_plural_form
-from utils import cd, create_fresh_dir
+from utils import cd, create_fresh_dir, read_lines_from_mt_input
 
 
 LOGGER = None
@@ -257,16 +257,10 @@ class IMSOutputMerger(object):
         words_with_models = set(model_map.keys())
         file2descriptors = dict()
 
-        fopen = open
-
-        if input_file.endswith('.gz'):
-            fopen = gzip.open
-
-        for j, line in enumerate(fopen(input_file), 1):
-            line = line.decode('utf8').strip().split('\t')
-            line, translation = line[1:]
-            tokens = line.split()
-            tokens_lowercase = line.lower().split()
+        for line in read_lines_from_mt_input(input_file):
+            _, token_line, translation = line
+            tokens_lowercase = token_line.lower().split()
+            tokens = token_line.split()
             sentence = []
             match = False
             for i, (token_lower, token) in enumerate(zip(tokens_lowercase, tokens)):

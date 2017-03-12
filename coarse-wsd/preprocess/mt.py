@@ -171,25 +171,14 @@ def preprocess_mt_input_file(input_file, model_dir, directory_to_write, write_ev
 
     file2descriptor = dict()
 
-    num_skipped_line = 0
-
     num_of_matched = 0
     total_matched = 0
     j = 0
 
-    fopen = open
-    if input_file.endswith('.gz'):
-        fopen = gzip.open
-
-    for j, line in enumerate(fopen(input_file), 1):
-        line = line.decode('utf-8').strip().split('\t')
-        if len(line) == 3:
-            token_line, translation = line[1:]  # get the original sentence and translation
-        else:
-            num_skipped_line += 1
-            continue
-        tokens = token_line.split()
+    for j, line in enumerate(utils.read_lines_from_mt_input(input_file), 1):
+        _, token_line, translation = line
         tokens_lowercase = token_line.lower().split()
+        tokens = token_line.split()
         matched_sentences = []
         for i, word in enumerate(tokens_lowercase):
             if word in words_with_models:
@@ -216,6 +205,5 @@ def preprocess_mt_input_file(input_file, model_dir, directory_to_write, write_ev
             num_of_matched = 0
 
     total_matched += num_of_matched
-    LOGGER.info("Number of skipped line: {}".format(num_skipped_line))
     LOGGER.info("{} processing. Total match: {}".format(j, total_matched))
     write2files()

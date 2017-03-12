@@ -3,6 +3,7 @@
 
 from collections import defaultdict as dd
 from contextlib import contextmanager
+import gzip
 import logging
 import logging.handlers
 import sys
@@ -137,6 +138,45 @@ def get_sense_idx_map(keydict_path, target_word):
             d[sense] = "{}.{}".format(target_word, idx)
     return d
 
+
+def read_lines_from_mt_input(input_file, max_char_for_word_check=10, max_char_in_sentence=1000):
+
+    num_skipped_line = 0
+
+    fopen = open
+    if input_file.endswith('.gz'):
+        fopen = gzip.open
+    for j, line in enumerate(fopen(input_file), 1):
+        skipped = False
+        line = line.decode('utf-8').strip()
+        line = line.split('\t')
+        if len(line) == 3:
+            token_line = line[1]
+            if len(token_line) > max_char_in_sentence:
+                skipped = True
+            else:
+                tokens = token_line.split()
+                for i in range(len(tokens)):
+                    token = tokens[i]
+                    if len(token) > max_char_for_word_check:
+                        # IMS becomes very slow if a long word has . or - in it.
+                        if '.' in token:
+                            token = token.replace('.', '')
+                        if '-' in token:
+                            token = token.replace('-', '')
+                    tokens[i] = token
+        else:
+            skipped = True
+
+        if skipped:
+            num_skipped_line += 1
+        else:
+            line[1] = " ".join(tokens)
+            yield line
+
+    print >> sys.stderr, "Number of line skipped %d" % num_skipped_line
+
+
 def create_fresh_dir(directory):
     try:
         os.mkdir(directory)
@@ -145,10 +185,11 @@ def create_fresh_dir(directory):
         shutil.rmtree(directory)  # remove the directory with its content.
         os.mkdir(directory)
 
+
 def run():
     method = globals()[sys.argv[1]] 
     args = sys.argv[2:]
-    method(args)
+    method(*args)
 
 if __name__ == "__main__":
     run()
