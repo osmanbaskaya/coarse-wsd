@@ -155,6 +155,7 @@ def read_lines_from_mt_input(input_file, max_char_for_word_check=15, max_char_in
             if len(token_line) > max_char_in_sentence:
                 skipped = True
             else:
+                token_line = remove_non_ascii(token_line)
                 tokens = token_line.split()
                 for i in range(len(tokens)):
                     token = tokens[i]
