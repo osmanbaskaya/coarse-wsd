@@ -59,7 +59,7 @@ def transform_into_IMS_input_format(f, out_dir, target_word, chunk_size=1000):
     # replace_set = [(u"–", ' '), (u"被", " "), (u"給", " ")]
     instances = []
     chunk_id = 1
-    for i, line in enumerate(codecs.open(f, mode='rt', encoding='latin'), 1):
+    for i, line in enumerate(codecs.open(f, mode='rt', encoding='utf8'), 1):
         line = line.strip().split('\t')
         if len(line) == 3:  # This should be unnecessary.
             instance_id, sentence = line[:2]
@@ -189,9 +189,6 @@ def preprocess_mt_input_file(input_file, model_dir, directory_to_write, write_ev
         # TODO add translation at the end of the line and remove the line at the end.
         if len(matched_sentences) == 0:
             unmatched_f.write(u"{}\t{}\t{}\n".format(j, token_line, translation))
-        elif len(matched_sentences) == 1:
-            word, matched_sentence = matched_sentences[0]
-            sentences[model_map[word]].append(u"{}\t{}\t{}\n".format(j, matched_sentence, translation))
         else:
             for i, (word, matched_sentence) in enumerate(matched_sentences):
                 sentences[model_map[word]].append(u"m-{}-{}\t{}\t{}\n".format(i, j, matched_sentence, translation))

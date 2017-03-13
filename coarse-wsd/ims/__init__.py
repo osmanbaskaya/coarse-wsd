@@ -168,7 +168,6 @@ class IMSPredictor(object):
         self.test_sh = './test_one.bash'
         self.models = set(fn.split('.', 1)[0] for fn in os.listdir(model_dir))
 
-
     def predict(self, target_word, test_xml):
         # LOGGER.info("{} - {}".format(target_word, "\n".join(self.target_words)))
         out = "/tmp"
@@ -257,7 +256,7 @@ class IMSOutputMerger(object):
         words_with_models = set(model_map.keys())
         file2descriptors = dict()
 
-        for line in read_lines_from_mt_input(input_file):
+        for line_no, line in enumerate(read_lines_from_mt_input(input_file), 1):
             _, token_line, translation = line
             tokens_lowercase = token_line.lower().split()
             tokens = token_line.split()
@@ -268,7 +267,7 @@ class IMSOutputMerger(object):
                     match = True
                     token = get_disambiguated_form(ims_output_dir, file2descriptors, model_map[token_lower], i)
                     if token is None:
-                        raise ValueError(u"{}\t{}\t{}".format(ims_output_dir, model_map[token_lower], tokens))
+                        raise ValueError(u"{}\t{}\t{}\t{}".format(ims_output_dir, model_map[token_lower], tokens, line_no))
                 sentence.append(token)
             if match:
                 matched_f.write(u"{}\t{}\n".format(u" ".join(sentence), translation))
@@ -307,7 +306,7 @@ def __predict(args):
     target_word = os.path.basename(input_xml_fn).split('.', 1)[0]
     LOGGER.info("Target word: {}".format(target_word))
     instances = predictor.transform(target_word, input_xml_fn)
-    with codecs.open(os.path.join(output_dir, "%s.txt" % target_word), 'wt', encoding='latin') as f:
+    with codecs.open(os.path.join(output_dir, "%s.txt" % target_word), 'wt', encoding='utf8') as f:
         f.write("\n".join(instances))
         f.write('\n')
 
@@ -341,9 +340,9 @@ def merge_output(ims_output_dir):
         if prev_model != model:
             if prev_model:
                 f.close()  # close to previous.
-            f = codecs.open(os.path.join(out_dir, "%s.txt" % model), 'wt', encoding='latin')
+            f = codecs.open(os.path.join(out_dir, "%s.txt" % model), 'wt', encoding='utf8')
             prev_model = model
-        f.write(codecs.open(fn, encoding='latin').read())
+        f.write(codecs.open(fn, encoding='utf8').read())
 
     f.close()
 

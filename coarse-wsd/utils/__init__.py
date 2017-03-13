@@ -139,7 +139,7 @@ def get_sense_idx_map(keydict_path, target_word):
     return d
 
 
-def read_lines_from_mt_input(input_file, max_char_for_word_check=10, max_char_in_sentence=1000):
+def read_lines_from_mt_input(input_file, max_char_for_word_check=15, max_char_in_sentence=1000):
 
     num_skipped_line = 0
 
