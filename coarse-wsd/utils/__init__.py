@@ -7,6 +7,7 @@ import gzip
 import logging
 import logging.handlers
 import sys
+import datetime
 from unidecode import unidecode
 import math
 import fnmatch
@@ -142,16 +143,17 @@ def get_sense_idx_map(keydict_path, target_word):
 def read_lines_from_mt_input(input_file, max_char_for_word_check=15, max_char_in_sentence=1000):
 
     num_skipped_line = 0
+    t = datetime.datetime.strftime(datetime.datetime.now(), "%s")
+    skipped_f = open("/tmp/skipped-{}".format(t), 'w')
 
     fopen = open
     if input_file.endswith('.gz'):
         fopen = gzip.open
     for j, line in enumerate(fopen(input_file), 1):
         skipped = False
-        line = line.decode('utf-8').strip()
-        line = line.split('\t')
-        if len(line) == 3:
-            token_line = line[1]
+        splitted_line = line.decode('utf-8').strip().split('\t')
+        if len(splitted_line) == 3:
+            token_line = splitted_line[1]
             if len(token_line) > max_char_in_sentence:
                 skipped = True
             else:
@@ -171,9 +173,10 @@ def read_lines_from_mt_input(input_file, max_char_for_word_check=15, max_char_in
 
         if skipped:
             num_skipped_line += 1
+            skipped_f.write(line)
         else:
-            line[1] = " ".join(tokens)
-            yield line
+            splitted_line[1] = " ".join(tokens)
+            yield splitted_line
 
     print >> sys.stderr, "Number of line skipped %d" % num_skipped_line
 
