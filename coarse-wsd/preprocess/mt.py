@@ -57,21 +57,26 @@ def transform_into_IMS_input_format(f, out_dir, target_word, chunk_size=1000):
             </instance>\n"""
 
     # replace_set = [(u"–", ' '), (u"被", " "), (u"給", " ")]
+
+    fopen = open
+    if f.endswith('.gz'):
+        fopen = gzip.open
+
     instances = []
     chunk_id = 1
-    for i, line in enumerate(codecs.open(f, mode='rt', encoding='utf8'), 1):
+    for i, line in enumerate(fopen(f), 1):
+        line = line.decode('utf-8').strip()
         line = line.strip().split('\t')
-        if len(line) == 3:  # This should be unnecessary.
-            instance_id, sentence = line[:2]
-            sentence = utils.remove_non_ascii(sentence)
-            sentence = escape(sentence)
-            sentence = re.sub("&lt;target&gt;\w+&lt;/target&gt;", "<head>%s</head>" % target_word,
-                              sentence, 1)
-            instances.append(instance.format(target_word, instance_id, sentence))
-            if i % chunk_size == 0:
-                write_instances(target_word, out_dir, instances, chunk_id)
-                instances = []  # refresh the list
-                chunk_id += 1
+        instance_id, sentence = line[:2]
+        sentence = utils.remove_non_ascii(sentence)
+        sentence = escape(sentence)
+        sentence = re.sub("&lt;target&gt;\w+&lt;/target&gt;", "<head>%s</head>" % target_word,
+                          sentence, 1)
+        instances.append(instance.format(target_word, instance_id, sentence))
+        if i % chunk_size == 0:
+            write_instances(target_word, out_dir, instances, chunk_id)
+            instances = []  # refresh the list
+            chunk_id += 1
 
     # Write the remaining.
     if len(instances) != 0:
