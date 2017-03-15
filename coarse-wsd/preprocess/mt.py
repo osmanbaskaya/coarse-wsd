@@ -83,14 +83,13 @@ def transform_into_IMS_input_format(f, out_dir, target_word, chunk_size=1000):
         write_instances(target_word, out_dir, instances, chunk_id)
 
 
-
 def prepare_one_target_word(args):
     f, directory_to_write = args
     _, fn = os.path.split(f)
     target_word = fn.split('.')[0]
 
     out_dir = os.path.join(directory_to_write)
-    transform_into_IMS_input_format(f, out_dir, target_word)
+    transform_into_IMS_input_format(f, out_dir, target_word, chunk_size=10000)
 
 
 def create_IMS_formatted_dataset(files, directory_to_write, num_of_process=1):
