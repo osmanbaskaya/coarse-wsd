@@ -18,6 +18,8 @@ __author__ = "Osman Baskaya"
 
 LOGGER = None
 
+CONTROL_CHARS = dict.fromkeys(range(32))
+
 
 # *-*-*- Context Managers -*-*-*
 @contextmanager
@@ -107,6 +109,10 @@ def remove_non_ascii(text):
     return unidecode(text)
 
 
+def remove_control_chars(text):
+    return text.translate(CONTROL_CHARS)
+
+
 def get_all_files(path, regex=None):
     matches = []
     for root, dirnames, filenames in os.walk(path):
@@ -157,6 +163,7 @@ def read_lines_from_mt_input(input_file, max_char_for_word_check=15, max_char_in
             if len(token_line) > max_char_in_sentence:
                 skipped = True
             else:
+                token_line = remove_control_chars(token_line)
                 token_line = remove_non_ascii(token_line)
                 tokens = token_line.split()
                 for i in range(len(tokens)):

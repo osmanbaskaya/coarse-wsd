@@ -68,6 +68,7 @@ def transform_into_IMS_input_format(f, out_dir, target_word, chunk_size=1000):
         line = line.decode('utf-8').strip()
         line = line.strip().split('\t')
         instance_id, sentence = line[:2]
+        sentence = utils.remove_control_chars(sentence)
         sentence = utils.remove_non_ascii(sentence)
         sentence = escape(sentence)
         sentence = re.sub("&lt;target&gt;\w+&lt;/target&gt;", "<head>%s</head>" % target_word,
