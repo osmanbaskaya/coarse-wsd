@@ -12,6 +12,8 @@ def run():
     parser.add_argument('--log-level', default='debug')
     parser.add_argument('--fresh-start', action="store_true")
     parser.add_argument('--num-of-process', default=cpu_count()-1, type=int)
+    parser.add_argument('--check-pool-every', default=150, type=int, help="It checks multiprocessing.Pool is in stuck "
+                                                                          "in every n seconds")
     args = parser.parse_args()
 
     input_dir = args.input_dir
@@ -22,7 +24,8 @@ def run():
     logger = utils.get_logger()
     logger.debug("Args: {}".format(args))
 
-    predict(model_dir, input_dir, output_dir, num_of_process=args.num_of_process, fresh_start=args.fresh_start)
+    predict(model_dir, input_dir, output_dir, num_of_process=args.num_of_process, fresh_start=args.fresh_start,
+            check_pool_every=args.check_pool_every)
     logger.info('Done')
 
 

@@ -365,7 +365,7 @@ def check_pool_status(result, q, total_task_size, timeout=100):
     return "success"
 
 
-def predict(model_dir, input_dir, output_dir, num_of_process=1, fresh_start=True):
+def predict(model_dir, input_dir, output_dir, num_of_process=1, fresh_start=True, check_pool_every=150):
     global LOGGER
 
     LOGGER = utils.get_logger()
@@ -396,7 +396,7 @@ def predict(model_dir, input_dir, output_dir, num_of_process=1, fresh_start=True
         q = manager.Queue()
         args = [(predictor, fn, output_dir, q) for fn in files]
         result = pool.map_async(__predict_parallel, args)
-        status = check_pool_status(result, q, len(args), 15)
+        status = check_pool_status(result, q, len(args), check_pool_every)
         if status == "stuck":
             pool.terminate()
             LOGGER.info("Pool has been terminated. Waiting processes in the pool are terminated.")
