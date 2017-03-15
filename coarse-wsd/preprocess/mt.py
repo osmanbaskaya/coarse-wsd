@@ -57,6 +57,7 @@ def transform_into_IMS_input_format(f, out_dir, target_word, chunk_size=1000):
             </instance>\n"""
 
     # replace_set = [(u"–", ' '), (u"被", " "), (u"給", " ")]
+    # memory.txt 20 4544780
 
     fopen = open
     if f.endswith('.gz'):
@@ -207,5 +208,6 @@ def preprocess_mt_input_file(input_file, model_dir, directory_to_write, write_ev
             num_of_matched = 0
 
     total_matched += num_of_matched
-    LOGGER.info("{} processing. Total match: {}".format(j, total_matched))
+    LOGGER.info("{} processed. Total match: {}".format(j, total_matched))
     write2files()
+    LOGGER.info("Preprocessing MT Input Done.".format(j, total_matched))

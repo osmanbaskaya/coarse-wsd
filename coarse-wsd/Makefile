@@ -19,6 +19,7 @@ LOG_LEVEL=debug
 MODEL_DIR='../datasets/models'
 FRESH_START="--fresh-start"
 CHECK_POOL_EVERY=150
+WRITE_EVERY_N_LINE=500000
 
 ### PATH
 CORE_NLP=java -cp "../tools/stanford-corenlp/*" -Xmx60g edu.stanford.nlp.pipeline.StanfordCoreNLP -replaceExtension -cpu ${CPU}
@@ -116,7 +117,7 @@ jaccard_sims.txt: wiki-sense-tag-mapping.txt
 
 preprocess-mt-dataset: 
 	-mkdir ../datasets/mt
-	python preprocess-mt-dataset.py --input-file ${MT_INPUT_FILE} --model-dir ${MODEL_DIR} --directory-to-write ../datasets/mt/data --log-level ${LOG_LEVEL}
+	python preprocess-mt-dataset.py --input-file ${MT_INPUT_FILE} --model-dir ${MODEL_DIR} --directory-to-write ../datasets/mt/data --log-level ${LOG_LEVEL} --write-every-n-line ${WRITE_EVERY_N_LINE}
 
 create-ims-formatted-mt-data:
 	python ims_formatted_data_for_mt.py --input-dir ../datasets/mt/data/words --directory-to-write ../datasets/mt/ims-data --log-level ${LOG_LEVEL} --num-of-process ${CPU}
