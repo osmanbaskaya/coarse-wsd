@@ -1,5 +1,9 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
+from __future__ import absolute_import
+from __future__ import print_function
+from __future__ import division
+
 
 from collections import defaultdict as dd
 from contextlib import contextmanager
@@ -48,12 +52,13 @@ def configure_logger(log_level='INFO'):
     if LOGGER is None:
         logging.getLogger('requests').setLevel(logging.WARNING)
 
-        root_logger = logging.getLogger('')
-        root_logger.setLevel(logging.DEBUG)
+        level_name = logging.getLevelName(log_level.upper())
+
+        root_logger = logging.Logger("")
 
         file_handler = logging.FileHandler("coarse-wsd.log", encoding='utf-8', mode='a+')
         console_handler = logging.StreamHandler(stream=sys.stdout)
-        console_handler.setLevel(logging.getLevelName(log_level.upper()))
+        console_handler.setLevel(level_name)
         file_handler.setLevel(logging.DEBUG)
 
         detailed_formatter = logging.Formatter(u'[%(asctime)s] p%(process)s %(pathname)s:%(lineno)d %(levelname)s - %(message)s')
@@ -72,7 +77,7 @@ def top_words(files):
     d = dd(float)
     for fn in files:
         with open(fn) as f:
-            print >> sys.stderr, fn
+            print(fn, file=sys.stderr)
             for line in f:
                 word, _, freq = line.strip().split('\t')
                 d[word] += float(freq)
@@ -80,7 +85,7 @@ def top_words(files):
     freq_sorted = sorted(d.iteritems(), key=lambda t: t[1], reverse=True)
 
     for word, freq in freq_sorted:
-        print "{}\t{}".format(word, freq)
+        print("{}\t{}".format(word, freq))
 
 
 def find_files(topdir, pattern):

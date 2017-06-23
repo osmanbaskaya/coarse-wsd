@@ -1,8 +1,13 @@
+from __future__ import absolute_import
+from __future__ import print_function
+from __future__ import division
+
 from utils import get_all_files
 import codecs
 import re
 
 TAG_DELIMITER = ';'
+
 
 def filter_tags(tags, regex):
     tags = set(tags)
@@ -21,7 +26,7 @@ def find_and_write_wiki_tags(directory, excluded_tag_file, output_filename='wiki
     problematic_files = []
     for i, fn in enumerate(files, 1):
         if i % 10 == 0:
-            print "\r%d files read" % i,
+            print("\r%d files read" % i, end='')
         with codecs.open(fn, encoding='utf8') as f:
             for line in f:
                 line = line.strip().split('\t')
@@ -35,11 +40,11 @@ def find_and_write_wiki_tags(directory, excluded_tag_file, output_filename='wiki
                     else:
                         problematic_files.append(fn)
 
-    print  # it's for previous print trick.
+    print()  # it's for previous print trick.
     assert len(problematic_files) == 0, "Found error."
 
     with codecs.open(output_filename, 'w', encoding='utf8') as f:
-        for sense, (tags, link) in d.iteritems():
+        for sense, (tags, link) in d.items():
             f.write(u"{}\t{}\t{}\n".format(sense, link, TAG_DELIMITER.join(tags)))
 
 
