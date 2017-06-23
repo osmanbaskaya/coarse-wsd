@@ -1,12 +1,19 @@
 #### Sprint #3
+- Build WSD model by using the same data used to train IMS
+- Some statistics about the IMS training dataset.
+    - how many target words
+    - how many senses for each target word.
+    - how many nouns, verbs etc.
+    - sense frequency.
+- Create coarse-grained dataset to build SCD model. This dataset will be built by using the same data used to train IMS. 
+    - either use Wikipedia Taxonomy
+    - or Wordnet
+- Some filtering to senses.
 - Fetch external links for each articles?
-- Familiarity with the code (David)
-- Starting to learn how to integrate our system with the existing systems. (David)
-- Refactor makefile and scripts` input/output logic.
+- Refactor makefile and scripts: input/output logic.
 - using instances fetched #1, train word2vec model and represent each **sense** 
 - cluster these sense embeddings.
 - tokenization is missing in fetch. Also the same tokenization methodology should be used in Word2Vec training.
-- list number of senses for each target word
 
 ### DONE
 
