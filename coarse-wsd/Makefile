@@ -131,3 +131,6 @@ merge:
 # first: make ../ims/ims_0.9.2.1
 # make create-disambiguated-dataset CPU=10 MT_INPUT_FILE=nmt-input-data.raw.1k-sample.tsv.gz
 create-disambiguated-dataset: preprocess-mt-dataset create-ims-formatted-mt-data disambiguate merge
+
+create-semantic-class-data:
+	python semantic-class-dataset-creator.py
