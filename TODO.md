@@ -7,6 +7,7 @@
     - sense frequency.
 - Create coarse-grained dataset to build SCD model. This dataset will be built by using the same data used to train IMS. 
     - either use Wikipedia Taxonomy
+        - This might be more difficult than what I expected. We didn't fetch sentences from only one wiki pages. Multiple pages mean multiple categories to decide. We're still able to find common category using these all categories related with one sense. Let's write a script that finds all the categories from nearest to farest, for a specific sense. Then, another script finds 25 categories to cover all senses. We have two optimization constraints: (1) Number of categories should be as small as possible. (2) These categories are enough to distinguish all senses. If we use all the senses as semantic classes, then first constraint is ignored. If we use only one category, we cannot distinguish all senses which means the second constraint is ignored.
     - or Wordnet
 - Some filtering to senses.
 - Fetch external links for each articles?

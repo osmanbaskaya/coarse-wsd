@@ -3,23 +3,24 @@
 import wikipedia
 import codecs
 from bs4 import BeautifulSoup
+import utils
 import requests
 from multiprocessing import Pool
 import os
-from wikipedia.exceptions import PageError, DisambiguationError
+from wikipedia.exceptions import PageError, DisambiguationError, WikipediaException
 from collections import defaultdict as dd
 from requests.exceptions import ConnectionError, ContentDecodingError
 from time import sleep
 from utils import get_target_words
-from wikipedia.exceptions import WikipediaException
 
 
-BASE_URL = u"https://en.wikipedia.org"
+BASE_URL = u"https://en.wiki.org"
 # What Links Here url. Redirection pages omitted.
-WHAT_LINKS_HERE_URL = u"https://en.wikipedia.org/w/index.php?title=Special:WhatLinksHere/{}&limit={}&hideredirs=1"
+WHAT_LINKS_HERE_URL = u"https://en.wiki.org/w/index.php?title=Special:WhatLinksHere/{}&limit={}&hideredirs=1"
 MIN_SENTENCE_SIZE = 8
 
 LOGGER = None
+
 
 SLEEP_INTERVAL = 1
 
@@ -34,7 +35,7 @@ def extract_instances(content, word, pos, sense_offset, target_word_page, catego
             sentence = []
             sentence_not_replaced = []
             is_observed = False
-            for i in xrange(num_of_tokens):
+            for i in range(num_of_tokens):
                 if word in tokens[i].lower():
                     sentence.append(u"<target>%s</target>" % word)  # replaced
                     sentence_not_replaced.append(u"<target>%s</target>" % tokens[i])
@@ -56,6 +57,20 @@ def extract_instances(content, word, pos, sense_offset, target_word_page, catego
 
 def wiki_page_query(page_title, num_try=1):
 
+    p = get_wiki_page(page_title, num_try)
+    if p is not None:
+        try:
+            categories = p.categories
+        except KeyError:  # Somehow sometimes wiki library can't fetch any category.
+            categories = []
+        return p.title, p.content, p.url, categories
+
+
+def get_wiki_page(page_title, num_try=1):
+    global LOGGER
+
+    LOGGER = utils.get_logger()
+
     if num_try > 5:
         return None
 
@@ -65,20 +80,13 @@ def wiki_page_query(page_title, num_try=1):
         LOGGER.debug(u'Retrieving {} from Wikipedia'.format(page_title))
         p = wikipedia.page(page_title)
         SLEEP_INTERVAL = 1
-        if p is not None:
-            try:
-                categories = p.categories
-            except KeyError:  # Somehow sometimes wikipedia library can't fetch any category.
-                categories = []
-            return p.title, p.content, p.url, categories
-        else:
-            return None
+        return p
     except PageError as e:
         LOGGER.info(u"PageError: {}".format(page_title, e))
-        # wikipedia library has a possible bug for underscored page titles.
+        # wiki library has a possible bug for underscored page titles.
         if '_' in page_title:
             title = page_title.replace('_', ' ')
-            return wiki_page_query(title)
+            return get_wiki_page(title)
     # This is most likely the "What links here" page and we can safely skip it.
     except DisambiguationError:
         LOGGER.debug(u'Disambiguation Error for {}... get skipped.'.format(page_title))
@@ -87,16 +95,16 @@ def wiki_page_query(page_title, num_try=1):
         SLEEP_INTERVAL *= 4
         LOGGER.info(u"ConnectionError: Sleeping {} seconds for {}.".format(SLEEP_INTERVAL, page_title))
         sleep(SLEEP_INTERVAL)
-        wiki_page_query(page_title, num_try + 1)  # try again.
+        get_wiki_page(page_title, num_try + 1)  # try again.
     except WikipediaException:
-        wiki_page_query(page_title, num_try + 1)  # try again.
+        get_wiki_page(page_title, num_try + 1)  # try again.
     except ContentDecodingError as e:
         LOGGER.info(u"ContentDecodingError: Trying ({})".format(num_try+1))
-        wiki_page_query(page_title, num_try+1)
+        get_wiki_page(page_title, num_try+1)
     except ValueError as e:
         LOGGER.info(u"ValueError... Sleep and Trying ({})".format(num_try+1))
         sleep(4)
-        wiki_page_query(page_title, num_try+1)
+        get_wiki_page(page_title, num_try+1)
 
 
 def extract_from_page(page_title, word, offset, fetch_links):

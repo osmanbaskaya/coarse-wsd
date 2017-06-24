@@ -107,7 +107,7 @@ wiki-tags.txt: ../datasets/wiki-filtered
 	cat $</*.clean.txt | grep -P "\tTrue\t" | cut -f6- | tr '\t' '\n' | sort | uniq -c | sort -nr > $@
 
 wiki-sense-tag-mapping.txt: ../datasets/wiki-filtered blacklist-for-tags.txt
-	python -m wikipedia.__init__ $^ $@
+	python -m wiki.__init__ $^ $@
 
 neighbors-%d.txt: wiki-word2vec-%.mdl wiki-sense-tag-mapping.txt
 	python neighbors.py $^ ../datasets/wiki-senses $@ drive hat bill branch seed hit left race lot
