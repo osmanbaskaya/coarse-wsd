@@ -1,12 +1,11 @@
-import os
-import utils
-import logging
-import sys
 import glob
+import logging
+import os
+import sys
 
+import utils
 from utils import configure_logger
 from wiki.sc import create_page_id_link_mapping_file, get_categories_for_senses
-
 
 logging.basicConfig(stream=sys.stdout, level=logging.INFO,
                     format='[%(asctime)s] p%(process)s %(name)s:%(lineno)d %(levelname)s - %(message)s')
@@ -31,11 +30,11 @@ def run():
     configure_logger(args.log_level)
     logger = utils.get_logger()
 
-    logger.info("Started")
+    logger.info("Running.")
 
-    files = glob.glob(os.path.abspath(args.uwsd_dataset) + "/*.tw.txt")
+    files = sorted(glob.glob(os.path.abspath(args.uwsd_dataset) + "/*.tw.txt"))
     create_page_id_link_mapping_file(files, args.uwsd_dataset)
-    files = glob.glob(os.path.abspath(args.uwsd_dataset) + "/*.pageid.txt")
+    files = sorted(glob.glob(os.path.abspath(args.uwsd_dataset) + "/*.pageid.txt"))
     get_categories_for_senses(files, args.category_file, args.pageid_title_file, args.generality_file)
 
     logger.info("Done")
