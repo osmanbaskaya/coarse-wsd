@@ -7,13 +7,14 @@ import os
 """ This module is related with Semantic Class idea """
 
 
-def create_page_id_link_mapping_file(files, dir='.'):
+def create_page_id_link_mapping_file(files, directory='.'):
     # File format is as follows:
     # PageID<TAB>PageTitle<TAB>PageLink<TAB>WordNet/BabelnetSenseTag
     for target_word_fn in files:
+        print("Processing {}".format(target_word_fn))
         tw = os.path.basename(target_word_fn).split('.')[0]
-        out_fn = os.path.join(os.path.dirname(target_word_fn), "%s.pageid.txt" % tw)
-        with open(out_fn) as out_f:
+        out_fn = os.path.join(directory, "%s.pageid.txt" % tw)
+        with open(out_fn, 'wt') as out_f:
             processed = set()
             for line in open(target_word_fn):
                 line = line.strip().split('\t')
