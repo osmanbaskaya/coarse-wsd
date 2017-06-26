@@ -1,5 +1,6 @@
 #### Sprint #3
 - Build WSD model by using the same data used to train IMS
+    - Idea: Let's build a dismabiguator by ignoring the fact that each target word has own sense dictionary. After train the model, let's see confusion matrix. The confusion matrix will inform us where the model has difficulties to distinguish senses. We can safely merge senses with different target words. Let's model speaks for us to merge senses.
 - Some statistics about the IMS training dataset.
     - how many target words
     - how many senses for each target word.

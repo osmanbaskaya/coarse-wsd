@@ -125,7 +125,7 @@ def create_directories_for_folding(directory_to_write, k):
         pass
 
     os.mkdir(directory_to_write)
-    map(lambda fold: os.mkdir(os.path.join(directory_to_write, "fold-%d" % fold)), xrange(1, k+1))
+    map(lambda fold: os.mkdir(os.path.join(directory_to_write, "fold-%d" % fold)), range(1, k+1))
 
 
 def get_filtered_instances(lines, k):
@@ -154,7 +154,7 @@ def prepare_one_target_word(args):
     y = map(lambda line: line.split('\t')[2], lines)
 
     if len(lines) > 100:
-        print "Processing {}".format(target_word)
+        print("Processing {}".format(target_word))
         if k > 1:
             skf = StratifiedKFold(y, k, shuffle=True)
             for fold, (train_idx, test_idx) in enumerate(skf, 1):
@@ -181,7 +181,7 @@ def prepare_one_target_word(args):
         else:
             raise ValueError("k should be bigger than 0")
     else:
-        print "\tSkipping {}".format(target_word)
+        print("\tSkipping {}".format(target_word))
 
 
 def create_IMS_formatted_dataset(files, directory_to_write, k=5, num_of_process=1):
@@ -196,3 +196,4 @@ def create_IMS_formatted_dataset(files, directory_to_write, k=5, num_of_process=
         pool.map(prepare_one_target_word, args)
     else:
         map(prepare_one_target_word, args)
+
