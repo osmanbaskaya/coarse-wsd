@@ -85,7 +85,7 @@ class NeuralDisambiguator(SimpleDisambiguator):
 
         with tf.name_scope('accuracy'):
             with tf.name_scope('correct_prediction'):
-                correct_prediction = tf.equal(tf.argmax(self.predictions, 1), tf.argmax(self.senses, 1))
+                correct_prediction = tf.equal(self.predictions, tf.argmax(self.labels, 1))
             with tf.name_scope('accuracy'):
                 self.accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
@@ -95,6 +95,7 @@ class NeuralDisambiguator(SimpleDisambiguator):
     def get_feed_dict_for_next_batch(self, data_iterator):
 
         sentences, sentence_lengths, senses = next(data_iterator)
+        # FIXME: Add target word
         target_words = [0 for sentence in sentences]
         return {self.sentences: sentences, self.sentence_lengths: sentence_lengths, self.target_words: target_words,
                 self.senses: senses}
@@ -106,11 +107,12 @@ class NeuralDisambiguator(SimpleDisambiguator):
         for i in range(1, max_steps + 1):
             feed_dict = self.get_feed_dict_for_next_batch(training_data_iterator)
             _, loss = self.sess.run([self.train_step, self.loss], feed_dict=feed_dict)
-            print(loss)
-            if i % 100 == 0 and validation_data_iterator is not None:
-                feed_dict = self.get_feed_dict_for_next_batch(validation_data_iterator)
-                accuracy = self.sess.run([self.accuracy], feed_dict=feed_dict)
-                print("Accuracy for step {}:".format(i, accuracy))
+            if i % 100 == 0:
+                if validation_data_iterator is not None:
+                    feed_dict = self.get_feed_dict_for_next_batch(validation_data_iterator)
+                accuracy, loss = self.sess.run([self.accuracy, self.loss], feed_dict=feed_dict)
+                print("Accuracy for step {}: {}".format(i, accuracy))
+                print("Loss for step {}: {}".format(i, loss))
 
     def score(self, test_data_iterator):
         pass
