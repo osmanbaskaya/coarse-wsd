@@ -13,7 +13,7 @@ def run():
     logger.info("{} {}".format(word_vocab.size, sense_vocab.size))
 
     train_iter = read_data(word_vocab, sense_vocab, data_path='../datasets/')
-    disambiguator = NeuralDisambiguator(hidden_unit_size=25, learning_rate=0.1, num_senses=sense_vocab.size,
+    disambiguator = NeuralDisambiguator(hidden_unit_size=25, learning_rate=0.001, num_senses=sense_vocab.size,
                                         vocab_size=word_vocab.size, embedding_length=50)
     disambiguator.fit(train_iter, max_steps=2000)
 

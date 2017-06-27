@@ -2,6 +2,7 @@ from abc import abstractclassmethod
 import numpy as np
 import tensorflow as tf
 from tensorflow.contrib.rnn import LSTMCell, LSTMStateTuple
+from six.moves import xrange
 
 
 LOGGER = None
@@ -62,20 +63,19 @@ class NeuralDisambiguator(SimpleDisambiguator):
         encoder_final_state_h = tf.concat((encoder_fw_final_state.h, encoder_bw_final_state.h), 1)
         encoder_final_state = LSTMStateTuple(c=encoder_final_state_c, h=encoder_final_state_h)
 
-        self.encoder_target_embedding = encoder_final_state.c
-        # encoder_target_embedding = tf.concat((encoder_final_state.c), 1)
-        # encoder_target_embedding = tf.concat((encoder_final_state.c, self.target_words_embedded), 1)
+        # self.encoder_target_embedding = encoder_final_state.c
+        self.encoder_target_embedding = tf.concat((encoder_final_state.c, self.target_words_embedded), 1)
 
         with tf.name_scope("output"):
-            # W = tf.Variable(tf.truncated_normal([hidden_unit_size * 2 + embedding_length, num_senses], stddev=0.1), name="W")
-            W = tf.Variable(tf.truncated_normal([hidden_unit_size * 2, num_senses], stddev=0.1), name="W")
+            W = tf.Variable(tf.truncated_normal([hidden_unit_size * 2 + embedding_length, num_senses], stddev=0.1), name="W")
+            # W = tf.Variable(tf.truncated_normal([hidden_unit_size * 2, num_senses], stddev=0.1), name="W")
             b = tf.Variable(tf.constant(0.1, shape=[num_senses]), name="b")
             self.scores = tf.matmul(self.encoder_target_embedding, W) + b
             self.predictions = tf.argmax(self.scores, 1, name="predictions")
 
         with tf.name_scope('cross_entropy'):
-            self.labels = tf.one_hot(self.senses, num_senses)
-            self.diff = tf.nn.softmax_cross_entropy_with_logits(labels=self.labels, logits=self.scores)
+            labels = tf.one_hot(self.senses, num_senses)
+            self.diff = tf.nn.softmax_cross_entropy_with_logits(labels=labels, logits=self.scores)
 
         with tf.name_scope('loss'):
             self.loss = tf.reduce_mean(self.diff)
@@ -85,7 +85,7 @@ class NeuralDisambiguator(SimpleDisambiguator):
 
         with tf.name_scope('accuracy'):
             with tf.name_scope('correct_prediction'):
-                correct_prediction = tf.equal(self.predictions, tf.argmax(self.labels, 1))
+                correct_prediction = tf.equal(self.predictions, tf.argmax(labels, 1))
             with tf.name_scope('accuracy'):
                 self.accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
@@ -95,8 +95,9 @@ class NeuralDisambiguator(SimpleDisambiguator):
     def get_feed_dict_for_next_batch(self, data_iterator):
 
         sentences, sentence_lengths, senses = next(data_iterator)
+        current_batch_size = sentences.shape[1]
         # FIXME: Add target word
-        target_words = [0 for sentence in sentences]
+        target_words = [0 for i in xrange(current_batch_size)]
         return {self.sentences: sentences, self.sentence_lengths: sentence_lengths, self.target_words: target_words,
                 self.senses: senses}
 
