@@ -8,7 +8,7 @@ from xml.sax.saxutils import escape
 import shutil
 import random
 from operator import itemgetter
-from sklearn.cross_validation import StratifiedKFold
+from sklearn.model_selection import StratifiedKFold
 
 import utils
 
