@@ -7,6 +7,7 @@ from __future__ import division
 
 from collections import defaultdict as dd
 from contextlib import contextmanager
+from six.moves import xrange
 import gzip
 import logging
 import logging.handlers
@@ -171,7 +172,7 @@ def read_lines_from_mt_input(input_file, max_char_for_word_check=15, max_char_in
                 token_line = remove_control_chars(token_line)
                 token_line = remove_non_ascii(token_line)
                 tokens = token_line.split()
-                for i in range(len(tokens)):
+                for i in xrange(len(tokens)):
                     token = tokens[i]
                     if len(token) > max_char_for_word_check:
                         # IMS becomes very slow if a long word has . or - in it.
