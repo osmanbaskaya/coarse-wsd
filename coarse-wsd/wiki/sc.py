@@ -23,11 +23,10 @@ def create_page_id_link_mapping_file(files, directory='.'):
                     title = url.split('/')[-1]
                     if title not in processed:
                         processed.add(title)
-                        if sense.startswith('wn'):
-                            print(url)
-                            page = get_wiki_page(title)
-                            if page is not None:
-                                out_f.write("{}\t{}\t{}\t{}\n".format(page.pageid, page.title, page.url, sense))
+                        print(url)
+                        page = get_wiki_page(title)
+                        if page is not None:
+                            out_f.write("{}\t{}\t{}\t{}\n".format(page.pageid, page.title, page.url, sense))
 
 
 def get_categories_for_senses(pageid_mapping_files, category_fn, pageid_fn, generality_fn, until_level=5):

@@ -1,5 +1,5 @@
 from preprocess.data import read_data, build_vocab
-from disambiguate import NeuralDisambiguator
+from legacy_disambiguate import NeuralDisambiguator
 from utils import configure_logger, get_logger
 
 

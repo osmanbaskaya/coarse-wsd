@@ -2,6 +2,7 @@ from abc import abstractclassmethod
 import numpy as np
 import tensorflow as tf
 from tensorflow.contrib.rnn import LSTMCell, LSTMStateTuple
+from tqdm import tqdm
 from six.moves import xrange
 
 
@@ -105,7 +106,7 @@ class NeuralDisambiguator(SimpleDisambiguator):
         pass
 
     def fit(self, training_data_iterator, validation_data_iterator=None, max_steps=1000):
-        for i in range(1, max_steps + 1):
+        for i in tqdm(range(1, max_steps + 1)):
             feed_dict = self.get_feed_dict_for_next_batch(training_data_iterator)
             _, loss = self.sess.run([self.train_step, self.loss], feed_dict=feed_dict)
             if i % 100 == 0:

@@ -34,8 +34,8 @@ def run():
 
     files = sorted(glob.glob(os.path.abspath(args.uwsd_dataset) + "/*.tw.txt"))
     create_page_id_link_mapping_file(files, args.uwsd_dataset)
-    files = sorted(glob.glob(os.path.abspath(args.uwsd_dataset) + "/*.pageid.txt"))
-    get_categories_for_senses(files, args.category_file, args.pageid_title_file, args.generality_file)
+    # files = sorted(glob.glob(os.path.abspath(args.uwsd_dataset) + "/*.pageid.txt"))
+    # get_categories_for_senses(files, args.category_file, args.pageid_title_file, args.generality_file)
 
     logger.info("Done")
 
