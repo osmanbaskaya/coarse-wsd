@@ -122,15 +122,15 @@ preprocess-mt-dataset:
 create-ims-formatted-mt-data:
 	python ims_formatted_data_for_mt.py --input-dir ../datasets/mt/data/words --directory-to-write ../datasets/mt/ims-data --log-level ${LOG_LEVEL} --num-of-process ${CPU}
 
-disambiguate:
-	python disambiguate.py --input-dir ../datasets/mt/ims-data --directory-to-write ../datasets/mt/ims-output --model-dir ${MODEL_DIR} --num-of-process ${CPU} --log-level ${LOG_LEVEL} ${FRESH_START} --check-pool-every ${CHECK_POOL_EVERY}
+ims-disambiguate:
+	python ims-disambiguate.py --input-dir ../datasets/mt/ims-data --directory-to-write ../datasets/mt/ims-output --model-dir ${MODEL_DIR} --num-of-process ${CPU} --log-level ${LOG_LEVEL} ${FRESH_START} --check-pool-every ${CHECK_POOL_EVERY}
 
 merge: 
 	python merge.py --input-file ${MT_INPUT_FILE} --wsd-output-dir ../datasets/mt/ims-output-merged --directory-to-write ../datasets/mt/mt-input --log-level ${LOG_LEVEL}
 
 # first: make ../ims/ims_0.9.2.1
 # make create-disambiguated-dataset CPU=10 MT_INPUT_FILE=nmt-input-data.raw.1k-sample.tsv.gz
-create-disambiguated-dataset: preprocess-mt-dataset create-ims-formatted-mt-data disambiguate merge
+create-disambiguated-dataset: preprocess-mt-dataset create-ims-formatted-mt-data ims-disambiguate merge
 
 create-semantic-class-data:
 	python semantic-class-dataset-creator.py
