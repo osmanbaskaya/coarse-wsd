@@ -1,4 +1,4 @@
-from preprocess.data import read_data, build_vocab
+from preprocess.data.feed_dict_based import read_data, build_vocab
 from legacy_disambiguate import NeuralDisambiguator
 from utils import configure_logger, get_logger
 
