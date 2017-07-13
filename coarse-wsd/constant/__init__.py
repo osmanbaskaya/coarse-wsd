@@ -1,10 +1,12 @@
 MODEL_PATH = '../datasets/models-small'
 
+WORD2VEC_PATH = '../data/embeddings/GoogleNews-vectors-negative300.bin.gz'
+WORD2VEC_EMB_DIMENSION = 300
 
 # Tokens
-UNKNOWN_TOKEN_ID = 0
-END_OF_SENTENCE_ID = 1
-PADDING_TOKEN_ID = 2
+START_TOKEN = "<<START>>"
+OOV_TOKEN = "<<PAD>>"
+PAD_TOKEN = "<<OOV>>"
+END_TOKEN = "<<END>>"
 
-# Total used tokens
-NUM_ALREADY_ALLOCATED_TOKEN = 3
+SPECIAL_TOKENS = {PAD_TOKEN: 0, START_TOKEN: 1, OOV_TOKEN: 2, END_TOKEN: 3}
