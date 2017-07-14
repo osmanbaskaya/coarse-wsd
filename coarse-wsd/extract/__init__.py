@@ -211,13 +211,12 @@ def fetch_what_links_here(title, limit=1000, fetch_link_size=5000):
     return all_links
 
 
-def extract_from_file(filename, num_process):
+def extract_from_file(filename, num_process, dataset_path):
     import utils
 
     global LOGGER
     LOGGER = utils.get_logger()
 
-    dataset_path = '../datasets/wiki'
     # get processed words
     processed_words = get_target_words(dataset_path)
 

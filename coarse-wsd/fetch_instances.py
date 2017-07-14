@@ -18,13 +18,13 @@ def run():
 
     logger.info("Input file: {}".format(args))
 
-    directory = '../datasets/wiki/'
+    directory = '../datasets/wiki-new/'
     try:
         os.mkdir(directory)
     except OSError:
         logger.debug("{} is already exist".format(directory))
 
-    extract_from_file(args.filename, args.num_process)
+    extract_from_file(args.filename, args.num_process, directory)
 
 
 if __name__ == '__main__':
