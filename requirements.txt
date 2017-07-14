@@ -1,0 +1,14 @@
+gensim==0.13.2
+nltk==3.2.1
+Unidecode==0.4.19
+requests==2.10.0
+six==1.10.0
+tabulate==0.7.5
+numpy==1.13.0
+tensorflow==1.1.0
+matplotlib==1.5.1
+beautifulsoup4==4.6.0
+scikit_learn==0.18.2
+tqdm==4.14.0
+ujson==1.35
+wikipedia==1.4.0
