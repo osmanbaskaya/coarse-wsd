@@ -27,8 +27,6 @@ def run():
     extract_from_file(args.filename, args.num_process)
 
 
-
-
 if __name__ == '__main__':
     run()
 

@@ -16,7 +16,8 @@ from utils import get_target_words
 
 BASE_URL = u"https://en.wiki.org"
 # What Links Here url. Redirection pages omitted.
-WHAT_LINKS_HERE_URL = u"https://en.wiki.org/w/index.php?title=Special:WhatLinksHere/{}&limit={}&hideredirs=1"
+#WHAT_LINKS_HERE_URL = u"https://en.wiki.org/w/index.php?title=Special:WhatLinksHere/{}&limit={}&hideredirs=1"
+WHAT_LINKS_HERE_URL = u"https://en.wikipedia.org/w/index.php?title=Special:WhatLinksHere/{}&limit={}&hideredirs=1"
 MIN_SENTENCE_SIZE = 8
 
 LOGGER = None
@@ -38,6 +39,10 @@ def extract_instances(content, word, pos, sense_offset, target_word_page, catego
             for i in range(num_of_tokens):
                 if word in tokens[i].lower():
                     sentence.append(u"<target>%s</target>" % word)  # replaced
+                    # FIXME: only write \w+ in <target>%s</target> part.
+                    # FIXME: Only write matching sentence. Not everything.
+                    # FIXME: write a tokenized version, too.
+                    # FIXME: Put index for tokenized version.
                     sentence_not_replaced.append(u"<target>%s</target>" % tokens[i])
                     is_observed = True
                 else:
@@ -82,11 +87,12 @@ def get_wiki_page(page_title, num_try=1):
         SLEEP_INTERVAL = 1
         return p
     except PageError as e:
-        LOGGER.info(u"PageError: {}".format(page_title, e))
         # wiki library has a possible bug for underscored page titles.
         if '_' in page_title:
             title = page_title.replace('_', ' ')
             return get_wiki_page(title)
+        else:
+            LOGGER.debug(u"PageError: {}".format(page_title, e))
     # This is most likely the "What links here" page and we can safely skip it.
     except DisambiguationError:
         LOGGER.debug(u'Disambiguation Error for {}... get skipped.'.format(page_title))
@@ -211,7 +217,7 @@ def extract_from_file(filename, num_process):
     global LOGGER
     LOGGER = utils.get_logger()
 
-    dataset_path = u'../datasets/wiki'
+    dataset_path = '../datasets/wiki'
     # get processed words
     processed_words = get_target_words(dataset_path)
 
