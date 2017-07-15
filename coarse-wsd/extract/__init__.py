@@ -11,6 +11,7 @@ import os
 import spacy
 from wikipedia.exceptions import PageError, DisambiguationError, WikipediaException
 from collections import defaultdict as dd
+from functools import partial
 from requests.exceptions import ConnectionError, ContentDecodingError
 from time import sleep
 from utils import get_target_words
@@ -23,7 +24,6 @@ MIN_SENTENCE_SIZE = 8
 SLEEP_INTERVAL = 1
 
 LOGGER = None
-OUTPUT_DIR_PATH = None
 NLP = spacy.en.English()
 
 
@@ -48,10 +48,15 @@ def extract_instances(content, word, pos, sense_offset, target_word_page, catego
 
                         sentence = "{}<target>{}</target>{}{}".format(ss[:m.start()], word, m.group(2), ss[m.end():])
 
-                        instances.append(u"{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}".format(sentence_not_replaced, sentence,
-                                                                              lemmatized, pos, sense_offset,
-                                                                                  target_word_page, url,
-                                                                                  u'|||'.join(categories)))
+                        tokenized = sentence_not_replaced.split()
+                        index = -1
+                        for i in range(len(tokenized)):
+                            if tokenized[i].startswith("<target>"):
+                                index = i  # index of the target word.
+
+                        instances.append(u"{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}"
+                                         .format(ss, sense_offset, index, sentence_not_replaced, sentence, lemmatized,
+                                                 pos, m.group(1), word, target_word_page, url, u'|||'.join(categories)))
     return instances
 
 
@@ -142,7 +147,7 @@ def write2file(filename, lines):
         f.write('\n')
 
 
-def extract_instances_for_word(senses, wiki_dir=OUTPUT_DIR_PATH):
+def extract_instances_for_word(senses, wiki_dir):
     LOGGER.info(u"Processing word: %s" % senses[0]['word'])
     instances = []
     for sense_args in senses:
@@ -208,10 +213,6 @@ def extract_from_file(filename, num_process, dataset_path, fetch_links=True):
     global LOGGER
     LOGGER = utils.get_logger()
 
-    # FIXME: Use partial if necessary to avoid this global.
-    global OUTPUT_DIR_PATH
-    OUTPUT_DIR_PATH = dataset_path
-
     # get processed words
     processed_words = get_target_words(dataset_path)
 
@@ -226,11 +227,12 @@ def extract_from_file(filename, num_process, dataset_path, fetch_links=True):
     LOGGER.info("Total {} of jobs available. Num of consumer = {}".format(len(jobs), num_process))
     if num_process > 1:
         pool = Pool(num_process)
-        pool.map(extract_instances_for_word, jobs.values())
+        func = partial(extract_instances_for_word, wiki_dir=dataset_path)
+        pool.map(func, jobs.values())
     else:
         # for v in jobs.values():
         for v in [jobs['milk']]:
-            extract_instances_for_word(v)
+            extract_instances_for_word(v, dataset_path)
 
     LOGGER.info("Done.")
 

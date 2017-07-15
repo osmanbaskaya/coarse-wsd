@@ -8,7 +8,7 @@ def run():
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument('--filename', required=False, default='wikipages.txt')
-    parser.add_argument('--no-fetching-links', required=False, default=False, action="store_false")
+    parser.add_argument('--no-fetching-links', required=False, default=False, action="store_true")
     parser.add_argument('--num-process', help="Number of process for parallel processing", required=False, default=1,
                         type=int)
     parser.add_argument('--log-level', required=False, default="info")
@@ -16,6 +16,8 @@ def run():
 
     configure_logger(args.log_level)
     logger = utils.get_logger()
+
+    fetching_links = not args.no_fetching_links
 
     logger.info("Input file: {}".format(args))
 
@@ -25,7 +27,7 @@ def run():
     except OSError:
         logger.debug("{} is already exist".format(directory))
 
-    extract_from_file(args.filename, args.num_process, directory, args.no_fetching_links)
+    extract_from_file(args.filename, args.num_process, directory, fetching_links)
 
 
 if __name__ == '__main__':

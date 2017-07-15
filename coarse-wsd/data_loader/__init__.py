@@ -158,11 +158,12 @@ def prepare_queues(sess, filenames, word2idx, label2idx, batch_size, skip_header
         while not coord.should_stop():
             try:
                 line = sess.run(line_op).decode("utf-8")
-                sentence, label, target_word_id = line.strip().split('\t')
-                print(sentence, label, target_word_id, sep='\n')
+                line = line.strip().split('\t')
+                sentence, label, target_word_index = line[:3]
+                print(sentence, label, target_word_index, sep='\n')
                 label = label2idx[label]  # label transformation
                 sentence, length = map_token_to_id(sentence, word2idx)
-                target_word = sentence[target_word_id] + 1  # +1 for starting token
+                target_word = sentence[target_word_index] + 1  # +1 for starting token
                 sess.run(enqueue_op, {sentence_ph: line,
                                       target_word_ph: target_word,
                                       label_ph: label,
