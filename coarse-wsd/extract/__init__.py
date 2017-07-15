@@ -22,6 +22,7 @@ BASE_URL = u"https://en.wiki.org"
 WHAT_LINKS_HERE_URL = u"https://en.wikipedia.org/w/index.php?title=Special:WhatLinksHere/{}&limit={}&hideredirs=1"
 MIN_SENTENCE_SIZE = 8
 SLEEP_INTERVAL = 1
+MAXIMUM_RETRY = 5
 
 LOGGER = None
 NLP = spacy.en.English()
@@ -76,14 +77,14 @@ def get_wiki_page(page_title, num_try=1):
 
     LOGGER = utils.get_logger()
 
-    if num_try > 5:
+    if num_try > MAXIMUM_RETRY:
         return None
 
     global SLEEP_INTERVAL
 
     try:
         LOGGER.debug(u'Retrieving {} from Wikipedia'.format(page_title))
-        p = wikipedia.page(page_title)
+        p = wikipedia.page(page_title, auto_suggest=False)
         SLEEP_INTERVAL = 1
         return p
     except PageError as e:
@@ -94,9 +95,14 @@ def get_wiki_page(page_title, num_try=1):
         else:
             LOGGER.debug(u"PageError: {}".format(page_title, e))
     # This is most likely the "What links here" page and we can safely skip it.
-    except DisambiguationError:
-        LOGGER.debug(u'Disambiguation Error for {}... get skipped.'.format(page_title))
-        return None
+    except DisambiguationError as e:
+        match = re.search("\((.*)\)", page_title)
+        if match:
+            query = match.group(1)
+            for option in e.options:
+                if query in option:
+                    LOGGER.info("{} is disambiguated: {}. Options: {}".format(page_title, option, e.options))
+                    return get_wiki_page(option, num_try=num_try+1)
     except ConnectionError as e:
         SLEEP_INTERVAL *= 4
         LOGGER.info(u"ConnectionError: Sleeping {} seconds for {}.".format(SLEEP_INTERVAL, page_title))
@@ -230,8 +236,8 @@ def extract_from_file(filename, num_process, dataset_path, fetch_links=True):
         func = partial(extract_instances_for_word, wiki_dir=dataset_path)
         pool.map(func, jobs.values())
     else:
-        # for v in jobs.values():
-        for v in [jobs['milk']]:
+        for v in jobs.values():
+        # for v in [jobs['milk']]:
             extract_instances_for_word(v, dataset_path)
 
     LOGGER.info("Done.")
