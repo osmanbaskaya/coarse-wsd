@@ -58,7 +58,7 @@ semcor-pages.txt: semcor-synset-info-txt
 
 # example: make fetch-instances-from-wiki FILENAME=semcor-pages.txt
 fetch-instances-from-wiki: ${FILENAME}
-	python fetch_instances.py --filename ${FILENAME} --log-level debug --num-process ${CPU}
+	python fetch_instances.py --filename ${FILENAME} --log-level ${LOG_LEVEL} --num-process ${CPU}
 
 %-pagetypes.txt: %.txt
 	cat $< | cut -f2 | grep -oP "\(.*\)" | sort | uniq -c | sort -rn > $@

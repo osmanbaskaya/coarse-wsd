@@ -23,6 +23,7 @@ MIN_SENTENCE_SIZE = 8
 SLEEP_INTERVAL = 1
 
 LOGGER = None
+OUTPUT_DIR_PATH = None
 NLP = spacy.en.English()
 
 
@@ -141,7 +142,7 @@ def write2file(filename, lines):
         f.write('\n')
 
 
-def extract_instances_for_word(senses, wiki_dir=u'../datasets/wiki/'):
+def extract_instances_for_word(senses, wiki_dir=OUTPUT_DIR_PATH):
     LOGGER.info(u"Processing word: %s" % senses[0]['word'])
     instances = []
     for sense_args in senses:
@@ -207,6 +208,10 @@ def extract_from_file(filename, num_process, dataset_path, fetch_links=True):
     global LOGGER
     LOGGER = utils.get_logger()
 
+    # FIXME: Use partial if necessary to avoid this global.
+    global OUTPUT_DIR_PATH
+    OUTPUT_DIR_PATH = dataset_path
+
     # get processed words
     processed_words = get_target_words(dataset_path)
 
@@ -225,7 +230,7 @@ def extract_from_file(filename, num_process, dataset_path, fetch_links=True):
     else:
         # for v in jobs.values():
         for v in [jobs['milk']]:
-            extract_instances_for_word(v, wiki_dir=dataset_path)
+            extract_instances_for_word(v)
 
     LOGGER.info("Done.")
 
