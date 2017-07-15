@@ -5,8 +5,10 @@ import codecs
 from bs4 import BeautifulSoup
 import utils
 import requests
+import re
 from multiprocessing import Pool
 import os
+import spacy
 from wikipedia.exceptions import PageError, DisambiguationError, WikipediaException
 from collections import defaultdict as dd
 from requests.exceptions import ConnectionError, ContentDecodingError
@@ -16,48 +18,40 @@ from utils import get_target_words
 
 BASE_URL = u"https://en.wiki.org"
 # What Links Here url. Redirection pages omitted.
-#WHAT_LINKS_HERE_URL = u"https://en.wiki.org/w/index.php?title=Special:WhatLinksHere/{}&limit={}&hideredirs=1"
 WHAT_LINKS_HERE_URL = u"https://en.wikipedia.org/w/index.php?title=Special:WhatLinksHere/{}&limit={}&hideredirs=1"
 MIN_SENTENCE_SIZE = 8
+SLEEP_INTERVAL = 1
 
 LOGGER = None
-
-
-SLEEP_INTERVAL = 1
+NLP = spacy.en.English()
 
 
 def extract_instances(content, word, pos, sense_offset, target_word_page, categories, url=None):
     instances = []
-    instances_replaced = []
+    regex = re.compile(r"({})(\W*)".format(word), flags=re.I)
     for line in content.split('\n'):
-        tokens = line.split()
-        num_of_tokens = len(tokens)
-        if num_of_tokens >= MIN_SENTENCE_SIZE:
-            sentence = []
-            sentence_not_replaced = []
-            is_observed = False
-            for i in range(num_of_tokens):
-                if word in tokens[i].lower():
-                    sentence.append(u"<target>%s</target>" % word)  # replaced
-                    # FIXME: only write \w+ in <target>%s</target> part.
-                    # FIXME: Only write matching sentence. Not everything.
-                    # FIXME: write a tokenized version, too.
-                    # FIXME: Put index for tokenized version.
-                    sentence_not_replaced.append(u"<target>%s</target>" % tokens[i])
-                    is_observed = True
-                else:
-                    sentence.append(tokens[i])
-                    sentence_not_replaced.append(tokens[i])
+        line = NLP(line)
+        for s in line.sents:
+            if word in s.lower_:
+                tokens = list(s)
+                num_of_tokens = len(tokens)
+                if num_of_tokens > MIN_SENTENCE_SIZE:
+                    ss = " ".join([t.text for t in tokens])
+                    for m, m_lem in zip(regex.finditer(ss), regex.finditer(s.lemma_)):
+                        sentence_not_replaced = "{}<target>{}</target>{}{}".format(ss[:m.start()], m.group(1),
+                                                                                   m.group(2), ss[m.end():])
 
-            if is_observed:
-                instances.append(u"{}\t{}\t{}\t{}\t{}\t{}".format(u' '.join(sentence_not_replaced),
-                                                                  pos, sense_offset, target_word_page, url,
-                                                                  u'\t'.join(categories)))
-                instances_replaced.append(u"{}\t{}\t{}\t{}\t{}\t{}".format(' '.join(sentence), pos, sense_offset,
-                                                                           target_word_page, url,
-                                                                           u'\t'.join(categories)))
+                        lemmatized = "{}<target>{}</target>{}{}".format(s.lemma_[:m_lem.start()], m_lem.group(1),
+                                                                        m_lem.group(2),
+                                                                        s.lemma_[m_lem.end():])
 
-    return instances, instances_replaced
+                        sentence = "{}<target>{}</target>{}{}".format(ss[:m.start()], word, m.group(2), ss[m.end():])
+
+                        instances.append(u"{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}".format(sentence_not_replaced, sentence,
+                                                                              lemmatized, pos, sense_offset,
+                                                                                  target_word_page, url,
+                                                                                  u'|||'.join(categories)))
+    return instances
 
 
 def wiki_page_query(page_title, num_try=1):
@@ -121,9 +115,9 @@ def extract_from_page(page_title, word, offset, fetch_links):
         title, content, url, categories = response
     else:
         LOGGER.warning(u'No page found for {}'.format(page_title))
-        return [], []
+        return []
 
-    instances, instances_replaced = extract_instances(content, word, pos, offset, True, categories, url)
+    instances = extract_instances(content, word, pos, offset, True, categories, url)
     if fetch_links:
         links = fetch_what_links_here(title, limit=1000)
         for link in links:
@@ -134,11 +128,10 @@ def extract_from_page(page_title, word, offset, fetch_links):
             link_page_response = wiki_page_query(link_page_title)
             if link_page_response is not None:
                 title, content, url, categories = link_page_response
-                link_instances, link_instances_replaced = extract_instances(content, word, pos, offset, False, categories, url)
+                link_instances = extract_instances(content, word, pos, offset, False, categories, url)
                 instances.extend(link_instances)
-                instances_replaced.extend(link_instances_replaced)
 
-    return instances, instances_replaced
+    return instances
 
 
 def write2file(filename, lines):
@@ -151,14 +144,11 @@ def write2file(filename, lines):
 def extract_instances_for_word(senses, wiki_dir=u'../datasets/wiki/'):
     LOGGER.info(u"Processing word: %s" % senses[0]['word'])
     instances = []
-    instances_replaced = []
     for sense_args in senses:
-        sense_instances, sense_instances_replaced = extract_from_page(**sense_args)
+        sense_instances = extract_from_page(**sense_args)
         instances.extend(sense_instances)
-        instances_replaced.extend(sense_instances_replaced)
 
     write2file(os.path.join(wiki_dir, u'%s.txt' % senses[0]['word']), instances)
-    write2file(os.path.join(wiki_dir, u'%s.tw.txt' % senses[0]['word']), instances_replaced)
 
 
 def get_next_page_url(soup):
@@ -211,7 +201,7 @@ def fetch_what_links_here(title, limit=1000, fetch_link_size=5000):
     return all_links
 
 
-def extract_from_file(filename, num_process, dataset_path):
+def extract_from_file(filename, num_process, dataset_path, fetch_links=True):
     import utils
 
     global LOGGER
@@ -225,7 +215,8 @@ def extract_from_file(filename, num_process, dataset_path):
         line = line.split()
         target_word, page_title, offset = line[:3]
         if target_word not in processed_words:
-            jobs[target_word].append(dict(word=target_word, page_title=page_title, offset=offset, fetch_links=True))
+            jobs[target_word].append(dict(word=target_word, page_title=page_title, offset=offset,
+                                          fetch_links=fetch_links))
 
     LOGGER.info("Total {} of jobs available. Num of consumer = {}".format(len(jobs), num_process))
     if num_process > 1:
@@ -234,7 +225,7 @@ def extract_from_file(filename, num_process, dataset_path):
     else:
         # for v in jobs.values():
         for v in [jobs['milk']]:
-            extract_instances_for_word(v)
+            extract_instances_for_word(v, wiki_dir=dataset_path)
 
     LOGGER.info("Done.")
 

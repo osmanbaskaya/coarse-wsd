@@ -24,6 +24,10 @@ WRITE_EVERY_N_LINE=500000
 ### PATH
 CORE_NLP=java -cp "../tools/stanford-corenlp/*" -Xmx60g edu.stanford.nlp.pipeline.StanfordCoreNLP -replaceExtension -cpu ${CPU}
 
+# Project Docker
+dockerized: ../dockerized/
+	docker build -t ob/coarse-wsd:1 $<
+
 # make pos-snli-train.txt
 corenlp-%.out: %.txt
 	#tail -n +1 ${SNLI}/$< | cut -f6 > $@  # sentence 1
