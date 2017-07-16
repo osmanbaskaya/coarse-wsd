@@ -140,7 +140,7 @@ def extract_from_page(page_title, word, offset, fetch_links):
 
     instances = extract_instances(content, word, pos, offset, True, categories, url)
     if fetch_links:
-        links = fetch_what_links_here(title, limit=1000)
+        links = fetch_what_links_here(title, limit=500)
         for link in links:
             link_page_title = link.replace(u'/wiki/', '')
             link_page_response = wiki_page_query(link_page_title)
@@ -208,10 +208,11 @@ def fetch_what_links_here(title, limit=1000, fetch_link_size=5000):
                 links = [row.find('a')['href'] for row in rows]
                 next_page_url = get_next_page_url(soup)
                 links = filter(lambda link: '(disambiguation)' not in link, links)
+                links = filter(lambda link: ':' not in link, links)
                 links = list(filter(lambda link: not any(map(lambda e: link.startswith(e), LINK_EXCLUDE_TYPES)), links))
                 special_pages = [link for link in links if ':' in link]
-                if len(special_pages) > 0:
-                    LOGGER.info("Links that contain ':' -> {}".format(special_pages))
+                # if len(special_pages) > 0:
+                #     LOGGER.info("Links that contain ':' -> {}".format(special_pages))
                 total_link_processed += len(links)
                 all_links.extend(links)
             else:
