@@ -15,6 +15,7 @@ from functools import partial
 from requests.exceptions import ConnectionError, ContentDecodingError
 from time import sleep
 from utils import get_target_words
+import urllib
 
 
 BASE_URL = u"https://en.wiki.org"
@@ -23,6 +24,7 @@ WHAT_LINKS_HERE_URL = u"https://en.wikipedia.org/w/index.php?title=Special:WhatL
 MIN_SENTENCE_SIZE = 8
 SLEEP_INTERVAL = 1
 MAXIMUM_RETRY = 5
+LINK_EXCLUDE_TYPES = {"/wiki/Talk:", "/wiki/User_talk:", "/wiki/User:", "/wiki/Wikipedia:", "/wiki/Template:"}
 
 LOGGER = None
 NLP = spacy.en.English()
@@ -30,7 +32,7 @@ NLP = spacy.en.English()
 
 def extract_instances(content, word, pos, sense_offset, target_word_page, categories, url=None):
     instances = []
-    regex = re.compile(r"({})(\W*)".format(word), flags=re.I)
+    regex = re.compile(r"({}\w*)(\W*)".format(word), flags=re.I)
     for line in content.split('\n'):
         line = NLP(line)
         for s in line.sents:
@@ -87,13 +89,20 @@ def get_wiki_page(page_title, num_try=1):
         p = wikipedia.page(page_title, auto_suggest=False)
         SLEEP_INTERVAL = 1
         return p
-    except PageError as e:
-        # wiki library has a possible bug for underscored page titles.
-        if '_' in page_title:
-            title = page_title.replace('_', ' ')
+    except KeyError as e:
+        if '%' in page_title:
+            title = urllib.parse.unquote(page_title)
             return get_wiki_page(title)
         else:
             LOGGER.debug(u"PageError: {}".format(page_title, e))
+    except PageError as e:
+        # wiki library has a possible bug for underscored page titles.
+        if '%' in page_title:
+            title = urllib.parse.unquote(page_title)
+            return get_wiki_page(title)
+        else:
+            LOGGER.debug(u"PageError: {}".format(page_title, e))
+
     # This is most likely the "What links here" page and we can safely skip it.
     except DisambiguationError as e:
         match = re.search("\((.*)\)", page_title)
@@ -134,9 +143,6 @@ def extract_from_page(page_title, word, offset, fetch_links):
         links = fetch_what_links_here(title, limit=1000)
         for link in links:
             link_page_title = link.replace(u'/wiki/', '')
-            # skip irrelevant articles.
-            if any(map(lambda x: link_page_title.startswith(x), ['Talk:', 'User_talk:', 'User:'])):
-                continue
             link_page_response = wiki_page_query(link_page_title)
             if link_page_response is not None:
                 title, content, url, categories = link_page_response
@@ -201,6 +207,11 @@ def fetch_what_links_here(title, limit=1000, fetch_link_size=5000):
                 rows = soup.find(id='mw-whatlinkshere-list').find_all('li', recursive=False)
                 links = [row.find('a')['href'] for row in rows]
                 next_page_url = get_next_page_url(soup)
+                links = filter(lambda link: '(disambiguation)' not in link, links)
+                links = list(filter(lambda link: not any(map(lambda e: link.startswith(e), LINK_EXCLUDE_TYPES)), links))
+                special_pages = [link for link in links if ':' in link]
+                if len(special_pages) > 0:
+                    LOGGER.info("Links that contain ':' -> {}".format(special_pages))
                 total_link_processed += len(links)
                 all_links.extend(links)
             else:
