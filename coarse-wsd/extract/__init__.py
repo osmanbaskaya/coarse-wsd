@@ -116,7 +116,7 @@ def get_wiki_page(page_title, num_try=1):
         SLEEP_INTERVAL *= 4
         LOGGER.info(u"ConnectionError: Sleeping {} seconds for {}.".format(SLEEP_INTERVAL, page_title))
         sleep(SLEEP_INTERVAL)
-        get_wiki_page(page_title, num_try + 1)  # try again.
+        get_wiki_page(page_title, num_try)  # try again.
     except WikipediaException:
         get_wiki_page(page_title, num_try + 1)  # try again.
     except ContentDecodingError as e:
