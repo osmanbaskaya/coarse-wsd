@@ -38,7 +38,7 @@ class DataSet(object):
         vocab_dir = os.path.join(dir, "vocab")
         if not os.path.exists(vocab_dir):
             os.mkdir(vocab_dir)
-        self.vocab_file = os.path.join(vocab_dir, "vocabulary")
+        self.vocab_file = os.path.join(vocab_dir, "vocabulary.pkl")
 
 
 def fopen(filename, *args, **kwargs):
@@ -121,7 +121,7 @@ def map_token_to_id(sentence, word2idx):
     id_vec = [word2idx[START_TOKEN]]
 
     for token in sentence.split():
-        id_vec.append(word2idx.get(token, OOV_TOKEN))
+        id_vec.append(word2idx.get(token, SPECIAL_TOKENS[OOV_TOKEN]))
 
     id_vec.append(word2idx[END_TOKEN])
 
@@ -152,7 +152,7 @@ def prepare_queues(sess, filenames, word2idx, label2idx, batch_size, skip_header
     # TODO: Check if string for label also works.
     queue = tf.PaddingFIFOQueue(shapes=[[None, ], [], [], []], dtypes=[tf.int32, tf.int32, tf.int32, tf.int32],
                                 capacity=10000)
-    enqueue_op = queue.enqueue([sentence_ph, label_ph, length_ph])
+    enqueue_op = queue.enqueue([sentence_ph, target_word_ph, label_ph, length_ph])
 
     def enqueue_data(coord):
         while not coord.should_stop():
@@ -160,14 +160,12 @@ def prepare_queues(sess, filenames, word2idx, label2idx, batch_size, skip_header
                 line = sess.run(line_op).decode("utf-8")
                 line = line.strip().split('\t')
                 sentence, label, target_word_index = line[:3]
-                print(sentence, label, target_word_index, sep='\n')
+                target_word_index = int(target_word_index)
+                # print(sentence, label, target_word_index, sep='\n')
                 label = label2idx[label]  # label transformation
                 sentence, length = map_token_to_id(sentence, word2idx)
-                target_word = sentence[target_word_index] + 1  # +1 for starting token
-                sess.run(enqueue_op, {sentence_ph: line,
-                                      target_word_ph: target_word,
-                                      label_ph: label,
-                                      length_ph: length})
+                target_word = sentence[target_word_index + 1]  # +1 for starting token
+                sess.run(enqueue_op, {sentence_ph: sentence, target_word_ph: target_word, label_ph: label, length_ph: length})
             except tf.errors.OutOfRangeError:
                 print("Done training")
                 exit()

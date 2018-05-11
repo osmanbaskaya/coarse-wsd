@@ -7,7 +7,7 @@ def run():
     configure_logger()
     logger = get_logger()
 
-    dataset = DataSet('../datasets/wiki-wsd-data')
+    dataset = DataSet('../datasets/wiki-new')
 
     FLAGS = {"embedding_length": 10,
              "min_counts": 10,
