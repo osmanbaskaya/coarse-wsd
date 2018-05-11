@@ -24,6 +24,10 @@ WRITE_EVERY_N_LINE=500000
 ### PATH
 CORE_NLP=java -cp "../tools/stanford-corenlp/*" -Xmx60g edu.stanford.nlp.pipeline.StanfordCoreNLP -replaceExtension -cpu ${CPU}
 
+# Project Docker
+dockerized: ../dockerized/
+	docker build -t ob/coarse-wsd:1 $<
+
 # make pos-snli-train.txt
 corenlp-%.out: %.txt
 	#tail -n +1 ${SNLI}/$< | cut -f6 > $@  # sentence 1
@@ -52,9 +56,9 @@ semcor-pages.txt: semcor-synset-info-txt
 	javac -cp ../BabelNet-API-3.6/babelnet-api-3.6.jar:../BabelNet-API-3.6/lib/*:../BabelNet-API-3.6/.:../BabelNet-API-3.6/config ../coarse-wsd-java/src/WikipediaDataProvider.java
 	java -cp ../BabelNet-API-3.6/babelnet-api-3.6.jar:../BabelNet-API-3.6/lib/*:../BabelNet-API-3.6/.:../BabelNet-API-3.6/config WikipediDataProvider.java $< $@
 
-# example: make fetch-instances-from-wiki FILENAME=wikipages.txt
+# example: make fetch-instances-from-wiki FILENAME=semcor-pages.txt
 fetch-instances-from-wiki: ${FILENAME}
-	python fetch_instances.py --filename ${FILENAME} --log-level debug --num-process ${CPU}
+	python fetch_instances.py --filename ${FILENAME} --log-level ${LOG_LEVEL} --no-fetching-links --num-process ${CPU}
 
 %-pagetypes.txt: %.txt
 	cat $< | cut -f2 | grep -oP "\(.*\)" | sort | uniq -c | sort -rn > $@
@@ -107,7 +111,7 @@ wiki-tags.txt: ../datasets/wiki-filtered
 	cat $</*.clean.txt | grep -P "\tTrue\t" | cut -f6- | tr '\t' '\n' | sort | uniq -c | sort -nr > $@
 
 wiki-sense-tag-mapping.txt: ../datasets/wiki-filtered blacklist-for-tags.txt
-	python -m wikipedia.__init__ $^ $@
+	python -m wiki.__init__ $^ $@
 
 neighbors-%d.txt: wiki-word2vec-%.mdl wiki-sense-tag-mapping.txt
 	python neighbors.py $^ ../datasets/wiki-senses $@ drive hat bill branch seed hit left race lot
@@ -122,12 +126,15 @@ preprocess-mt-dataset:
 create-ims-formatted-mt-data:
 	python ims_formatted_data_for_mt.py --input-dir ../datasets/mt/data/words --directory-to-write ../datasets/mt/ims-data --log-level ${LOG_LEVEL} --num-of-process ${CPU}
 
-disambiguate:
-	python disambiguate.py --input-dir ../datasets/mt/ims-data --directory-to-write ../datasets/mt/ims-output --model-dir ${MODEL_DIR} --num-of-process ${CPU} --log-level ${LOG_LEVEL} ${FRESH_START} --check-pool-every ${CHECK_POOL_EVERY}
+ims-disambiguate:
+	python ims-disambiguate.py --input-dir ../datasets/mt/ims-data --directory-to-write ../datasets/mt/ims-output --model-dir ${MODEL_DIR} --num-of-process ${CPU} --log-level ${LOG_LEVEL} ${FRESH_START} --check-pool-every ${CHECK_POOL_EVERY}
 
 merge: 
 	python merge.py --input-file ${MT_INPUT_FILE} --wsd-output-dir ../datasets/mt/ims-output-merged --directory-to-write ../datasets/mt/mt-input --log-level ${LOG_LEVEL}
 
 # first: make ../ims/ims_0.9.2.1
 # make create-disambiguated-dataset CPU=10 MT_INPUT_FILE=nmt-input-data.raw.1k-sample.tsv.gz
-create-disambiguated-dataset: preprocess-mt-dataset create-ims-formatted-mt-data disambiguate merge
+create-disambiguated-dataset: preprocess-mt-dataset create-ims-formatted-mt-data ims-disambiguate merge
+
+create-semantic-class-data:
+	python semantic-class-dataset-creator.py

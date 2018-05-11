@@ -1,0 +1,5 @@
+version: "3"
+coarse-wsd:
+    build: coarse-docker
+    image: ob/coarse-wsd:1
+    container_name: coarse

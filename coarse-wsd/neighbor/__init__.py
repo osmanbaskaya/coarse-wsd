@@ -1,6 +1,6 @@
 import sys
 from utils import get_sense_idx_map
-from wikipedia import get_wiki_tag_and_link_maps
+from wiki import get_wiki_tag_and_link_maps
 
 
 def calculate_jaccard_sim(tags1, tags2):

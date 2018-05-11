@@ -1,5 +1,5 @@
 import sys
-from wikipedia import get_wiki_tag_and_link_maps
+from wiki import get_wiki_tag_and_link_maps
 import codecs
 from utils import get_sense_idx_map
 from representation import load_model
